@@ -1,0 +1,6 @@
+{
+    "parent":"becominghuman:item/standard_item",
+    "textures": {
+        "layer0":"becominghuman:items/tutorial_item"
+    }
+}

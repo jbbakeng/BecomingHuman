@@ -7,7 +7,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.util.ChatComponentText;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.common.registry.GameRegistry;
-import thestinkerbell.becominghuman.PlayerData;
+import thestinkerbell.becominghuman.deprecated.PlayerData;
 
 public final class ModItems {
 	

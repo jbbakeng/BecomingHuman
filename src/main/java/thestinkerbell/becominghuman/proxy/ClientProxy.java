@@ -6,7 +6,7 @@ import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import net.minecraftforge.fml.relauncher.Side;
 import thestinkerbell.becominghuman.BecomingHuman;
 import thestinkerbell.becominghuman.client.render.items.ItemRenderRegister;
-import thestinkerbell.becominghuman.network.packets.PacketSyncMana;
+import thestinkerbell.becominghuman.deprecated.PacketSyncMana;
 
 public class ClientProxy extends CommonProxy{
 

@@ -10,7 +10,7 @@ import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import net.minecraftforge.fml.common.network.NetworkRegistry;
 import net.minecraftforge.fml.common.network.simpleimpl.SimpleNetworkWrapper;
 import net.minecraftforge.fml.relauncher.Side;
-import thestinkerbell.becominghuman.network.packets.PacketSyncMana;
+import thestinkerbell.becominghuman.deprecated.PacketSyncMana;
 import thestinkerbell.becominghuman.proxy.CommonProxy;
 
 @Mod(modid = BecomingHuman.MODID, name = BecomingHuman.MODNAME, version = BecomingHuman.VERSION)
@@ -24,7 +24,7 @@ public class BecomingHuman
     @Instance(MODID)
     public static BecomingHuman instance = new BecomingHuman();
     
-    @SidedProxy(clientSide="thestinkerbell.becominghuman.ClientProxy", serverSide="thestinkerbell.becominghuman.ServerProxy")
+    @SidedProxy(clientSide="thestinkerbell.becominghuman.proxy.ClientProxy", serverSide="thestinkerbell.becominghuman.proxy.ServerProxy")
     public static CommonProxy proxy;
     
     public static final SimpleNetworkWrapper network = NetworkRegistry.INSTANCE.newSimpleChannel(BecomingHuman.MODID);

@@ -7,8 +7,8 @@ import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import net.minecraftforge.fml.relauncher.Side;
 import thestinkerbell.becominghuman.common.EventHandlerCommon;
+import thestinkerbell.becominghuman.deprecated.PacketSyncMana;
 import thestinkerbell.becominghuman.items.ModItems;
-import thestinkerbell.becominghuman.network.packets.PacketSyncMana;
 
 public class CommonProxy{
 

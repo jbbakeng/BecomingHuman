@@ -25,6 +25,11 @@ public class HumanExtendedEntityProperties implements IExtendedEntityProperties 
     public static void register(EntityPlayer player) {
         player.registerExtendedProperties(identifier, new HumanExtendedEntityProperties(player));
     }
+    
+    public void saveReviveRelevantNBTData(NBTTagCompound nbt, boolean wasDeath) {
+        if (!wasDeath)
+            this.saveNBTData(nbt);
+    }
 
 	@Override
 	public void saveNBTData(NBTTagCompound compound) {

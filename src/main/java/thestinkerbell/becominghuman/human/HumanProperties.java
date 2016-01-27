@@ -35,4 +35,8 @@ public class HumanProperties {
 		properties.put("Body Temperatur", new HumanProperty("Body Temperatur", 37, "celcius"));
 		properties.put("Heart Rate", new HumanProperty("Heart Rate", 70, "bpm"));
 	}
+
+	public void updateHumanProperty(String name, int value) {
+		getHumanPropertyWithName(name).set(value);
+	}
 }

@@ -9,6 +9,8 @@ import thestinkerbell.becominghuman.human.HumanProperties;
 import thestinkerbell.becominghuman.human.HumanProperty;
 
 public class HumanPropertiesTest {
+	
+	private final String testPropertyName = "Age";
 
 	@Test
 	public void canCreate() {
@@ -26,9 +28,14 @@ public class HumanPropertiesTest {
 	@Test
 	public void canGetAHumanProperty() {
 		HumanProperties properties = new HumanProperties();
-		String name = "Age";
-		HumanProperty age = properties.getHumanPropertyWithName(name);
+		HumanProperty age = properties.getHumanPropertyWithName(testPropertyName);
 		assertNotNull(age);
+	}
+	
+	@Test
+	public void canUpdateAHumanProperty() {
+		HumanProperties properties = new HumanProperties();
+		properties.updateHumanProperty(testPropertyName, 33);	
 	}
 
 }

@@ -8,7 +8,7 @@ import net.minecraftforge.event.entity.player.PlayerEvent;
 import net.minecraftforge.event.entity.player.PlayerUseItemEvent;
 import net.minecraftforge.fml.common.eventhandler.EventPriority;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
-import thestinkerbell.becominghuman.PlayerData;
+import thestinkerbell.becominghuman.human.HumanExtendedEntityProperties;
 
 public class EventHandlerCommon {
 	
@@ -19,8 +19,8 @@ public class EventHandlerCommon {
 
 	@SubscribeEvent
 	public void onEntityConstructing(EntityConstructing e) {
-	    if (e.entity instanceof EntityPlayer && PlayerData.get((EntityPlayer) e.entity) == null) {
-	        PlayerData.register((EntityPlayer) e.entity);
+	    if (e.entity instanceof EntityPlayer && HumanExtendedEntityProperties.get((EntityPlayer) e.entity) == null) {
+	    	HumanExtendedEntityProperties.register((EntityPlayer) e.entity);
 	        System.out.println("Registering Playerdata");
 	    }
 	}
@@ -28,15 +28,15 @@ public class EventHandlerCommon {
 	@SubscribeEvent
 	public void onEntityJoinWorld(EntityJoinWorldEvent e) {
 	    if (e.entity instanceof EntityPlayer) {
-	    	System.out.println("Syncing mana");
-	        PlayerData.get((EntityPlayer) e.entity).syncMana();
+	    	System.out.println("TODO: Sync out of date properties");
+	    	//HumanExtendedEntityProperties.get((EntityPlayer) e.entity).syncMana();
 	    }
 	}
 	
 	@SubscribeEvent
 	public void onPlayerCloned(PlayerEvent.Clone e) {
 	    NBTTagCompound nbt = new NBTTagCompound();
-	    PlayerData.get(e.original).saveReviveRelevantNBTData(nbt, e.wasDeath);
-	    PlayerData.get(e.entityPlayer).loadNBTData(nbt);
+	    HumanExtendedEntityProperties.get(e.original).saveReviveRelevantNBTData(nbt, e.wasDeath);
+	    HumanExtendedEntityProperties.get(e.entityPlayer).loadNBTData(nbt);
 	}
 }

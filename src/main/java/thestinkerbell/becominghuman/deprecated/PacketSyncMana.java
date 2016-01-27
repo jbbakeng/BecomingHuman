@@ -1,4 +1,4 @@
-package thestinkerbell.becominghuman.network.packets;
+package thestinkerbell.becominghuman.deprecated;
 
 import io.netty.buffer.ByteBuf;
 import net.minecraft.client.Minecraft;
@@ -7,9 +7,9 @@ import net.minecraftforge.fml.common.network.simpleimpl.IMessage;
 import net.minecraftforge.fml.common.network.simpleimpl.IMessageHandler;
 import net.minecraftforge.fml.common.network.simpleimpl.MessageContext;
 import net.minecraftforge.fml.relauncher.Side;
-import thestinkerbell.becominghuman.PlayerData;
 
 //PacketSyncMana should be sent from Server
+@Deprecated
 public class PacketSyncMana implements IMessage{
     private int mana;
 

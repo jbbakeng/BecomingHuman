@@ -1,4 +1,4 @@
-package thestinkerbell.becominghuman;
+package thestinkerbell.becominghuman.deprecated;
 
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
@@ -6,8 +6,9 @@ import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.world.World;
 import net.minecraftforge.common.IExtendedEntityProperties;
-import thestinkerbell.becominghuman.network.packets.PacketSyncMana;
+import thestinkerbell.becominghuman.BecomingHuman;
 
+@Deprecated
 public class PlayerData implements IExtendedEntityProperties {
 	
 	private static final String identifier = "tutorialPlayerData";

@@ -1,4 +1,4 @@
-package thestinkerbell.becominghuman;
+package thestinkerbell.becominghuman.proxy;
 
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
@@ -9,6 +9,8 @@ public class ServerProxy extends CommonProxy{
 	@Override
 	public void preInit(FMLPreInitializationEvent e) {
 		super.preInit(e);
+		
+    	//BecomingHuman.network.registerMessage(PacketSyncMana.ManaMessageHandler.class, PacketSyncMana.class, 0, Side.SERVER);
 	}
 
 	@Override

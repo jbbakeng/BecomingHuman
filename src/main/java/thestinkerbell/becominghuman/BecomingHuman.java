@@ -7,6 +7,11 @@ import net.minecraftforge.fml.common.SidedProxy;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
+import net.minecraftforge.fml.common.network.NetworkRegistry;
+import net.minecraftforge.fml.common.network.simpleimpl.SimpleNetworkWrapper;
+import net.minecraftforge.fml.relauncher.Side;
+import thestinkerbell.becominghuman.network.packets.PacketSyncMana;
+import thestinkerbell.becominghuman.proxy.CommonProxy;
 
 @Mod(modid = BecomingHuman.MODID, name = BecomingHuman.MODNAME, version = BecomingHuman.VERSION)
 public class BecomingHuman
@@ -21,6 +26,8 @@ public class BecomingHuman
     
     @SidedProxy(clientSide="thestinkerbell.becominghuman.ClientProxy", serverSide="thestinkerbell.becominghuman.ServerProxy")
     public static CommonProxy proxy;
+    
+    public static final SimpleNetworkWrapper network = NetworkRegistry.INSTANCE.newSimpleChannel(BecomingHuman.MODID);
 
     @EventHandler
     public void preInit(FMLPreInitializationEvent e) {

@@ -9,8 +9,10 @@ public class HumanPropertyTest {
 	private HumanProperty property;
 	
 	private HumanProperty getHumanProperty() {
-		String properyName = "Name";
-		return new HumanProperty(properyName);
+		String name = "Name";
+		Integer defaultValue = 100;
+		String unit = "cm";
+		return new HumanProperty(name, defaultValue, unit);
 	}
 	
 	// ==== TESTS ====

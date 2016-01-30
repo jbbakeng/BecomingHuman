@@ -1,7 +1,9 @@
 package thestinkerbell.becominghuman.human;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.List;
 
 public class HumanProperties {
 	
@@ -18,9 +20,9 @@ public class HumanProperties {
 		properties = new HashMap<String, HumanProperty>();
 		this.addDefaultHumanProperties(properties);
 	}
-
-	public Integer getNumberOfProperties() {
-		return properties.size();
+	
+	public List<HumanProperty> getListOfHumanProperties() {
+		return new ArrayList<HumanProperty>(properties.values());
 	}
 	
 	public HumanProperty getHumanPropertyWithName(String name) {
@@ -31,12 +33,16 @@ public class HumanProperties {
 		properties.put("Age", new HumanProperty("Age", 18, "years"));
 		properties.put("Height", new HumanProperty("Height", 170, "cm"));
 		properties.put("Weight", new HumanProperty("Weight", 75, "kg"));
-		properties.put("Sex", new HumanProperty("Sex", Sex.UNDEFINED, "gender"));
+		//properties.put("Sex", new HumanProperty("Sex", Sex.UNDEFINED, "gender"));
 		properties.put("Body Temperatur", new HumanProperty("Body Temperatur", 37, "celcius"));
 		properties.put("Heart Rate", new HumanProperty("Heart Rate", 70, "bpm"));
 	}
 
-	public void updateHumanProperty(String name, int value) {
-		getHumanPropertyWithName(name).set(value);
+	public void setValue(String name, int value) {
+		HumanProperty property = getHumanPropertyWithName(name);
+		if(property != null)
+			property.set(value);
+		else
+			System.err.println("No human property named "+name);
 	}
 }

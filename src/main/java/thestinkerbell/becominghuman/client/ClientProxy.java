@@ -1,4 +1,4 @@
-package thestinkerbell.becominghuman.proxy;
+package thestinkerbell.becominghuman.client;
 
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
@@ -6,7 +6,8 @@ import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import net.minecraftforge.fml.relauncher.Side;
 import thestinkerbell.becominghuman.BecomingHuman;
 import thestinkerbell.becominghuman.client.render.items.ItemRenderRegister;
-import thestinkerbell.becominghuman.deprecated.PacketSyncMana;
+import thestinkerbell.becominghuman.common.CommonProxy;
+import thestinkerbell.becominghuman.network.packets.PacketHumanProperty;
 
 public class ClientProxy extends CommonProxy{
 
@@ -19,7 +20,7 @@ public class ClientProxy extends CommonProxy{
 	public void init(FMLInitializationEvent e) {
 		super.init(e);
 		
-		BecomingHuman.network.registerMessage(PacketSyncMana.HandlerOnClient.class, PacketSyncMana.class, 0, Side.CLIENT);
+		//BecomingHuman.network.registerMessage(PacketHumanProperty.HandlerOnClient.class, PacketHumanProperty.class, 0, Side.CLIENT);
 		ItemRenderRegister.registerItemRenderer();
 	}
 

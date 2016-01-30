@@ -24,7 +24,7 @@ public class PacketSyncMana implements IMessage{
     public void fromBytes(ByteBuf buf) {
         this.mana = buf.readInt();
     }
-
+    
     @Override
     public void toBytes(ByteBuf buf) {
         buf.writeInt(this.mana);

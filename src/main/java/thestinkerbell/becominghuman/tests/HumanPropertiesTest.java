@@ -3,6 +3,8 @@ package thestinkerbell.becominghuman.tests;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 
+import java.util.List;
+
 import org.junit.Test;
 
 import thestinkerbell.becominghuman.human.HumanProperties;
@@ -20,7 +22,7 @@ public class HumanPropertiesTest {
 	@Test
 	public void canGetNumberOfHumanProperties() {
 		HumanProperties properties = new HumanProperties();
-		Integer numberOfProperties = properties.getNumberOfProperties();
+		Integer numberOfProperties = properties.getListOfHumanProperties().size();
 		assertNotNull(numberOfProperties);
 		assertTrue(numberOfProperties >=5);
 	}
@@ -28,14 +30,29 @@ public class HumanPropertiesTest {
 	@Test
 	public void canGetAHumanProperty() {
 		HumanProperties properties = new HumanProperties();
-		HumanProperty age = properties.getHumanPropertyWithName(testPropertyName);
-		assertNotNull(age);
+		HumanProperty property = properties.getHumanPropertyWithName(testPropertyName);
+		assertNotNull(property);
 	}
 	
 	@Test
 	public void canUpdateAHumanProperty() {
+		Integer newValue = 33;
 		HumanProperties properties = new HumanProperties();
-		properties.updateHumanProperty(testPropertyName, 33);	
+		HumanProperty oldProperty = properties.getHumanPropertyWithName(testPropertyName);
+		assertNotNull(oldProperty);
+		assertTrue(newValue != oldProperty.getValue());
+		properties.setValue(testPropertyName, newValue);
+		HumanProperty newProperty = properties.getHumanPropertyWithName(testPropertyName);
+		assertTrue(newValue == newProperty.getValue());
+	}
+	
+	@Test
+	public void canSerializeAndDeserializeAllHumanProperties() {
+		HumanProperties properties = new HumanProperties();
+		List<HumanProperty> list = properties.getListOfHumanProperties();
+		for(HumanProperty property: list) {
+			HumanPropertyTest.canSerializeAnDeserialize(property);
+		}
 	}
 
 }

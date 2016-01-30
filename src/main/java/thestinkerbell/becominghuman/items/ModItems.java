@@ -8,6 +8,7 @@ import net.minecraft.util.ChatComponentText;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 import thestinkerbell.becominghuman.deprecated.PlayerData;
+import thestinkerbell.becominghuman.human.HumanExtendedEntityProperties;
 
 public final class ModItems {
 	
@@ -20,7 +21,8 @@ public final class ModItems {
     	    @Override
     	    public ItemStack onItemRightClick(ItemStack stack, World world, EntityPlayer player) {
     	        if (!world.isRemote) {
-    	            PlayerData.get(player).setMana(PlayerData.get(player).getMana() + 1);
+    	        	System.out.println("TODO: IMPLEMENT");
+    	            //PlayerData.get(player).setMana(PlayerData.get(player).getMana() + 1);
     	        }
     	        return stack;
     	    }
@@ -30,7 +32,9 @@ public final class ModItems {
     	    @Override
     	    public ItemStack onItemRightClick(ItemStack stack, World world, EntityPlayer player) {
     	        if (!world.isRemote) {
-    	            PlayerData.get(player).setMana(PlayerData.get(player).getMana() - 1);
+    	        	System.out.println("TODO: IMPLEMENT");
+    	        	//HumanExtendedEntityProperties.get(player).update(property);
+    	            //PlayerData.get(player).setMana(PlayerData.get(player).getMana() - 1);
     	        }
     	        return stack;
     	    }
@@ -40,7 +44,8 @@ public final class ModItems {
     	    @Override
     	    public ItemStack onItemRightClick(ItemStack stack, World world, EntityPlayer player) {
     	        if (world.isRemote) {
-    	            player.addChatMessage(new ChatComponentText("Mana: " + PlayerData.get(player).getMana()));
+    	        	System.out.println("TODO: IMPLEMENT");
+    	            //player.addChatMessage(new ChatComponentText("Mana: " + PlayerData.get(player).getMana()));
     	        }
     	        return stack;
     	    }

@@ -1,10 +1,10 @@
 package thestinkerbell.becominghuman.tests;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertTrue;
 
 import org.junit.Test;
-
-import com.google.common.collect.Range;
 
 import io.netty.buffer.ByteBuf;
 import io.netty.buffer.Unpooled;
@@ -18,8 +18,7 @@ public class HumanPropertyTest {
 		String unit = "cm";
 		Integer range_min = 0;
 		Integer range_max = 1000;
-		Range range = Range.closed(range_min, range_max);
-		return new HumanProperty(name, defaultValue, unit, range);
+		return new HumanProperty(name, defaultValue, unit, range_min, range_max);
 	}
 	
 	public static void canSerializeAnDeserialize(HumanProperty property) {

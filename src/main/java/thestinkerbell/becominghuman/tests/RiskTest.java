@@ -18,10 +18,10 @@ public class RiskTest {
 	}
 	
 	@Test
-	public void canGetARiskFactorFromOneHumanProperty() {
+	public void canGetARiskFactorFromDefaultHumanProperty() {
 		HumanProperty property = new HumanProperty();
 		RiskFactor risk = property.getRiskFactor();
-		assertNotNull(risk);
+		assertTrue(risk == GeneralRiskFactor.HEALTHY);
 	}
 	
 	

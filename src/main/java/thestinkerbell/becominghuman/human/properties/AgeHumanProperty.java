@@ -1,12 +1,11 @@
 package thestinkerbell.becominghuman.human.properties;
 
-import com.google.common.collect.Range;
-import thestinkerbell.becominghuman.human.risks.*;
+import thestinkerbell.becominghuman.human.risks.RiskFactor;
 
 public class AgeHumanProperty extends HumanProperty {
 	
 	public AgeHumanProperty() {
-		super("Age", 18, "years", Range.closed(0, 122));
+		super("Age", 18, "years", 0, 122);
 	}
 
 	public enum AgeRiskFactor implements RiskFactor  {

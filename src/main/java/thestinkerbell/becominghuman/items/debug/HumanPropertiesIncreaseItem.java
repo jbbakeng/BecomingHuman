@@ -9,18 +9,22 @@ import net.minecraft.world.World;
 import thestinkerbell.becominghuman.human.HumanExtendedEntityProperties;
 import thestinkerbell.becominghuman.human.HumanProperty;
 
-public class HumanPropertiesIncreaseItem extends HumanPropertiesCycleItem {
+public class HumanPropertiesIncreaseItem extends HumanPropertiesItem {
 
 	@Override
     public ItemStack onItemRightClick(ItemStack stack, World world, EntityPlayer player) {
         if (!world.isRemote) {
-			this.getListOfProperties(player);
-        	HumanProperty property = properties.get(this.getCyclingIndex());
-        	HumanExtendedEntityProperties.get(player).properties.setValue(property.name, property.value+1);
-        	player.addChatMessage(new ChatComponentText("+ "+property.name+": "+property.value+" "+property.unit));
+			this.setListOfProperties(player);
+        	this.increaseHumanPropertyValue(player);
 
         }
         return stack;
     }
+
+	private void increaseHumanPropertyValue(EntityPlayer player) {
+		HumanProperty property = properties.get(this.getCyclingIndex());
+		HumanExtendedEntityProperties.get(player).properties.setValue(property.name, property.value+1);
+		player.addChatMessage(new ChatComponentText("+ "+property.name+": "+property.value+" "+property.unit));
+	}
 	
 }

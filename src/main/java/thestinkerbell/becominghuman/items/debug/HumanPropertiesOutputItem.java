@@ -17,13 +17,17 @@ public class HumanPropertiesOutputItem extends HumanPropertiesItem {
     @Override
     public ItemStack onItemRightClick(ItemStack stack, World world, EntityPlayer player) {
         if (!world.isRemote) {
-			this.getListOfProperties(player);
-			player.addChatMessage(new ChatComponentText("--- Human Properties ---"));
-        	for(HumanProperty property : properties) {
-        		player.addChatMessage(new ChatComponentText(property.name+": "+property.value+" "+property.unit));
-        	}
+			this.setListOfProperties(player);
+			this.outputHumanProperties(player);
 
         }
         return stack;
     }
+
+	private void outputHumanProperties(EntityPlayer player) {
+		player.addChatMessage(new ChatComponentText("--- Human Properties ---"));
+		for(HumanProperty property : properties) {
+			player.addChatMessage(new ChatComponentText(property.name+": "+property.value+" "+property.unit));
+		}
+	}
 }

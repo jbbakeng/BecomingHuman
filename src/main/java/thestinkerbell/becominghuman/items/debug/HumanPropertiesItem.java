@@ -21,10 +21,10 @@ public class HumanPropertiesItem extends Item {
 	}
 	
 	public Integer getCyclingIndex() {
-		return cycle_item.getIndex();
+		return (cycle_item == null) ? -1 : cycle_item.getIndex();
 	}
 	
-	protected void getListOfProperties(EntityPlayer player) {
+	protected void setListOfProperties(EntityPlayer player) {
 		this.properties = HumanExtendedEntityProperties.get(player).properties.getListOfHumanProperties();
 	}
 	

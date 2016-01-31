@@ -18,7 +18,7 @@ public class HumanExtendedEntityProperties implements IExtendedEntityProperties 
 	
 	private static final String identifier = "humanproperties";
 	private final EntityPlayer player;
-	private HumanProperties properties;
+	final public HumanProperties properties;
 	
     public HumanExtendedEntityProperties(EntityPlayer player) {
         this.player = player;
@@ -41,7 +41,6 @@ public class HumanExtendedEntityProperties implements IExtendedEntityProperties 
      * Can be called from both Server and Client side.
      */
 	public void syncAll() {
-		System.out.println("2.		SYNCING ALL!");
 		if (this.isServerSide()) {
 			List<HumanProperty> list = properties.getListOfHumanProperties();
 			for(HumanProperty property : list) {
@@ -74,7 +73,6 @@ public class HumanExtendedEntityProperties implements IExtendedEntityProperties 
     		return;
     	}
     	else {
-        	System.out.println("Setting property on CLIENT. Package arrived from SERVER I assume.");
         	this.properties.setValue(property.name, property.value);
         }
     }
@@ -99,7 +97,6 @@ public class HumanExtendedEntityProperties implements IExtendedEntityProperties 
 	public void loadNBTData(NBTTagCompound compound) {
     	//This only happens on the server!!!
 		//This happens BEFORE the entity joins the world (on both server and client side)
-		System.out.println("0.		LOADING NTB DATA on Server side.");
 		List<HumanProperty> list = properties.getListOfHumanProperties();
 		for(HumanProperty property : list) {
 			ByteBuf buf = Unpooled.buffer();	

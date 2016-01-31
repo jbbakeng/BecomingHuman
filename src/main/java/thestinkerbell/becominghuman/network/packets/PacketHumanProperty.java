@@ -40,7 +40,6 @@ public class PacketHumanProperty implements IMessage{
             mainThread.addScheduledTask(new Runnable() {
                 @Override
                 public void run() {	
-                    System.out.println("Package arrived on the CLIENT from the SERVER.");
                     HumanExtendedEntityProperties.get(Minecraft.getMinecraft().thePlayer).set(message.property);
                 }
             });

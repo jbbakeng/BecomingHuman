@@ -4,8 +4,8 @@ import java.util.List;
 
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
-import thestinkerbell.becominghuman.human.HumanExtendedEntityProperties;
-import thestinkerbell.becominghuman.human.HumanProperty;
+import thestinkerbell.becominghuman.human.properties.HumanExtendedEntityProperties;
+import thestinkerbell.becominghuman.human.properties.HumanProperty;
 
 public class HumanPropertiesItem extends Item {
 	

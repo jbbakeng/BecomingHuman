@@ -1,4 +1,4 @@
-package thestinkerbell.becominghuman.human;
+package thestinkerbell.becominghuman.human.properties;
 
 import java.util.List;
 

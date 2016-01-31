@@ -10,7 +10,7 @@ import net.minecraft.util.BlockPos;
 import net.minecraft.util.ChatComponentText;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.world.World;
-import thestinkerbell.becominghuman.human.HumanProperty;
+import thestinkerbell.becominghuman.human.properties.HumanProperty;
 
 public class HumanPropertiesOutputItem extends HumanPropertiesItem {
 	

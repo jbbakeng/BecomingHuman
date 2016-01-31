@@ -10,13 +10,13 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
-import thestinkerbell.becominghuman.human.HumanProperty;
+import thestinkerbell.becominghuman.human.properties.HumanProperty;
 import thestinkerbell.becominghuman.items.debug.HumanPropertiesCycleItem;
 import thestinkerbell.becominghuman.items.debug.HumanPropertiesDecreaseItem;
 import thestinkerbell.becominghuman.items.debug.HumanPropertiesIncreaseItem;
 import thestinkerbell.becominghuman.items.debug.HumanPropertiesOutputItem;
 
-public class HumanPropertiesDebugItems {
+public class HumanPropertiesDebugItemsTest {
 
 	Integer numberOfPropertiesToAdd = 3; //For some reason this number cannot be larger than 128
 	List<HumanProperty> properties;

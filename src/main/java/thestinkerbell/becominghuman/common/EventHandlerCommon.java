@@ -8,7 +8,7 @@ import net.minecraftforge.event.entity.player.PlayerEvent;
 import net.minecraftforge.event.entity.player.PlayerUseItemEvent;
 import net.minecraftforge.fml.common.eventhandler.EventPriority;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
-import thestinkerbell.becominghuman.human.HumanExtendedEntityProperties;
+import thestinkerbell.becominghuman.human.properties.HumanExtendedEntityProperties;
 
 public class EventHandlerCommon {
 	

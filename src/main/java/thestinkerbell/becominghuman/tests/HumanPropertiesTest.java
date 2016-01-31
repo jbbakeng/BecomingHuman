@@ -7,8 +7,8 @@ import java.util.List;
 
 import org.junit.Test;
 
-import thestinkerbell.becominghuman.human.HumanProperties;
-import thestinkerbell.becominghuman.human.HumanProperty;
+import thestinkerbell.becominghuman.human.properties.HumanProperties;
+import thestinkerbell.becominghuman.human.properties.HumanProperty;
 
 public class HumanPropertiesTest {
 	

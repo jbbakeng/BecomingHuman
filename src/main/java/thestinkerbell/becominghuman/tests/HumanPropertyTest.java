@@ -4,9 +4,11 @@ import static org.junit.Assert.*;
 
 import org.junit.Test;
 
+import com.google.common.collect.Range;
+
 import io.netty.buffer.ByteBuf;
 import io.netty.buffer.Unpooled;
-import thestinkerbell.becominghuman.human.HumanProperty;
+import thestinkerbell.becominghuman.human.properties.HumanProperty;
 
 public class HumanPropertyTest {
 	
@@ -14,7 +16,10 @@ public class HumanPropertyTest {
 		String name = "Name";
 		Integer defaultValue = 100;
 		String unit = "cm";
-		return new HumanProperty(name, defaultValue, unit);
+		Integer range_min = 0;
+		Integer range_max = 1000;
+		Range range = Range.closed(range_min, range_max);
+		return new HumanProperty(name, defaultValue, unit, range);
 	}
 	
 	public static void canSerializeAnDeserialize(HumanProperty property) {
@@ -55,6 +60,17 @@ public class HumanPropertyTest {
 	public void canSerializeAndDeserialize() {
 		HumanProperty property = getHumanProperty();
 		this.canSerializeAnDeserialize(property);
+	}
+	
+	@Test
+	public void hasARange() {
+		HumanProperty property = getHumanProperty();
+		assertNotNull(property.getRange());
+	}
+	
+	@Test
+	public void canSetARange() {
+		HumanProperty property = getHumanProperty();
 	}
 
 }

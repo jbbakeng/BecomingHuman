@@ -8,7 +8,8 @@ import org.junit.runners.Suite.SuiteClasses;
 @SuiteClasses({ 
 	HumanPropertiesTest.class, 
 	HumanPropertyTest.class,
-	HumanPropertiesDebugItems.class
+	HumanPropertiesDebugItemsTest.class,
+	RiskTest.class
 	})
 public class AllTests {
 

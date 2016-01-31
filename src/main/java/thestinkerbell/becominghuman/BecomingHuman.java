@@ -7,11 +7,8 @@ import net.minecraftforge.fml.common.SidedProxy;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
-import net.minecraftforge.fml.common.network.NetworkRegistry;
 import net.minecraftforge.fml.common.network.simpleimpl.SimpleNetworkWrapper;
-import net.minecraftforge.fml.relauncher.Side;
 import thestinkerbell.becominghuman.common.CommonProxy;
-import thestinkerbell.becominghuman.deprecated.PacketSyncMana;
 
 @Mod(modid = BecomingHuman.MODID, name = BecomingHuman.MODNAME, version = BecomingHuman.VERSION)
 public class BecomingHuman

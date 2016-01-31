@@ -14,7 +14,6 @@ public class EventHandlerCommon {
 	
 	@SubscribeEvent(priority = EventPriority.NORMAL)
 	public void onPlayerUseItemEvent(PlayerUseItemEvent.Start e) {
-		System.out.println("PlayerUseItemEvent.Start, Player: "+e.entityPlayer.getDisplayNameString()+", Item: "+e.item.getDisplayName());
 	}
 
 	@SubscribeEvent
@@ -29,7 +28,6 @@ public class EventHandlerCommon {
 		//NTB data is loaded before this event
 		//This is called on both server and client side, first server then client
 	    if (e.entity instanceof EntityPlayer) {
-	    	System.out.println("1.		onEntityJoinWorld");
 	    	HumanExtendedEntityProperties.get((EntityPlayer) e.entity).syncAll();
 	    }
 	}

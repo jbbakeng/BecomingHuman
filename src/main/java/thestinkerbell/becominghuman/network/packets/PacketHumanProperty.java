@@ -6,7 +6,6 @@ import net.minecraft.util.IThreadListener;
 import net.minecraftforge.fml.common.network.simpleimpl.IMessage;
 import net.minecraftforge.fml.common.network.simpleimpl.IMessageHandler;
 import net.minecraftforge.fml.common.network.simpleimpl.MessageContext;
-import thestinkerbell.becominghuman.deprecated.PlayerData;
 import thestinkerbell.becominghuman.human.HumanExtendedEntityProperties;
 import thestinkerbell.becominghuman.human.HumanProperty;
 
@@ -40,7 +39,6 @@ public class PacketHumanProperty implements IMessage{
             mainThread.addScheduledTask(new Runnable() {
                 @Override
                 public void run() {	
-                    System.out.println("Package arrived on the CLIENT from the SERVER.");
                     HumanExtendedEntityProperties.get(Minecraft.getMinecraft().thePlayer).set(message.property);
                 }
             });

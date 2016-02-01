@@ -1,20 +1,26 @@
 package thestinkerbell.becominghuman.human.properties;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import com.google.common.collect.Range;
 
 import io.netty.buffer.ByteBuf;
 import net.minecraftforge.fml.common.network.ByteBufUtils;
-import thestinkerbell.becominghuman.human.risks.GeneralRiskFactor;
+import thestinkerbell.becominghuman.human.risks.Risk;
 import thestinkerbell.becominghuman.human.risks.RiskFactor;
 
 public class HumanProperty {
 
+	//needs to be in equals and hashCode
 	public String name;
 	public String unit;	
-
 	public Integer value;
 	private Integer range_min;
 	private Integer range_max;
+	
+	//does not need to be asserted in equals and hashCode because the are generated from other data
+	protected List<RiskFactor> risk_factors;
 	
 	public static void deserialize(ByteBuf buf_in, HumanProperty property_out) {
 		ByteBufUtils bufUtils = new ByteBufUtils();
@@ -40,6 +46,7 @@ public class HumanProperty {
 
 	public HumanProperty() {
 		this("DEFAULT_NAME", 0, "DEFAULT_UNIT", 0, 1);
+		this.risk_factors.add(new RiskFactor(GeneralRisk.HEALTHY, range_min, range_max));
 	}
 	
 	public HumanProperty(String propertyName, Integer defaultValue, String unit, Integer range_min, Integer range_max) {
@@ -48,10 +55,15 @@ public class HumanProperty {
 		this.unit = unit;
 		this.range_min = range_min;
 		this.range_max = range_max;
+		this.risk_factors = new ArrayList();
 	}
 
 	public HumanProperty(String propertyName, Enum defaulValue, String unit, Integer range_min, Integer range_max) {
 		this(propertyName, defaulValue.ordinal(), unit, range_min, range_max);
+	}
+	
+	public enum GeneralRisk implements Risk {
+		HEALTHY
 	}
 	
 	public void set(Integer value) {
@@ -71,8 +83,13 @@ public class HumanProperty {
 		return Range.closed(range_min, range_max);
 	}
 
-	public RiskFactor getRiskFactor() {
-		return GeneralRiskFactor.HEALTHY;
+	public Risk getRisk() {
+		for(RiskFactor factor : risk_factors)
+		{
+			if(factor.contains(this.value));
+				return factor.risk;
+		}
+		return null;
 	}
 
 	//To be on the safe side, let the Eclipse IDE generate the equals and hashCode functions as a pair: Source > Generate hashCode() and equals()

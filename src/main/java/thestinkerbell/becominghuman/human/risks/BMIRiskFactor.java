@@ -1,7 +1,7 @@
 package thestinkerbell.becominghuman.human.risks;
 
 //TODO move to BMIHumanProperty when HumanProperties can be compound
-public enum BMIRiskFactor implements RiskFactor  {
+public enum BMIRiskFactor implements Risk  {
 	BMI_VERYSEVERLYUNDERWEIGHT,
 	BMI_SEVERLYUNDERWEIGHT,
 	BMI_UNDERWEIGHT,

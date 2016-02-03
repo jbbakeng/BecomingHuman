@@ -37,7 +37,7 @@ public class HumanProperties {
 	public void setValue(String name, int value) {
 		HumanProperty property = getHumanPropertyWithName(name);
 		if(property != null)
-			property.set(value);
+			property.setValue(value);
 		else
 			System.err.println("No human property named "+name);
 	}

@@ -7,8 +7,9 @@ import com.google.common.collect.Range;
 
 import io.netty.buffer.ByteBuf;
 import net.minecraftforge.fml.common.network.ByteBufUtils;
+import thestinkerbell.becominghuman.human.risks.ClosedRange;
 import thestinkerbell.becominghuman.human.risks.Risk;
-import thestinkerbell.becominghuman.human.risks.RiskFactor;
+import thestinkerbell.becominghuman.human.risks.RiskRange;
 
 public class HumanProperty {
 
@@ -20,7 +21,7 @@ public class HumanProperty {
 	private Integer range_max;
 	
 	//does not need to be asserted in equals and hashCode because the are generated from other data
-	protected List<RiskFactor> risk_factors;
+	final public List<RiskRange> risk_ranges;
 	
 	public static void deserialize(ByteBuf buf_in, HumanProperty property_out) {
 		ByteBufUtils bufUtils = new ByteBufUtils();
@@ -32,7 +33,7 @@ public class HumanProperty {
 		property_out.name = name;
 		property_out.value = value;
 		property_out.unit = unit;
-		property_out.setRange(range_min, range_max);
+		property_out.setValueRange(range_min, range_max);
 	}
 	
 	static public void serialize(HumanProperty property_in, ByteBuf buf_out) {
@@ -46,7 +47,7 @@ public class HumanProperty {
 
 	public HumanProperty() {
 		this("DEFAULT_NAME", 0, "DEFAULT_UNIT", 0, 1);
-		this.risk_factors.add(new RiskFactor(GeneralRisk.HEALTHY, range_min, range_max));
+		this.risk_ranges.add(new RiskRange(GeneralRisk.HEALTHY, range_min, range_max));
 	}
 	
 	public HumanProperty(String propertyName, Integer defaultValue, String unit, Integer range_min, Integer range_max) {
@@ -55,7 +56,7 @@ public class HumanProperty {
 		this.unit = unit;
 		this.range_min = range_min;
 		this.range_max = range_max;
-		this.risk_factors = new ArrayList();
+		this.risk_ranges = new ArrayList();
 	}
 
 	public HumanProperty(String propertyName, Enum defaulValue, String unit, Integer range_min, Integer range_max) {
@@ -66,7 +67,7 @@ public class HumanProperty {
 		HEALTHY
 	}
 	
-	public void set(Integer value) {
+	public void setValue(Integer value) {
 		this.value = value;
 	}
 	
@@ -74,21 +75,27 @@ public class HumanProperty {
 		return this.value;
 	}
 	
-	public void setRange(Integer min, Integer max) {
+	public void setValueRange(Integer min, Integer max) {
 		this.range_min = min;
 		this.range_max = max;
 	}
 	
-	public Range getRange() {
-		return Range.closed(range_min, range_max);
+	public Range getValueRange() {
+		return new ClosedRange(range_min, range_max).range;
 	}
 
 	public Risk getRisk() {
-		for(RiskFactor factor : risk_factors)
+		for(RiskRange range : risk_ranges)
 		{
-			if(factor.contains(this.value));
-				return factor.risk;
+			if(range.contains(this.value));
+				return range.risk;
 		}
+		return null;
+	}
+	
+
+	public List<RiskRange> getRiskRanges() {
+		// TODO Auto-generated method stub
 		return null;
 	}
 

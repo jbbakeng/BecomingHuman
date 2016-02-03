@@ -43,7 +43,7 @@ public class HumanPropertyTest {
 		HumanProperty property = getHumanProperty();
 		Integer oldValue = property.getValue();
 		Integer newValue = oldValue*2;
-		property.set(newValue);
+		property.setValue(newValue);
 		assertTrue(property.getValue() == newValue);
 	}
 	
@@ -51,7 +51,7 @@ public class HumanPropertyTest {
 	public void canGetValue() {
 		HumanProperty property = getHumanProperty();
 		Integer value = 100;
-		property.set(value);
+		property.setValue(value);
 		Integer value2 = property.getValue();
 	}
 	
@@ -64,7 +64,7 @@ public class HumanPropertyTest {
 	@Test
 	public void hasARange() {
 		HumanProperty property = getHumanProperty();
-		assertNotNull(property.getRange());
+		assertNotNull(property.getValueRange());
 	}
 	
 	@Test

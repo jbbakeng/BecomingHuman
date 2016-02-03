@@ -4,22 +4,26 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 
+import java.util.List;
+
 import org.junit.Test;
 
+import com.google.common.collect.Range;
+
+import thestinkerbell.becominghuman.human.properties.HumanProperties;
 import thestinkerbell.becominghuman.human.properties.HumanProperty;
 import thestinkerbell.becominghuman.human.properties.HumanProperty.GeneralRisk;
 import thestinkerbell.becominghuman.human.risks.Risk;
-import thestinkerbell.becominghuman.human.risks.RiskFactor;
+import thestinkerbell.becominghuman.human.risks.RiskRange;
 
 public class RiskTest {
 	
-	private void assertRiskFactorBoundries(Risk risk, Integer max, Integer min) {
-		RiskFactor risk_factor = new RiskFactor(risk, min, max);
-		assertFalse(risk_factor.contains(min-1));
-		assertTrue(risk_factor.contains(min));
-		assertTrue(risk_factor.contains(max/2));
-		assertTrue(risk_factor.contains(max));
-		assertFalse(risk_factor.contains(max+1));
+	private void assertRiskFactorBoundries(RiskRange range) {
+		assertFalse(range.contains(range.min-1));
+		assertTrue(range.contains(range.min));
+		assertTrue(range.contains(range.max/2));
+		assertTrue(range.contains(range.max));
+		assertFalse(range.contains(range.max+1));
 	}
 	
 	@Test
@@ -33,7 +37,7 @@ public class RiskTest {
 		Integer min = 0;
 		Integer max = 100;
 		Risk risk = GeneralRisk.HEALTHY;
-		this.assertRiskFactorBoundries(risk, min, max);
+		this.assertRiskFactorBoundries(new RiskRange(risk, min, max));
 	}
 	
 	@Test
@@ -42,5 +46,6 @@ public class RiskTest {
 		Risk risk = property.getRisk();
 		assertTrue(risk == GeneralRisk.HEALTHY);
 	}
+	
 
 }

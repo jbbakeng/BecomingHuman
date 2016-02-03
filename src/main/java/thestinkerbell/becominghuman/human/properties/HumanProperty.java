@@ -26,13 +26,6 @@ public abstract class HumanProperty<TYPE> {
 	public enum GeneralRisk implements Risk {
 		HEALTHY
 	}
-	public static double round(double value, int places) {
-	    if (places < 0) throw new IllegalArgumentException();
-
-	    BigDecimal bd = new BigDecimal(value);
-	    bd = bd.setScale(places, RoundingMode.HALF_UP);
-	    return bd.doubleValue();
-	}
 
 	public abstract TYPE getValue();
 	public abstract void setValue(Double value);

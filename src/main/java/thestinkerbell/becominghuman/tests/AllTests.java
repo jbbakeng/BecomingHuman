@@ -9,7 +9,8 @@ import org.junit.runners.Suite.SuiteClasses;
 	HumanTest.class, 
 	HumanPropertyTest.class,
 	HumanPropertiesDebugItemsTest.class,
-	RiskTest.class
+	RiskTest.class,
+	BasicItemTest.class
 	})
 public class AllTests {
 

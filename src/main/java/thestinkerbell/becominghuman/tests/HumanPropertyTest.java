@@ -13,6 +13,7 @@ import org.junit.Test;
 import io.netty.buffer.ByteBuf;
 import io.netty.buffer.Unpooled;
 import thestinkerbell.becominghuman.human.properties.HumanProperty;
+import thestinkerbell.becominghuman.human.properties.HumanProperty.GeneralRisk;
 import thestinkerbell.becominghuman.human.properties.basic.BasicHumanProperty;
 import thestinkerbell.becominghuman.human.properties.basic.HeightBasicHumanProperty;
 import thestinkerbell.becominghuman.human.properties.basic.WeightBasicHumanProperty;
@@ -46,6 +47,8 @@ public class HumanPropertyTest {
 	
 	// ==== TESTS ====
 	
+	// --- Basic
+	
 	@Test
 	public void canCreateBasicHumanProperty() {
 		BasicHumanProperty basic1 = getBasicHumanProperty_1();
@@ -61,11 +64,6 @@ public class HumanPropertyTest {
 		assertNotEquals(basic1, basic2);
 	}
 	
-	@Test
-	public void canCreateCompoundHumanProperty() {
-		CompoundHumanProperty compound = getCompoundHumanProperty();
-		assertNotNull(compound);
-	}
 	
 	@Test
 	public void basicAndCompoundPropertiesAreNotTheSame() {
@@ -106,6 +104,33 @@ public class HumanPropertyTest {
 	public void hasARange() {
 		HumanProperty property = getBasicHumanProperty_1();
 		assertNotNull(property.getValueRange());
+	}
+
+	
+	// --- Compound
+	
+	@Test
+	public void canCreateDefaultCompoundHumanProperty() {
+		CompoundHumanProperty compound = new CompoundHumanProperty();
+		assertNotNull(compound);
+		assertTrue(compound.getValue() == 0);
+		compound.setValue(100.0);
+		assertTrue(compound.getValue() == 0);
+		assertTrue(compound.getRisk() == GeneralRisk.HEALTHY);
+		assertTrue(compound.getValueRange().lowerEndpoint() == (Double)0.0);
+		assertTrue(compound.getValueRange().upperEndpoint() == (Double)1.0);
+	}
+	
+	@Test
+	public void canCreateCompoundHumanProperty() {
+		CompoundHumanProperty compound = getCompoundHumanProperty();
+		assertNotNull(compound);
+	}
+	
+	@Test
+	public void canGetValueOfCompoundProperty() {
+		CompoundHumanProperty compound = getCompoundHumanProperty();
+		assertNotNull(compound.getValue());
 	}
 
 }

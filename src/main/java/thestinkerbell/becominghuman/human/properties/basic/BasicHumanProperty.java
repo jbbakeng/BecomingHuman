@@ -66,12 +66,13 @@ public class BasicHumanProperty extends HumanProperty<Double> {
 
 	@Override
 	public Risk getRisk() {
+		Risk risk = null;
 		for(RiskRange range : risk_ranges)
 		{
 			if(range.contains(this.value));
-				return range.risk;
+				risk = range.risk;
 		}
-		return null;
+		return risk;
 	}
 
 }

@@ -18,7 +18,7 @@ public class CompoundHumanProperty<A, B> extends HumanProperty<Double> {
 	protected A propertyA;
 	protected B propertyB;
 	
-
+/*
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -49,6 +49,7 @@ public class CompoundHumanProperty<A, B> extends HumanProperty<Double> {
 			return false;
 		return true;
 	}
+	*/
 
 	public CompoundHumanProperty() {
 		this("DEFAULT_NAME_COMPOUND", 0.0, "DEFAULT_UNIT_COMPOUND", 0.0, 1.0);
@@ -90,12 +91,13 @@ public class CompoundHumanProperty<A, B> extends HumanProperty<Double> {
 
 	@Override
 	public Risk getRisk() {
+		Risk risk = null;
 		for(RiskRange range : risk_ranges)
 		{
 			if(range.contains(this.value));
-				return range.risk;
+				risk = range.risk;
 		}
-		return null;
+		return risk;
 	}
 
 }

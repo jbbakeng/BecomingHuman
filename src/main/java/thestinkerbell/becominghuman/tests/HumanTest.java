@@ -16,14 +16,22 @@ public class HumanTest {
 	private final String testPropertyName = "Age";
 
 	@Test
-	public void canCreate() {
+	public void canCreateAHuman() {
 		Human human = new Human();
 	}
 	
 	@Test
-	public void canGetNumberOfHumanProperties() {
+	public void canGetListOfBasicHumanProperties() {
 		Human human = new Human();
 		Integer numberOfProperties = human.getListOfBasicHumanProperties().size();
+		assertNotNull(numberOfProperties);
+		assertTrue(numberOfProperties >=5);
+	}
+	
+	@Test
+	public void canGetListOfAllHumanProperties() {
+		Human human = new Human();
+		Integer numberOfProperties = human.getListOfAllHumanProperties().size();
 		assertNotNull(numberOfProperties);
 		assertTrue(numberOfProperties >=5);
 	}
@@ -45,6 +53,12 @@ public class HumanTest {
 		human.setValue(testPropertyName, newValue);
 		HumanProperty newProperty = human.getHumanPropertyWithName(testPropertyName);
 		assertTrue(newValue == newProperty.getValue());
+	}
+	
+	@Test
+	public void canTryToSetAPropertyThatDoesNotExist() {
+		Human human = new Human();
+		human.setValue("NOT_DEFINED", 0.0);
 	}
 	
 	@Test

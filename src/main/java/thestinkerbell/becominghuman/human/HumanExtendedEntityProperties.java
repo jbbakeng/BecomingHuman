@@ -11,18 +11,20 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.world.World;
 import net.minecraftforge.common.IExtendedEntityProperties;
 import thestinkerbell.becominghuman.BecomingHuman;
-import thestinkerbell.becominghuman.network.packets.PacketHumanProperty;
+import thestinkerbell.becominghuman.human.properties.HumanProperty;
+import thestinkerbell.becominghuman.human.properties.basic.BasicHumanProperty;
+import thestinkerbell.becominghuman.network.packets.PacketBasicHumanProperty;
 
 
 public class HumanExtendedEntityProperties implements IExtendedEntityProperties  {
 	
 	private static final String identifier = "humanproperties";
 	private final EntityPlayer player;
-	final public HumanProperties properties;
+	final public Human human;
 	
     public HumanExtendedEntityProperties(EntityPlayer player) {
         this.player = player;
-        this.properties  = new HumanProperties();
+        this.human  = new Human();
     }
 	
     public static HumanExtendedEntityProperties get(EntityPlayer player) {
@@ -42,8 +44,8 @@ public class HumanExtendedEntityProperties implements IExtendedEntityProperties 
      */
 	public void syncAll() {
 		if (this.isServerSide()) {
-			List<HumanProperty> list = properties.getListOfHumanProperties();
-			for(HumanProperty property : list) {
+			List<BasicHumanProperty> list = human.getListOfBasicHumanProperties();
+			for(BasicHumanProperty property : list) {
 	            this.sendToClient(property);
 	        }
 		} else {
@@ -55,9 +57,9 @@ public class HumanExtendedEntityProperties implements IExtendedEntityProperties 
      * Should only be called on SERVER side!
      * @param property The property to be sent to the client
      */
-	public void sendToClient(HumanProperty property) {
+	public void sendToClient(BasicHumanProperty property) {
     	//we are on the server side, we want to send human property information to correct players client
-    	PacketHumanProperty msg = new PacketHumanProperty(property);
+    	PacketBasicHumanProperty msg = new PacketBasicHumanProperty(property);
     	EntityPlayerMP serverPlayer = (EntityPlayerMP) this.player;
     	BecomingHuman.network.sendTo(msg, serverPlayer); //here values are pushed to the client
 	}
@@ -66,14 +68,14 @@ public class HumanExtendedEntityProperties implements IExtendedEntityProperties 
      * Should only be called on CLIENT side!
      * @param property The property that should be set on the client
      */
-    public void set(HumanProperty property) {
-    	this.properties.setValue(property.name, property.getValue());
+    public void set(BasicHumanProperty property) {
+    	this.human.setValue(property.name, property.getValue());
     	if (this.isServerSide()) {
     		System.err.println("DO NOT CALL THIS FROM SERVER SIDE!");
     		return;
     	}
     	else {
-        	this.properties.setValue(property.name, property.value);
+        	this.human.setValue(property.name, property.getValue());
         }
     }
     
@@ -85,10 +87,10 @@ public class HumanExtendedEntityProperties implements IExtendedEntityProperties 
 
 	@Override
 	public void saveNBTData(NBTTagCompound compound) {
-		List<HumanProperty> list = properties.getListOfHumanProperties();
-		for(HumanProperty property : list) {
+		List<BasicHumanProperty> list = human.getListOfBasicHumanProperties();
+		for(BasicHumanProperty property : list) {
 			ByteBuf buf = Unpooled.buffer();
-			HumanProperty.serialize(property, buf);			
+			BasicHumanProperty.serialize(property, buf);			
 			compound.setByteArray(property.name, buf.array());
         }
 	}
@@ -97,11 +99,11 @@ public class HumanExtendedEntityProperties implements IExtendedEntityProperties 
 	public void loadNBTData(NBTTagCompound compound) {
     	//This only happens on the server!!!
 		//This happens BEFORE the entity joins the world (on both server and client side)
-		List<HumanProperty> list = properties.getListOfHumanProperties();
-		for(HumanProperty property : list) {
+		List<BasicHumanProperty> list = human.getListOfBasicHumanProperties();
+		for(BasicHumanProperty property : list) {
 			ByteBuf buf = Unpooled.buffer();	
 			buf.writeBytes(compound.getByteArray(property.name));
-			HumanProperty.deserialize(buf, property);
+			BasicHumanProperty.deserialize(buf, property);
         }
 	}
 

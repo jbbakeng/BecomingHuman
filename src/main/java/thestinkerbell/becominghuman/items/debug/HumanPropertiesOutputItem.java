@@ -10,7 +10,7 @@ import net.minecraft.util.BlockPos;
 import net.minecraft.util.ChatComponentText;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.world.World;
-import thestinkerbell.becominghuman.human.HumanProperty;
+import thestinkerbell.becominghuman.human.properties.HumanProperty;
 
 public class HumanPropertiesOutputItem extends HumanPropertiesItem {
 	
@@ -26,8 +26,8 @@ public class HumanPropertiesOutputItem extends HumanPropertiesItem {
 
 	private void outputHumanProperties(EntityPlayer player) {
 		player.addChatMessage(new ChatComponentText("--- Human Properties ---"));
-		for(HumanProperty property : properties) {
-			player.addChatMessage(new ChatComponentText(property.name+": "+property.value+" "+property.unit));
+		for(HumanProperty property : all_property_list) {
+			player.addChatMessage(new ChatComponentText(property.name+": "+String.format("%.2f", property.getValue())+" "+property.unit));
 		}
 	}
 }

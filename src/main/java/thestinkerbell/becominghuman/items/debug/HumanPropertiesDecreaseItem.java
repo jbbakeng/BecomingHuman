@@ -6,7 +6,8 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.util.ChatComponentText;
 import net.minecraft.world.World;
 import thestinkerbell.becominghuman.human.HumanExtendedEntityProperties;
-import thestinkerbell.becominghuman.human.HumanProperty;
+import thestinkerbell.becominghuman.human.properties.HumanProperty;
+import thestinkerbell.becominghuman.human.properties.basic.BasicHumanProperty;
 
 public class HumanPropertiesDecreaseItem extends HumanPropertiesItem {
 	
@@ -21,8 +22,8 @@ public class HumanPropertiesDecreaseItem extends HumanPropertiesItem {
     }
 
 	private void decreaseHumanPropertyValue(EntityPlayer player) {
-		HumanProperty property = properties.get(this.getCyclingIndex());
-		HumanExtendedEntityProperties.get(player).properties.setValue(property.name, property.value-1);
-		player.addChatMessage(new ChatComponentText("- "+property.name+": "+property.value+" "+property.unit));
+		BasicHumanProperty property = basic_property_list.get(this.getCyclingIndex());
+		HumanExtendedEntityProperties.get(player).human.setValue(property.name, property.getValue()-1);
+		player.addChatMessage(new ChatComponentText("- "+property.name+": "+property.getValue()+" "+property.unit));
 	}
 }

@@ -7,34 +7,35 @@ import net.minecraftforge.fml.common.network.simpleimpl.IMessage;
 import net.minecraftforge.fml.common.network.simpleimpl.IMessageHandler;
 import net.minecraftforge.fml.common.network.simpleimpl.MessageContext;
 import thestinkerbell.becominghuman.human.HumanExtendedEntityProperties;
-import thestinkerbell.becominghuman.human.HumanProperty;
+import thestinkerbell.becominghuman.human.properties.HumanProperty;
+import thestinkerbell.becominghuman.human.properties.basic.BasicHumanProperty;
 
-public class PacketHumanProperty implements IMessage{
+public class PacketBasicHumanProperty implements IMessage{
 	
-	private HumanProperty property;
+	private BasicHumanProperty property;
 	
-	public PacketHumanProperty(){
-		this.property = new HumanProperty();
+	public PacketBasicHumanProperty(){
+		this.property = new BasicHumanProperty();
 	}
 	
-	public PacketHumanProperty(HumanProperty property) {
+	public PacketBasicHumanProperty(BasicHumanProperty property) {
 		this.property = property;
 	}
 
 	@Override
 	public void fromBytes(ByteBuf buf) {
-		HumanProperty.deserialize(buf, this.property);
+		BasicHumanProperty.deserialize(buf, this.property);
 	}
 
 	@Override
 	public void toBytes(ByteBuf buf) {
-		HumanProperty.serialize(this.property, buf);
+		BasicHumanProperty.serialize(this.property, buf);
 	}
 	
-	public static class HandlerOnClient implements IMessageHandler<PacketHumanProperty, IMessage> {
+	public static class HandlerOnClient implements IMessageHandler<PacketBasicHumanProperty, IMessage> {
 
 		@Override
-		public IMessage onMessage(final PacketHumanProperty message, MessageContext ctx) {
+		public IMessage onMessage(final PacketBasicHumanProperty message, MessageContext ctx) {
         	IThreadListener mainThread = Minecraft.getMinecraft(); //on the client
             mainThread.addScheduledTask(new Runnable() {
                 @Override

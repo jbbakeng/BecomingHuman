@@ -7,7 +7,7 @@ import net.minecraftforge.fml.relauncher.Side;
 import thestinkerbell.becominghuman.BecomingHuman;
 import thestinkerbell.becominghuman.client.render.items.ItemRenderRegister;
 import thestinkerbell.becominghuman.common.CommonProxy;
-import thestinkerbell.becominghuman.network.packets.PacketHumanProperty;
+import thestinkerbell.becominghuman.network.packets.PacketBasicHumanProperty;
 
 public class ClientProxy extends CommonProxy{
 

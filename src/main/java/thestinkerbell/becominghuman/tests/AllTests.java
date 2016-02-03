@@ -6,7 +6,7 @@ import org.junit.runners.Suite.SuiteClasses;
 
 @RunWith(Suite.class)
 @SuiteClasses({ 
-	HumanPropertiesTest.class, 
+	HumanTest.class, 
 	HumanPropertyTest.class,
 	HumanPropertiesDebugItemsTest.class,
 	RiskTest.class

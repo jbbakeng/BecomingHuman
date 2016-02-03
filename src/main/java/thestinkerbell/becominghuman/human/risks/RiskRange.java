@@ -1,18 +1,25 @@
 package thestinkerbell.becominghuman.human.risks;
 
+import com.google.common.collect.Range;
+
 public class RiskRange {
 	
-	public final Risk risk;
-	public final Integer min;
-	public final Integer max;
+	public Risk risk;
+	public Double min;
+	public Double max;
 	
 	public RiskRange(Risk risk, Integer min, Integer max) {
+		this(risk, (double) min, (double) max);
+	}
+	
+	public RiskRange(Risk risk, Double min, Double max) {
 		this.risk = risk;
 		this.min = min;
 		this.max = max;
 	}
-
-	public boolean contains(Integer value) {
-		return new ClosedRange(min, max).range.contains(value);
+	
+	public Boolean contains(Double value) {
+		return Range.closed(this.min, this.max).contains(value);
 	}
+
 }

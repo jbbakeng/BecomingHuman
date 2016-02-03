@@ -4,15 +4,11 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 
-import java.util.List;
-
 import org.junit.Test;
 
-import com.google.common.collect.Range;
-
-import thestinkerbell.becominghuman.human.properties.HumanProperties;
 import thestinkerbell.becominghuman.human.properties.HumanProperty;
 import thestinkerbell.becominghuman.human.properties.HumanProperty.GeneralRisk;
+import thestinkerbell.becominghuman.human.properties.basic.BasicHumanProperty;
 import thestinkerbell.becominghuman.human.risks.Risk;
 import thestinkerbell.becominghuman.human.risks.RiskRange;
 
@@ -42,7 +38,7 @@ public class RiskTest {
 	
 	@Test
 	public void canGetARiskFactorFromDefaultHumanProperty() {
-		HumanProperty property = new HumanProperty();
+		HumanProperty property = new BasicHumanProperty();
 		Risk risk = property.getRisk();
 		assertTrue(risk == GeneralRisk.HEALTHY);
 	}

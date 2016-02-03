@@ -9,7 +9,7 @@ import net.minecraftforge.fml.common.network.NetworkRegistry;
 import net.minecraftforge.fml.relauncher.Side;
 import thestinkerbell.becominghuman.BecomingHuman;
 import thestinkerbell.becominghuman.items.ModItems;
-import thestinkerbell.becominghuman.network.packets.PacketHumanProperty;
+import thestinkerbell.becominghuman.network.packets.PacketBasicHumanProperty;
 
 public class CommonProxy{
 
@@ -20,7 +20,7 @@ public class CommonProxy{
 
     public void init(FMLInitializationEvent e) {
     	
-    	BecomingHuman.network.registerMessage(PacketHumanProperty.HandlerOnClient.class, PacketHumanProperty.class, 0, Side.CLIENT);
+    	BecomingHuman.network.registerMessage(PacketBasicHumanProperty.HandlerOnClient.class, PacketBasicHumanProperty.class, 0, Side.CLIENT);
     	
     	//Registering to event buses
     	EventHandlerCommon handler = new EventHandlerCommon();

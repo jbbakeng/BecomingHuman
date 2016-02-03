@@ -2,12 +2,11 @@ package thestinkerbell.becominghuman.items.debug;
 
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.BlockPos;
 import net.minecraft.util.ChatComponentText;
-import net.minecraft.util.EnumFacing;
 import net.minecraft.world.World;
-import thestinkerbell.becominghuman.human.properties.HumanExtendedEntityProperties;
+import thestinkerbell.becominghuman.human.HumanExtendedEntityProperties;
 import thestinkerbell.becominghuman.human.properties.HumanProperty;
+import thestinkerbell.becominghuman.human.properties.basic.BasicHumanProperty;
 
 public class HumanPropertiesIncreaseItem extends HumanPropertiesItem {
 
@@ -22,9 +21,9 @@ public class HumanPropertiesIncreaseItem extends HumanPropertiesItem {
     }
 
 	private void increaseHumanPropertyValue(EntityPlayer player) {
-		HumanProperty property = properties.get(this.getCyclingIndex());
-		HumanExtendedEntityProperties.get(player).properties.setValue(property.name, property.value+1);
-		player.addChatMessage(new ChatComponentText("+ "+property.name+": "+property.value+" "+property.unit));
+		BasicHumanProperty property = basic_property_list.get(this.getCyclingIndex());
+		HumanExtendedEntityProperties.get(player).human.setValue(property.name, property.getValue()+1);
+		player.addChatMessage(new ChatComponentText("+ "+property.name+": "+property.getValue()+" "+property.unit));
 	}
 	
 }

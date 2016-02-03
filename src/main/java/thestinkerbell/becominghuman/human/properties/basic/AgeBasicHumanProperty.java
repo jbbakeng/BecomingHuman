@@ -1,4 +1,4 @@
-package thestinkerbell.becominghuman.human.properties;
+package thestinkerbell.becominghuman.human.properties.basic;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -6,9 +6,9 @@ import java.util.List;
 import thestinkerbell.becominghuman.human.risks.Risk;
 import thestinkerbell.becominghuman.human.risks.RiskRange;
 
-public class AgeHumanProperty extends HumanProperty {
+public class AgeBasicHumanProperty extends BasicHumanProperty {
 	
-	public AgeHumanProperty() {
+	public AgeBasicHumanProperty() {
 		super("Age", 18, "years", 0, 122);
 		this.risk_ranges.add(new RiskRange(AgeRisk.AGE_INFANCY, 0, 2));
 		this.risk_ranges.add(new RiskRange(AgeRisk.AGE_EARLYCHILDHOOD, 3, 5));

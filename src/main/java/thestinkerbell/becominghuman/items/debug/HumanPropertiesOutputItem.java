@@ -26,8 +26,8 @@ public class HumanPropertiesOutputItem extends HumanPropertiesItem {
 
 	private void outputHumanProperties(EntityPlayer player) {
 		player.addChatMessage(new ChatComponentText("--- Human Properties ---"));
-		for(HumanProperty property : properties) {
-			player.addChatMessage(new ChatComponentText(property.name+": "+property.value+" "+property.unit));
+		for(HumanProperty property : all_property_list) {
+			player.addChatMessage(new ChatComponentText(property.name+": "+String.format("%.2f", property.getValue())+" "+property.unit));
 		}
 	}
 }

@@ -1,5 +1,7 @@
 package thestinkerbell.becominghuman.human.properties;
 
+import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -7,98 +9,42 @@ import com.google.common.collect.Range;
 
 import io.netty.buffer.ByteBuf;
 import net.minecraftforge.fml.common.network.ByteBufUtils;
-import thestinkerbell.becominghuman.human.risks.ClosedRange;
+import thestinkerbell.becominghuman.human.properties.basic.BasicHumanProperty;
 import thestinkerbell.becominghuman.human.risks.Risk;
 import thestinkerbell.becominghuman.human.risks.RiskRange;
 
-public class HumanProperty {
+public abstract class HumanProperty<TYPE> {
 
-	//needs to be in equals and hashCode
 	public String name;
-	public String unit;	
-	public Integer value;
-	private Integer range_min;
-	private Integer range_max;
-	
-	//does not need to be asserted in equals and hashCode because the are generated from other data
-	final public List<RiskRange> risk_ranges;
-	
-	public static void deserialize(ByteBuf buf_in, HumanProperty property_out) {
-		ByteBufUtils bufUtils = new ByteBufUtils();
-		String name = bufUtils.readUTF8String(buf_in);
-		Integer value = buf_in.readInt();
-		String unit = bufUtils.readUTF8String(buf_in);;
-		Integer range_min = buf_in.readInt();
-		Integer range_max = buf_in.readInt();
-		property_out.name = name;
-		property_out.value = value;
-		property_out.unit = unit;
-		property_out.setValueRange(range_min, range_max);
-	}
-	
-	static public void serialize(HumanProperty property_in, ByteBuf buf_out) {
-		ByteBufUtils bufUtils = new ByteBufUtils();
-		bufUtils.writeUTF8String(buf_out, property_in.name);
-		buf_out.writeInt(property_in.value);
-		bufUtils.writeUTF8String(buf_out, property_in.unit);
-		buf_out.writeInt(property_in.range_min);
-		buf_out.writeInt(property_in.range_max);
-	}
+	public String unit;
+	final public List<RiskRange> risk_ranges = new ArrayList<RiskRange>();
 
-	public HumanProperty() {
-		this("DEFAULT_NAME", 0, "DEFAULT_UNIT", 0, 1);
-		this.risk_ranges.add(new RiskRange(GeneralRisk.HEALTHY, range_min, range_max));
-	}
-	
-	public HumanProperty(String propertyName, Integer defaultValue, String unit, Integer range_min, Integer range_max) {
-		this.name = propertyName;
-		this.value = defaultValue;
-		this.unit = unit;
-		this.range_min = range_min;
-		this.range_max = range_max;
-		this.risk_ranges = new ArrayList();
-	}
+	protected TYPE value;
+	protected TYPE range_min;
+	protected TYPE range_max;
 
-	public HumanProperty(String propertyName, Enum defaulValue, String unit, Integer range_min, Integer range_max) {
-		this(propertyName, defaulValue.ordinal(), unit, range_min, range_max);
-	}
-	
 	public enum GeneralRisk implements Risk {
 		HEALTHY
 	}
-	
-	public void setValue(Integer value) {
-		this.value = value;
-	}
-	
-	public Integer getValue() {
-		return this.value;
-	}
-	
-	public void setValueRange(Integer min, Integer max) {
-		this.range_min = min;
-		this.range_max = max;
-	}
-	
-	public Range getValueRange() {
-		return new ClosedRange(range_min, range_max).range;
+	public static double round(double value, int places) {
+	    if (places < 0) throw new IllegalArgumentException();
+
+	    BigDecimal bd = new BigDecimal(value);
+	    bd = bd.setScale(places, RoundingMode.HALF_UP);
+	    return bd.doubleValue();
 	}
 
-	public Risk getRisk() {
-		for(RiskRange range : risk_ranges)
-		{
-			if(range.contains(this.value));
-				return range.risk;
-		}
-		return null;
+	public abstract TYPE getValue();
+	public abstract void setValue(Double value);
+	public abstract Risk getRisk();
+	public abstract Range getValueRange();
+	
+	public void setValueRange(TYPE range_min2, TYPE range_max2) {
+		this.range_min = range_min2;
+		this.range_max = range_max2;
 	}
 	
-
-	public List<RiskRange> getRiskRanges() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
+	
 	//To be on the safe side, let the Eclipse IDE generate the equals and hashCode functions as a pair: Source > Generate hashCode() and equals()
 	//Use instance_of instead of equals because we are using inheritance
 
@@ -150,26 +96,26 @@ public class HumanProperty {
 			return false;
 		return true;
 	}
+
+	// === DEBUG ===
 	
-	//==== DEBUG UTILITIES ====
+	public static void print(ByteBuf buf) {
+		for (int i = 0; i < buf.capacity(); i ++) {
+			 byte b = buf.getByte(i);
+			 System.out.println((char) b);
+		}
+	}
 	
 	public void print(String prefix) {
 		System.out.println(prefix+
 				"		HumanProperty: "
 				+ "name="+name+
-				", value="+value+
+				", value="+this.getValue()+
 				", unit="+unit+
 				", range_min: "+range_min+
-				", range_max: "+range_max
+				", range_max: "+range_max+
+				", class name: "+this.getClass().getName()
 				);
-	}
-	
-
-	static public void print(ByteBuf buf) {
-		for (int i = 0; i < buf.capacity(); i ++) {
-			 byte b = buf.getByte(i);
-			 System.out.println((char) b);
-		}
 	}
 
 }

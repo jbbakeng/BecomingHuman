@@ -1,12 +1,11 @@
-package thestinkerbell.becominghuman.human.properties;
+package thestinkerbell.becominghuman.human.properties.basic;
 
-import thestinkerbell.becominghuman.human.properties.HumanProperty.GeneralRisk;
 import thestinkerbell.becominghuman.human.risks.Risk;
 import thestinkerbell.becominghuman.human.risks.RiskRange;
 
-public class BodyTemperatureHumanProperty extends HumanProperty {
+public class BodyTemperatureBasicHumanProperty extends BasicHumanProperty {
 
-	public BodyTemperatureHumanProperty() {
+	public BodyTemperatureBasicHumanProperty() {
 		super("Body Temperatur", 37, "celcius", -273, 980);
 		this.risk_ranges.add(new RiskRange(BodyTemperatureRisk.BODYTEMPERATURE_VERYCOLD, -273, 31));
 		this.risk_ranges.add(new RiskRange(BodyTemperatureRisk.BODYTEMPERATURE_COLD, 32, 35));

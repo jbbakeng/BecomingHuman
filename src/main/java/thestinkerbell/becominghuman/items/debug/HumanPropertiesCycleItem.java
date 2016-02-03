@@ -6,8 +6,9 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ChatComponentText;
 import net.minecraft.world.World;
-import thestinkerbell.becominghuman.human.properties.HumanProperties;
+import thestinkerbell.becominghuman.human.Human;
 import thestinkerbell.becominghuman.human.properties.HumanProperty;
+import thestinkerbell.becominghuman.human.properties.basic.BasicHumanProperty;
 
 public class HumanPropertiesCycleItem extends HumanPropertiesItem {
 
@@ -17,9 +18,9 @@ public class HumanPropertiesCycleItem extends HumanPropertiesItem {
 		super();
 	}
 	
-	public HumanPropertiesCycleItem(List<HumanProperty> properties) {
+	public HumanPropertiesCycleItem(List<BasicHumanProperty> properties) {
 		this();
-		this.properties = properties;
+		this.basic_property_list = properties;
 	}
 	
 	public Integer getIndex() {
@@ -27,7 +28,7 @@ public class HumanPropertiesCycleItem extends HumanPropertiesItem {
 	}
 	
 	public void cycleIndex() {
-		Integer index = (this.index + 1) % properties.size();
+		Integer index = (this.index + 1) % basic_property_list.size();
 		this.index = index;
 	}
 
@@ -42,8 +43,8 @@ public class HumanPropertiesCycleItem extends HumanPropertiesItem {
 
 	private void cycleHumanPropertiesIndex(EntityPlayer player) {
 		this.cycleIndex();
-		HumanProperty property = properties.get(this.index);
-		player.addChatMessage(new ChatComponentText("o "+property.name+": "+property.value+" "+property.unit));
+		BasicHumanProperty property = basic_property_list.get(this.index);
+		player.addChatMessage(new ChatComponentText("o "+property.name+": "+property.getValue()+" "+property.unit));
 	}
 
 

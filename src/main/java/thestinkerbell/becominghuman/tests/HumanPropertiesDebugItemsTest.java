@@ -10,7 +10,7 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
-import thestinkerbell.becominghuman.human.properties.HumanProperty;
+import thestinkerbell.becominghuman.human.properties.basic.BasicHumanProperty;
 import thestinkerbell.becominghuman.items.debug.HumanPropertiesCycleItem;
 import thestinkerbell.becominghuman.items.debug.HumanPropertiesDecreaseItem;
 import thestinkerbell.becominghuman.items.debug.HumanPropertiesIncreaseItem;
@@ -19,7 +19,7 @@ import thestinkerbell.becominghuman.items.debug.HumanPropertiesOutputItem;
 public class HumanPropertiesDebugItemsTest {
 
 	Integer numberOfPropertiesToAdd = 3; //For some reason this number cannot be larger than 128
-	List<HumanProperty> properties;
+	List<BasicHumanProperty> properties;
 	HumanPropertiesCycleItem cycle_item;
 	HumanPropertiesOutputItem output_item;
 	HumanPropertiesDecreaseItem decrease_item;
@@ -29,7 +29,7 @@ public class HumanPropertiesDebugItemsTest {
 	private void createDebugItems() {
 		properties = new ArrayList();
 		for(Integer i=0; i<numberOfPropertiesToAdd; ++i) {
-			properties.add(new HumanProperty());			
+			properties.add(new BasicHumanProperty());			
 		}
 		
 		cycle_item = new HumanPropertiesCycleItem(properties);

@@ -1,12 +1,11 @@
-package thestinkerbell.becominghuman.human.properties;
+package thestinkerbell.becominghuman.human.properties.basic;
 
-import thestinkerbell.becominghuman.human.properties.HearthRateHumanProperty.HeartRateRisk;
 import thestinkerbell.becominghuman.human.risks.Risk;
 import thestinkerbell.becominghuman.human.risks.RiskRange;
 
-public class HeightHumanProperty extends HumanProperty {
+public class HeightBasicHumanProperty extends BasicHumanProperty {
 	
-	public HeightHumanProperty() {
+	public HeightBasicHumanProperty() {
 		super("Height", 170, "cm", 55, 272);
 		this.risk_ranges.add(new RiskRange(HeightRisk.HEIGHT_DWARF, 55, 140));
 		this.risk_ranges.add(new RiskRange(HeightRisk.HEIGHT_SHORT, 141, 159));

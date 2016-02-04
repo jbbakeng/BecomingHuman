@@ -20,7 +20,8 @@ public class BasicHumanProperty extends HumanProperty<Double> {
 		property.name = name;
 		property.value = value;
 		property.unit = unit;
-		property.setValueRange(range_min, range_max);
+		property.range_min = range_min;
+		property.range_max = range_max;
 	}
 
 	public static void serialize(BasicHumanProperty property, ByteBuf buf_out) {
@@ -42,37 +43,22 @@ public class BasicHumanProperty extends HumanProperty<Double> {
 	}
 	
 	public BasicHumanProperty(String propertyName, Double defaultValue, String unit, Double range_min, Double range_max) {
-		super();
-		this.name = propertyName;
-		this.value = defaultValue;
-		this.unit = unit;
-		this.range_min = range_min;
-		this.range_max = range_max;
+		super(propertyName, defaultValue, unit, range_min, range_max);
 	}
 	
-	public void setValue(Double value) {
+	@Override
+	final public void setValue(Double value) {
 		this.value = value;
 	}
 
 	@Override
-	public Double getValue() {
+	final public Double getValue() {
 		return this.value;
 	}
 
 	@Override
-	public Range getValueRange() {
-		return Range.closed(range_min, range_max);
-	}
-
-	@Override
-	public Risk getRisk() {
-		Risk risk = null;
-		for(RiskRange range : risk_ranges)
-		{
-			if(range.contains(this.value));
-				risk = range.risk;
-		}
-		return risk;
+	final public Risk getRisk() {
+		return RiskRange.getRisk(risk_ranges, this.value);
 	}
 
 }

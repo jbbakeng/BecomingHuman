@@ -8,9 +8,11 @@ import org.junit.runners.Suite.SuiteClasses;
 @SuiteClasses({ 
 	HumanTest.class, 
 	HumanPropertyTest.class,
+	BloodPressureTest.class,
 	HumanPropertiesDebugItemsTest.class,
 	RiskTest.class,
-	BasicItemTest.class
+	BasicItemTest.class,
+	PairTest.class
 	})
 public class AllTests {
 

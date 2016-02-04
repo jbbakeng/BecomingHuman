@@ -26,7 +26,7 @@ public class BMICompoundHumanProperty extends CompoundHumanProperty<WeightBasicH
 	}
 	
 	@Override
-	public Double getValue() {
+	final public Double getValue() {
 		Double weight_kg = propertyA.getValue();
 		Double height_m = propertyB.getValue()/100;
 		Double bmi = weight_kg/(height_m*height_m);

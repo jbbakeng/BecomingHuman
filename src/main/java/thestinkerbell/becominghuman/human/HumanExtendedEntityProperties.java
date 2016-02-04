@@ -69,13 +69,16 @@ public class HumanExtendedEntityProperties implements IExtendedEntityProperties 
      * @param property The property that should be set on the client
      */
     public void set(BasicHumanProperty property) {
-    	this.human.setValue(property.name, property.getValue());
     	if (this.isServerSide()) {
     		System.err.println("DO NOT CALL THIS FROM SERVER SIDE!");
     		return;
     	}
     	else {
-        	this.human.setValue(property.name, property.getValue());
+        	try {
+				this.human.setValue(property.name, property.getValue());
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
         }
     }
     

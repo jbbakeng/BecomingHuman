@@ -61,11 +61,11 @@ public class Human {
 		properties.put(humanProperty.name, humanProperty);
 	}
 
-	public void setValue(String name, Double value) {
+	public void setValue(String name, Double value) throws Exception {
 		BasicHumanProperty property = getHumanPropertyWithName(name);
 		if(property != null)
 			property.setValue(value);
 		else
-			System.err.println("No human property named "+name);
+			throw new Exception("No human property named "+name);
 	}
 }

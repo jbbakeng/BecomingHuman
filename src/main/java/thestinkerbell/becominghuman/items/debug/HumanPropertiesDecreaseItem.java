@@ -23,7 +23,12 @@ public class HumanPropertiesDecreaseItem extends HumanPropertiesItem {
 
 	private void decreaseHumanPropertyValue(EntityPlayer player) {
 		BasicHumanProperty property = basic_property_list.get(this.getCyclingIndex());
-		HumanExtendedEntityProperties.get(player).human.setValue(property.name, property.getValue()-1);
+		try {
+			HumanExtendedEntityProperties.get(player).human.setValue(property.name, property.getValue()-1);
+		} catch (Exception e) {
+			e.printStackTrace();
+			return;
+		}
 		player.addChatMessage(new ChatComponentText("- "+property.name+": "+property.getValue()+" "+property.unit));
 	}
 }

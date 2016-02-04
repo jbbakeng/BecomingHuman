@@ -2,6 +2,7 @@ package thestinkerbell.becominghuman.tests;
 
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.fail;
 
 import java.util.List;
 
@@ -50,15 +51,24 @@ public class HumanTest {
 		HumanProperty oldProperty = human.getHumanPropertyWithName(testPropertyName);
 		assertNotNull(oldProperty);
 		assertTrue(newValue != oldProperty.getValue());
-		human.setValue(testPropertyName, newValue);
+		try {
+			human.setValue(testPropertyName, newValue);
+		} catch (Exception e) {
+			fail("SetValue in Human failed, property does not exist.");
+		}
 		HumanProperty newProperty = human.getHumanPropertyWithName(testPropertyName);
 		assertTrue(newValue == newProperty.getValue());
 	}
 	
 	@Test
-	public void canTryToSetAPropertyThatDoesNotExist() {
+	public void settingAPropertyThatDoesNotExistThrowsAnException() {
 		Human human = new Human();
-		human.setValue("NOT_DEFINED", 0.0);
+		try {
+			human.setValue("NOT_DEFINED", 0.0);
+		} catch (Exception e) {
+			return;
+		}
+		fail("SetValue in Human did not fail, property does exist.");
 	}
 	
 	@Test

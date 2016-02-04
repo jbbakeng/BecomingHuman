@@ -26,17 +26,18 @@ public abstract class HumanProperty<TYPE> {
 	public enum GeneralRisk implements Risk {
 		HEALTHY
 	}
+	
+	public HumanProperty(String propertyName, TYPE defaultValue, String unit, TYPE range_min, TYPE range_max) {
+		this.name = propertyName;
+		this.value = defaultValue;
+		this.unit = unit;
+		this.range_min = range_min;
+		this.range_max = range_max;
+	}
 
 	public abstract TYPE getValue();
-	public abstract void setValue(Double value);
+	public abstract void setValue(TYPE value);
 	public abstract Risk getRisk();
-	public abstract Range getValueRange();
-	
-	public void setValueRange(TYPE range_min2, TYPE range_max2) {
-		this.range_min = range_min2;
-		this.range_max = range_max2;
-	}
-	
 	
 	//To be on the safe side, let the Eclipse IDE generate the equals and hashCode functions as a pair: Source > Generate hashCode() and equals()
 	//Use instance_of instead of equals because we are using inheritance
@@ -101,13 +102,14 @@ public abstract class HumanProperty<TYPE> {
 	
 	public void print(String prefix) {
 		System.out.println(prefix+
-				"		HumanProperty: "
-				+ "name="+name+
-				", value="+this.getValue()+
-				", unit="+unit+
-				", range_min: "+range_min+
-				", range_max: "+range_max+
-				", class name: "+this.getClass().getName()
+				"\n	HumanProperty: "+
+				"\n 	name="+name+
+				",\n 	value="+this.getValue()+
+				",\n 	unit="+unit+
+				",\n 	range_min: "+range_min+
+				",\n 	range_max: "+range_max+
+				",\n 	risk class: "+this.getRisk().getClass().getName()+
+				",\n 	class name: "+this.getClass().getName()
 				);
 	}
 

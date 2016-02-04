@@ -11,6 +11,7 @@ import org.junit.Test;
 import thestinkerbell.becominghuman.human.Human;
 import thestinkerbell.becominghuman.human.properties.HumanProperty;
 import thestinkerbell.becominghuman.human.properties.basic.BasicHumanProperty;
+import thestinkerbell.becominghuman.human.risks.Risk;
 
 public class HumanTest {
 	
@@ -35,6 +36,22 @@ public class HumanTest {
 		Integer numberOfProperties = human.getListOfAllHumanProperties().size();
 		assertNotNull(numberOfProperties);
 		assertTrue(numberOfProperties >=5);
+	}
+	
+	@Test
+	public void canGetRiskFromAllHumanProperties() {
+		Human human = new Human();
+		List<HumanProperty> properties = human.getListOfAllHumanProperties();
+		for(HumanProperty property : properties) {
+			Risk risk = property.getRisk();
+		}
+	}
+	
+	@Test
+	public void canGetAListOfCurrentRisks() {
+		Human human = new Human();
+		List<Risk> risks = human.getListOfCurrentRisks();
+		assertNotNull(risks);
 	}
 	
 	@Test

@@ -12,7 +12,8 @@ import org.junit.runners.Suite.SuiteClasses;
 	HumanPropertiesDebugItemsTest.class,
 	RiskTest.class,
 	BasicItemTest.class,
-	PairTest.class
+	PairTest.class,
+	ConditionTest.class
 	})
 public class AllTests {
 

@@ -1,10 +1,9 @@
 package thestinkerbell.becominghuman.human.properties.basic;
 
-import com.google.common.collect.Range;
-
 import io.netty.buffer.ByteBuf;
 import net.minecraftforge.fml.common.network.ByteBufUtils;
 import thestinkerbell.becominghuman.human.properties.HumanProperty;
+import thestinkerbell.becominghuman.human.risks.DoubleRiskRange;
 import thestinkerbell.becominghuman.human.risks.Risk;
 import thestinkerbell.becominghuman.human.risks.RiskRange;
 
@@ -35,11 +34,11 @@ public class BasicHumanProperty extends HumanProperty<Double> {
 	
 	public BasicHumanProperty() {
 		this("DEFAULT_NAME_BASIC", 0.0, "DEFAULT_UNIT_BASIC", 0.0, 1.0);
-		this.risk_ranges.add(new RiskRange(GeneralRisk.HEALTHY, range_min, range_max));
+		this.risk_ranges.add(new DoubleRiskRange(GeneralRisk.HEALTHY, range_min, range_max));
 	}
 	
 	public BasicHumanProperty(String propertyName, Integer defaultValue, String unit, Integer range_min, Integer range_max) {
-		this(propertyName, (double) defaultValue, unit, (double) range_min, (double) range_max);
+		this(propertyName, new Double(defaultValue.doubleValue()), unit, new Double(range_min.doubleValue()), new Double(range_max.doubleValue()));
 	}
 	
 	public BasicHumanProperty(String propertyName, Double defaultValue, String unit, Double range_min, Double range_max) {

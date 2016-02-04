@@ -17,6 +17,7 @@ import thestinkerbell.becominghuman.human.properties.compound.BMICompoundHumanPr
 import thestinkerbell.becominghuman.human.properties.compound.BloodPressureCompoundHumanProperty;
 import thestinkerbell.becominghuman.human.properties.compound.CompoundHumanProperty;
 import thestinkerbell.becominghuman.human.properties.compound.DoubleCompoundHumanProperty;
+import thestinkerbell.becominghuman.human.risks.Risk;
 
 public class Human {
 
@@ -76,5 +77,15 @@ public class Human {
 			property.setValue(value);
 		else
 			throw new Exception("No human property named "+name);
+	}
+
+	public List<Risk> getListOfCurrentRisks() {
+		List<Risk> risks = new ArrayList();
+		List<HumanProperty> all_properties = this.getListOfAllHumanProperties();
+		for(HumanProperty property : all_properties) {
+			Risk risk = property.getRisk();
+			risks.add(risk);
+		}
+		return risks;
 	}
 }

@@ -6,16 +6,20 @@ import static org.junit.Assert.assertTrue;
 
 import org.junit.Test;
 
+import thestinkerbell.becominghuman.human.conditions.AnalyseRisk;
 import thestinkerbell.becominghuman.human.properties.HumanProperty;
 import thestinkerbell.becominghuman.human.properties.HumanProperty.GeneralRisk;
+import thestinkerbell.becominghuman.human.properties.basic.AgeBasicHumanProperty.AgeRisk;
 import thestinkerbell.becominghuman.human.properties.basic.BasicHumanProperty;
+import thestinkerbell.becominghuman.human.risks.DoubleRiskRange;
+import thestinkerbell.becominghuman.human.risks.PairDoubleRiskRange;
 import thestinkerbell.becominghuman.human.risks.Risk;
 import thestinkerbell.becominghuman.human.risks.RiskRange;
 import thestinkerbell.becominghuman.utilities.Pair;
 
 public class RiskTest {
 	
-	private void assertRiskFactorBoundries(RiskRange range, Integer min, Integer max) {
+	private void assertRiskFactorBoundries(RiskRange range, Double min, Double max) {
 		assertFalse(range.contains(min-1));
 		assertTrue(range.contains(min));
 		assertTrue(range.contains(max/2));
@@ -31,14 +35,14 @@ public class RiskTest {
 	
 	@Test
 	public void canCheckIfValueIsContainedByRiskFactor() {
-		Integer min = 0;
-		Integer max = 100;
+		Double min = 0.0;
+		Double max = 100.0;
 		Risk risk = GeneralRisk.HEALTHY;
-		this.assertRiskFactorBoundries(new RiskRange(risk, min, max), min, max);
+		this.assertRiskFactorBoundries(new DoubleRiskRange(risk, min, max), min, max);
 	}
 	
 	@Test
-	public void canGetARiskFactorFromDefaultHumanProperty() {
+	public void canGetARiskFromDefaultHumanProperty() {
 		HumanProperty property = new BasicHumanProperty();
 		Risk risk = property.getRisk();
 		assertTrue(risk == GeneralRisk.HEALTHY);
@@ -48,7 +52,7 @@ public class RiskTest {
 	public void canCreateRiskRangesUsingDouble() {
 		Double min = 0.0;
 		Double max = 1.0;
-		RiskRange risk_range = new RiskRange(GeneralRisk.HEALTHY, min, max);
+		RiskRange risk_range = new DoubleRiskRange(GeneralRisk.HEALTHY, min, max);
 		assertTrue(risk_range.contains(0.0));
 	}
 	
@@ -58,9 +62,17 @@ public class RiskTest {
 		Pair<Double> max = new Pair<Double>(1.0, 1.0);
 		Pair<Double> shouldContain = new Pair<Double>(0.5, 0.5);
 		Pair<Double> shoulNotContain = new Pair<Double>(2.0, 2.0);
-		RiskRange risk_range = new RiskRange(GeneralRisk.HEALTHY, min, max);
+		RiskRange risk_range = new PairDoubleRiskRange(GeneralRisk.HEALTHY, min, max);
 		assertTrue(risk_range.contains(shouldContain));
 		assertFalse(risk_range.contains(shoulNotContain));
+	}
+	
+	@Test
+	public void risksCanBeCompared() {
+		AgeRisk age_risk1 = AgeRisk.AGE_ADOLESCENCE;
+		AgeRisk age_risk2 = AgeRisk.AGE_EARLYADULTHOOD;
+		
+		assertTrue(AnalyseRisk.greaterThan(age_risk1, age_risk2));
 	}
 	
 

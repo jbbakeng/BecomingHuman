@@ -5,20 +5,16 @@ import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import org.junit.Test;
 
 import io.netty.buffer.ByteBuf;
 import io.netty.buffer.Unpooled;
-import thestinkerbell.becominghuman.human.properties.HumanProperty;
-import thestinkerbell.becominghuman.human.properties.HumanProperty.GeneralRisk;
 import thestinkerbell.becominghuman.human.properties.basic.BasicHumanProperty;
 import thestinkerbell.becominghuman.human.properties.basic.HeightBasicHumanProperty;
 import thestinkerbell.becominghuman.human.properties.basic.WeightBasicHumanProperty;
 import thestinkerbell.becominghuman.human.properties.compound.BMICompoundHumanProperty;
 import thestinkerbell.becominghuman.human.properties.compound.CompoundHumanProperty;
+import thestinkerbell.becominghuman.human.properties.compound.DoubleCompoundHumanProperty;
 
 public class HumanPropertyTest {
 	
@@ -31,7 +27,7 @@ public class HumanPropertyTest {
 		return new HeightBasicHumanProperty();
 	}
 	
-	private CompoundHumanProperty getCompoundHumanProperty() {
+	private DoubleCompoundHumanProperty<WeightBasicHumanProperty, HeightBasicHumanProperty> getCompoundHumanProperty() {
 		return new BMICompoundHumanProperty(new WeightBasicHumanProperty(), new HeightBasicHumanProperty());
 	}
 	
@@ -68,7 +64,7 @@ public class HumanPropertyTest {
 	@Test
 	public void basicAndCompoundPropertiesAreNotTheSame() {
 		BasicHumanProperty basic1 = getBasicHumanProperty_1();
-		CompoundHumanProperty compound = getCompoundHumanProperty();
+		DoubleCompoundHumanProperty compound = getCompoundHumanProperty();
 		assertNotEquals(basic1, compound);
 	}
 
@@ -126,13 +122,13 @@ public class HumanPropertyTest {
 	
 	@Test
 	public void canCreateCompoundHumanProperty() {
-		CompoundHumanProperty compound = getCompoundHumanProperty();
+		DoubleCompoundHumanProperty compound = getCompoundHumanProperty();
 		assertNotNull(compound);
 	}
 	
 	@Test
 	public void canGetValueOfCompoundProperty() {
-		CompoundHumanProperty compound = getCompoundHumanProperty();
+		DoubleCompoundHumanProperty compound = getCompoundHumanProperty();
 		assertNotNull(compound.getValue());
 	}
 

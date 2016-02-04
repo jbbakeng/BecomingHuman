@@ -7,29 +7,9 @@ import thestinkerbell.becominghuman.human.risks.Risk;
 import thestinkerbell.becominghuman.human.risks.RiskRange;
 import thestinkerbell.becominghuman.utilities.Pair;
 
-public abstract class PairedCompoundHumanProperty<A, B> extends HumanProperty<Pair<Double>> {
+public abstract class PairedCompoundHumanProperty<A, B> extends CompoundHumanProperty<A, B, Pair<Double>> {
 
-	protected A propertyA;
-	protected B propertyB;
-	
-	public PairedCompoundHumanProperty(String name, Pair defaultValue, String unit, Pair range_min, Pair range_max) {
-		super(name, defaultValue, unit, range_min, range_max);
+	public PairedCompoundHumanProperty(String propertyName, Pair<Double> defaultValue, String unit, Pair<Double> range_min, Pair<Double> range_max) {
+		super(propertyName, defaultValue, unit, range_min, range_max);
 	}
-
-	@Override
-	public Pair<Double> getValue() {
-		return this.value;
-	}
-
-	@Override
-	final public void setValue(Pair<Double> value) {
-		//PairedCompoundHumanProperty calculates its value based on its BasicHumanProperty values
-		return;
-	}
-	
-	@Override
-	final public Risk getRisk() {
-		return RiskRange.getRisk(risk_ranges, this.value);
-	}
-
 }

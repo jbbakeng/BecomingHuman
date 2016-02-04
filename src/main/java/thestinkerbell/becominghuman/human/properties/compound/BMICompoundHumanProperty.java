@@ -9,7 +9,7 @@ import thestinkerbell.becominghuman.human.properties.basic.AgeBasicHumanProperty
 import thestinkerbell.becominghuman.human.risks.Risk;
 import thestinkerbell.becominghuman.human.risks.RiskRange;
 
-public class BMICompoundHumanProperty extends CompoundHumanProperty<WeightBasicHumanProperty, HeightBasicHumanProperty> {
+public class BMICompoundHumanProperty extends DoubleCompoundHumanProperty<WeightBasicHumanProperty, HeightBasicHumanProperty> {
 	
 	public BMICompoundHumanProperty(WeightBasicHumanProperty weight, HeightBasicHumanProperty height) {
 		super("BMI", 20.0, "kg/m^2", 0.0, 204.0);

@@ -1,4 +1,4 @@
-package thestinkerbell.becominghuman.human.Symptoms;
+package thestinkerbell.becominghuman.human.symptoms;
 
 import java.util.ArrayList;
 

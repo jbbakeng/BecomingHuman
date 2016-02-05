@@ -6,11 +6,11 @@ import static org.junit.Assert.assertTrue;
 
 import org.junit.Test;
 
-import thestinkerbell.becominghuman.human.Symptoms.Symptom;
-import thestinkerbell.becominghuman.human.Symptoms.Symptoms;
 import thestinkerbell.becominghuman.human.diseases.Disease;
 import thestinkerbell.becominghuman.human.diseases.HumanDisease;
 import thestinkerbell.becominghuman.human.diseases.HypertensionDisease;
+import thestinkerbell.becominghuman.human.symptoms.Symptom;
+import thestinkerbell.becominghuman.human.symptoms.Symptoms;
 
 public class DiseaseTest {
 	

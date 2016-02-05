@@ -1,6 +1,6 @@
 package thestinkerbell.becominghuman.human.diseases;
 
-import thestinkerbell.becominghuman.human.Symptoms.Symptoms;
+import thestinkerbell.becominghuman.human.symptoms.Symptoms;
 
 public interface Disease {
 	

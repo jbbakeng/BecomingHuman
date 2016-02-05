@@ -1,4 +1,4 @@
-package thestinkerbell.becominghuman.human.Symptoms;
+package thestinkerbell.becominghuman.human.symptoms;
 
 import net.minecraft.potion.Potion;
 import net.minecraft.potion.PotionEffect;

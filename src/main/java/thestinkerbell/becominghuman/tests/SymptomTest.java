@@ -6,8 +6,8 @@ import org.junit.Test;
 
 import net.minecraft.potion.Potion;
 import net.minecraft.potion.PotionEffect;
-import thestinkerbell.becominghuman.human.Symptoms.HumanSymptom;
-import thestinkerbell.becominghuman.human.Symptoms.Symptom;
+import thestinkerbell.becominghuman.human.symptoms.HumanSymptom;
+import thestinkerbell.becominghuman.human.symptoms.Symptom;
 
 public class SymptomTest {
 

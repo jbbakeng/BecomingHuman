@@ -1,7 +1,7 @@
 package thestinkerbell.becominghuman.human.diseases;
 
 import net.minecraft.potion.Potion;
-import thestinkerbell.becominghuman.human.Symptoms.HumanSymptom;
+import thestinkerbell.becominghuman.human.symptoms.HumanSymptom;
 import thestinkerbell.becominghuman.utilities.Utilities;
 
 final public class HypertensionDisease extends HumanDisease implements Disease {

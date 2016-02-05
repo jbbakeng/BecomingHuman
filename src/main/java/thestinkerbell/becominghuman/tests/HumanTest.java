@@ -20,6 +20,21 @@ public class HumanTest {
 	private final String BasicHumanPropertyName = "Age";
 	private final String CompoundHumanPropertyName = "BMI";
 
+	private Double tryToSetValue(Human human, String propertyname, Double newValue) {
+		Property oldProperty = human.getHumanPropertyWithName(propertyname);
+		Double oldValue = (Double)oldProperty.getValue();
+		assertNotNull(oldProperty);
+		assertTrue(newValue != oldProperty.getValue());
+		try {
+			human.setValue(propertyname, newValue);
+		} catch (Exception e) {
+			fail("SetValue in Human failed, property does not exist.");
+		}
+		return oldValue;
+	}
+	
+	//--- TESTS ---
+	
 	@Test
 	public void canCreateAHuman() {
 		Human human = new Human();
@@ -79,19 +94,6 @@ public class HumanTest {
 		Double oldValue = tryToSetValue(human, CompoundHumanPropertyName, 10.0);
 		Property newProperty = human.getHumanPropertyWithName(CompoundHumanPropertyName);
 		assertTrue(oldValue.doubleValue() == ((Double)newProperty.getValue()).doubleValue());
-	}
-
-	private Double tryToSetValue(Human human, String propertyname, Double newValue) {
-		Property oldProperty = human.getHumanPropertyWithName(propertyname);
-		Double oldValue = (Double)oldProperty.getValue();
-		assertNotNull(oldProperty);
-		assertTrue(newValue != oldProperty.getValue());
-		try {
-			human.setValue(propertyname, newValue);
-		} catch (Exception e) {
-			fail("SetValue in Human failed, property does not exist.");
-		}
-		return oldValue;
 	}
 	
 	@Test

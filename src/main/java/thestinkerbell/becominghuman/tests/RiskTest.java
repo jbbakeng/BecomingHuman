@@ -6,10 +6,8 @@ import static org.junit.Assert.assertTrue;
 
 import org.junit.Test;
 
-import thestinkerbell.becominghuman.human.conditions.AnalyseRisk;
 import thestinkerbell.becominghuman.human.properties.HumanProperty;
 import thestinkerbell.becominghuman.human.properties.HumanProperty.GeneralRisk;
-import thestinkerbell.becominghuman.human.properties.basic.AgeBasicHumanProperty.AgeRisk;
 import thestinkerbell.becominghuman.human.properties.basic.BasicHumanProperty;
 import thestinkerbell.becominghuman.human.risks.DoubleRiskRange;
 import thestinkerbell.becominghuman.human.risks.PairDoubleRiskRange;
@@ -66,14 +64,5 @@ public class RiskTest {
 		assertTrue(risk_range.contains(shouldContain));
 		assertFalse(risk_range.contains(shoulNotContain));
 	}
-	
-	@Test
-	public void risksCanBeCompared() {
-		AgeRisk age_risk1 = AgeRisk.AGE_ADOLESCENCE;
-		AgeRisk age_risk2 = AgeRisk.AGE_EARLYADULTHOOD;
-		
-		assertTrue(AnalyseRisk.greaterThan(age_risk1, age_risk2));
-	}
-	
 
 }

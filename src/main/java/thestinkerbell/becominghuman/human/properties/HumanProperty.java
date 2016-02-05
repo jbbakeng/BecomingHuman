@@ -7,7 +7,7 @@ import io.netty.buffer.ByteBuf;
 import thestinkerbell.becominghuman.human.risks.Risk;
 import thestinkerbell.becominghuman.human.risks.RiskRange;
 
-public abstract class HumanProperty<TYPE> {
+public abstract class HumanProperty<TYPE> implements Property<TYPE> {
 
 	public String name;
 	public String unit;
@@ -29,8 +29,13 @@ public abstract class HumanProperty<TYPE> {
 		this.range_max = range_max;
 	}
 
+	@Override
 	public abstract TYPE getValue();
+	
+	@Override
 	public abstract void setValue(TYPE value);
+	
+	@Override
 	public abstract Risk getRisk();
 	
 	//To be on the safe side, let the Eclipse IDE generate the equals and hashCode functions as a pair: Source > Generate hashCode() and equals()
@@ -84,27 +89,18 @@ public abstract class HumanProperty<TYPE> {
 			return false;
 		return true;
 	}
-
-	// === DEBUG ===
 	
-	public static void print(ByteBuf buf) {
-		for (int i = 0; i < buf.capacity(); i ++) {
-			 byte b = buf.getByte(i);
-			 System.out.println((char) b);
-		}
-	}
-	
-	public void print(String prefix) {
-		System.out.println(prefix+
-				"\n	HumanProperty: "+
+	@Override
+	public String toString() {
+		return  "\n	HumanProperty: "+
 				"\n 	name="+name+
-				",\n 	value="+this.getValue()+
+				",\n 	value="+getValue()+
 				",\n 	unit="+unit+
 				",\n 	range_min: "+range_min+
 				",\n 	range_max: "+range_max+
-				",\n 	risk class: "+this.getRisk().getClass().getName()+
-				",\n 	class name: "+this.getClass().getName()
-				);
+				",\n 	risk class: "+getRisk().getClass().getName()+
+				",\n 	class name: "+getClass().getName()
+				;
 	}
 
 }

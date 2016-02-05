@@ -5,6 +5,7 @@ import java.util.HashMap;
 import java.util.List;
 
 import thestinkerbell.becominghuman.human.properties.HumanProperty;
+import thestinkerbell.becominghuman.human.properties.Property;
 import thestinkerbell.becominghuman.human.properties.basic.AgeBasicHumanProperty;
 import thestinkerbell.becominghuman.human.properties.basic.BasicHumanProperty;
 import thestinkerbell.becominghuman.human.properties.basic.BodyTemperatureBasicHumanProperty;
@@ -82,7 +83,7 @@ public class Human {
 	public List<Risk> getListOfCurrentRisks() {
 		List<Risk> risks = new ArrayList();
 		List<HumanProperty> all_properties = this.getListOfAllHumanProperties();
-		for(HumanProperty property : all_properties) {
+		for(Property property : all_properties) {
 			Risk risk = property.getRisk();
 			risks.add(risk);
 		}

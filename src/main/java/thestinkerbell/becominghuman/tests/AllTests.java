@@ -13,7 +13,8 @@ import org.junit.runners.Suite.SuiteClasses;
 	RiskTest.class,
 	BasicItemTest.class,
 	PairTest.class,
-	ConditionTest.class
+	DiseaseTest.class,
+	SymptomTest.class
 	})
 public class AllTests {
 

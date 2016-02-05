@@ -10,6 +10,7 @@ import org.junit.Test;
 
 import thestinkerbell.becominghuman.human.Human;
 import thestinkerbell.becominghuman.human.properties.HumanProperty;
+import thestinkerbell.becominghuman.human.properties.Property;
 import thestinkerbell.becominghuman.human.properties.basic.BasicHumanProperty;
 import thestinkerbell.becominghuman.human.risks.Risk;
 
@@ -42,7 +43,7 @@ public class HumanTest {
 	public void canGetRiskFromAllHumanProperties() {
 		Human human = new Human();
 		List<HumanProperty> properties = human.getListOfAllHumanProperties();
-		for(HumanProperty property : properties) {
+		for(Property property : properties) {
 			Risk risk = property.getRisk();
 		}
 	}
@@ -57,7 +58,7 @@ public class HumanTest {
 	@Test
 	public void canGetAHumanProperty() {
 		Human human = new Human();
-		HumanProperty property = human.getHumanPropertyWithName(testPropertyName);
+		Property property = human.getHumanPropertyWithName(testPropertyName);
 		assertNotNull(property);
 	}
 	
@@ -65,7 +66,7 @@ public class HumanTest {
 	public void canUpdateAHumanProperty() {
 		Double newValue = 33.0;
 		Human human = new Human();
-		HumanProperty oldProperty = human.getHumanPropertyWithName(testPropertyName);
+		Property oldProperty = human.getHumanPropertyWithName(testPropertyName);
 		assertNotNull(oldProperty);
 		assertTrue(newValue != oldProperty.getValue());
 		try {
@@ -73,7 +74,7 @@ public class HumanTest {
 		} catch (Exception e) {
 			fail("SetValue in Human failed, property does not exist.");
 		}
-		HumanProperty newProperty = human.getHumanPropertyWithName(testPropertyName);
+		Property newProperty = human.getHumanPropertyWithName(testPropertyName);
 		assertTrue(newValue == newProperty.getValue());
 	}
 	
@@ -92,7 +93,7 @@ public class HumanTest {
 	public void canSerializeAndDeserializeAllHumanProperties() {
 		Human human = new Human();
 		List<BasicHumanProperty> list = human.getListOfBasicHumanProperties();
-		for(HumanProperty property: list) {
+		for(Property property: list) {
 			if(property instanceof BasicHumanProperty)
 				HumanPropertyTest.canSerializeAnDeserialize((BasicHumanProperty)property);
 		}

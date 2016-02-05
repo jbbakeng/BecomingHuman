@@ -1,17 +1,14 @@
 package thestinkerbell.becominghuman.items.debug;
 
-import java.util.List;
-
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
 import thestinkerbell.becominghuman.human.HumanExtendedEntityProperties;
-import thestinkerbell.becominghuman.human.properties.HumanProperty;
-import thestinkerbell.becominghuman.human.properties.basic.BasicHumanProperty;
+import thestinkerbell.becominghuman.human.properties.Properties;
 
 public class HumanPropertiesItem extends Item {
 	
-	protected List<BasicHumanProperty> basic_property_list;
-	protected List<HumanProperty> all_property_list;
+	protected Properties basic_property_list;
+	protected Properties all_property_list;
 	protected HumanPropertiesCycleItem cycle_item;
 
 	public HumanPropertiesItem() {

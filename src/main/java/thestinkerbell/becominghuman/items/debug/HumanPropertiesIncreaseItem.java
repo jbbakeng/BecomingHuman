@@ -21,14 +21,14 @@ public class HumanPropertiesIncreaseItem extends HumanPropertiesItem {
     }
 
 	private void increaseHumanPropertyValue(EntityPlayer player) {
-		BasicHumanProperty property = basic_property_list.get(this.getCyclingIndex());
+		BasicHumanProperty property = (BasicHumanProperty) basic_property_list.get(this.getCyclingIndex());
 		try {
-			HumanExtendedEntityProperties.get(player).human.setValue(property.name, property.getValue()+1);
+			HumanExtendedEntityProperties.get(player).human.setValue(property.getName(), property.getValue()+1);
 		} catch (Exception e) {
 			e.printStackTrace();
 			return;
 		}
-		player.addChatMessage(new ChatComponentText("+ "+property.name+": "+property.getValue()+" "+property.unit));
+		player.addChatMessage(new ChatComponentText("+ "+property.getName()+": "+property.getValue()+" "+property.getUnit()));
 	}
 	
 }

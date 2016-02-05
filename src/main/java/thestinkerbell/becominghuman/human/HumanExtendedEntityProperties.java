@@ -11,7 +11,8 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.world.World;
 import net.minecraftforge.common.IExtendedEntityProperties;
 import thestinkerbell.becominghuman.BecomingHuman;
-import thestinkerbell.becominghuman.human.properties.HumanProperty;
+import thestinkerbell.becominghuman.human.properties.Properties;
+import thestinkerbell.becominghuman.human.properties.Property;
 import thestinkerbell.becominghuman.human.properties.basic.BasicHumanProperty;
 import thestinkerbell.becominghuman.network.packets.PacketBasicHumanProperty;
 
@@ -44,9 +45,9 @@ public class HumanExtendedEntityProperties implements IExtendedEntityProperties 
      */
 	public void syncAll() {
 		if (this.isServerSide()) {
-			List<BasicHumanProperty> list = human.getListOfBasicHumanProperties();
-			for(BasicHumanProperty property : list) {
-	            this.sendToClient(property);
+			Properties list = human.getListOfBasicHumanProperties();
+			for(Property property : list) {
+	            this.sendToClient((BasicHumanProperty)property);
 	        }
 		} else {
 			return; //do nothing for client side, Packets will arrive from server.
@@ -75,7 +76,7 @@ public class HumanExtendedEntityProperties implements IExtendedEntityProperties 
     	}
     	else {
         	try {
-				this.human.setValue(property.name, property.getValue());
+				this.human.setValue(property.getName(), property.getValue());
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
@@ -90,11 +91,11 @@ public class HumanExtendedEntityProperties implements IExtendedEntityProperties 
 
 	@Override
 	public void saveNBTData(NBTTagCompound compound) {
-		List<BasicHumanProperty> list = human.getListOfBasicHumanProperties();
-		for(BasicHumanProperty property : list) {
+		Properties list = human.getListOfBasicHumanProperties();
+		for(Property property : list) {
 			ByteBuf buf = Unpooled.buffer();
-			BasicHumanProperty.serialize(property, buf);			
-			compound.setByteArray(property.name, buf.array());
+			BasicHumanProperty.serialize((BasicHumanProperty)property, buf);			
+			compound.setByteArray(property.getName(), buf.array());
         }
 	}
 
@@ -102,11 +103,11 @@ public class HumanExtendedEntityProperties implements IExtendedEntityProperties 
 	public void loadNBTData(NBTTagCompound compound) {
     	//This only happens on the server!!!
 		//This happens BEFORE the entity joins the world (on both server and client side)
-		List<BasicHumanProperty> list = human.getListOfBasicHumanProperties();
-		for(BasicHumanProperty property : list) {
+		Properties list = human.getListOfBasicHumanProperties();
+		for(Property property : list) {
 			ByteBuf buf = Unpooled.buffer();	
-			buf.writeBytes(compound.getByteArray(property.name));
-			BasicHumanProperty.deserialize(buf, property);
+			buf.writeBytes(compound.getByteArray(property.getName()));
+			BasicHumanProperty.deserialize(buf, (BasicHumanProperty)property);
         }
 	}
 

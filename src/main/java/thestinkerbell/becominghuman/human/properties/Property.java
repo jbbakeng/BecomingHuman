@@ -14,4 +14,8 @@ public interface Property<TYPE> {
 
 	boolean equals(Object obj);
 
+	String getName();
+
+	String getUnit();
+
 }

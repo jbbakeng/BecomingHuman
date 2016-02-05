@@ -5,6 +5,7 @@ import java.util.HashMap;
 import java.util.List;
 
 import thestinkerbell.becominghuman.human.properties.HumanProperty;
+import thestinkerbell.becominghuman.human.properties.Properties;
 import thestinkerbell.becominghuman.human.properties.Property;
 import thestinkerbell.becominghuman.human.properties.basic.AgeBasicHumanProperty;
 import thestinkerbell.becominghuman.human.properties.basic.BasicHumanProperty;
@@ -17,8 +18,8 @@ import thestinkerbell.becominghuman.human.properties.basic.WeightBasicHumanPrope
 import thestinkerbell.becominghuman.human.properties.compound.BMICompoundHumanProperty;
 import thestinkerbell.becominghuman.human.properties.compound.BloodPressureCompoundHumanProperty;
 import thestinkerbell.becominghuman.human.properties.compound.CompoundHumanProperty;
-import thestinkerbell.becominghuman.human.properties.compound.DoubleCompoundHumanProperty;
 import thestinkerbell.becominghuman.human.risks.Risk;
+import thestinkerbell.becominghuman.human.risks.Risks;
 
 public class Human {
 
@@ -31,12 +32,14 @@ public class Human {
 		this.addHumanProperties();
 	}
 	
-	public List<BasicHumanProperty> getListOfBasicHumanProperties() {
-		return new ArrayList<BasicHumanProperty>(basic_properties.values());
+	public Properties getListOfBasicHumanProperties() {
+		Properties list = new Properties();
+		list.addAll(basic_properties.values());
+		return list;
 	}
 	
-	public List<HumanProperty> getListOfAllHumanProperties() {
-		List<HumanProperty> list = new ArrayList<HumanProperty>();
+	public Properties getListOfAllHumanProperties() {
+		Properties list = new Properties();
 		list.addAll(basic_properties.values());
 		list.addAll(compound_properties.values());
 		return list;
@@ -65,11 +68,11 @@ public class Human {
 	}
 
 	static private void addHumanProperty(HashMap<String, BasicHumanProperty> properties, BasicHumanProperty humanProperty) {
-		properties.put(humanProperty.name, humanProperty);
+		properties.put(humanProperty.getName(), humanProperty);
 	}
 	
 	static private void addHumanProperty(HashMap<String, CompoundHumanProperty> properties, CompoundHumanProperty humanProperty) {
-		properties.put(humanProperty.name, humanProperty);
+		properties.put(humanProperty.getName(), humanProperty);
 	}
 
 	public void setValue(String name, Double value) throws Exception {
@@ -80,9 +83,9 @@ public class Human {
 			throw new Exception("No human property named "+name);
 	}
 
-	public List<Risk> getListOfCurrentRisks() {
-		List<Risk> risks = new ArrayList();
-		List<HumanProperty> all_properties = this.getListOfAllHumanProperties();
+	public Risks getListOfCurrentRisks() {
+		Risks risks = new Risks();
+		Properties all_properties = this.getListOfAllHumanProperties();
 		for(Property property : all_properties) {
 			Risk risk = property.getRisk();
 			risks.add(risk);

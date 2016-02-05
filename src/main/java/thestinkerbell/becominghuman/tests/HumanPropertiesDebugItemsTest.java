@@ -4,12 +4,12 @@ import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 
 import java.util.ArrayList;
-import java.util.List;
 
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
+import thestinkerbell.becominghuman.human.properties.Properties;
 import thestinkerbell.becominghuman.human.properties.basic.BasicHumanProperty;
 import thestinkerbell.becominghuman.items.debug.HumanPropertiesCycleItem;
 import thestinkerbell.becominghuman.items.debug.HumanPropertiesDecreaseItem;
@@ -19,7 +19,7 @@ import thestinkerbell.becominghuman.items.debug.HumanPropertiesOutputItem;
 public class HumanPropertiesDebugItemsTest {
 
 	Integer numberOfPropertiesToAdd = 3; //For some reason this number cannot be larger than 128
-	List<BasicHumanProperty> properties;
+	Properties basic_properties;
 	HumanPropertiesCycleItem cycle_item;
 	HumanPropertiesOutputItem output_item;
 	HumanPropertiesDecreaseItem decrease_item;
@@ -27,19 +27,19 @@ public class HumanPropertiesDebugItemsTest {
 	
 	
 	private void createDebugItems() {
-		properties = new ArrayList();
+		basic_properties = new Properties();
 		for(Integer i=0; i<numberOfPropertiesToAdd; ++i) {
-			properties.add(new BasicHumanProperty());			
+			basic_properties.add(new BasicHumanProperty());			
 		}
 		
-		cycle_item = new HumanPropertiesCycleItem(properties);
+		cycle_item = new HumanPropertiesCycleItem(basic_properties);
     	output_item = new HumanPropertiesOutputItem();
     	decrease_item = new HumanPropertiesDecreaseItem();
     	increase_item = new HumanPropertiesIncreaseItem();
 	}
 	
 	private void destroyDebugItems() {
-		properties.clear();
+		basic_properties.clear();
 		
 		cycle_item = null;
     	output_item = null;
@@ -51,7 +51,7 @@ public class HumanPropertiesDebugItemsTest {
 		Integer expected_index = output_item.getCyclingIndex();
 		this.assertCyclingIndex(expected_index);
 		cycle_item.cycleIndex();
-		expected_index = (expected_index + 1) % properties.size();
+		expected_index = (expected_index + 1) % basic_properties.size();
     	this.assertCyclingIndex(expected_index);
 	}
 
@@ -74,7 +74,7 @@ public class HumanPropertiesDebugItemsTest {
 	
 	@Test
 	public void createdItemsAreNotNull() {
-		assertTrue(properties.size() == numberOfPropertiesToAdd);
+		assertTrue(basic_properties.size() == numberOfPropertiesToAdd);
 		assertNotNull(cycle_item);
     	assertNotNull(output_item);
     	assertNotNull(decrease_item);
@@ -92,7 +92,7 @@ public class HumanPropertiesDebugItemsTest {
     	decrease_item.setCycleItem(cycle_item);
     	increase_item.setCycleItem(cycle_item);
     	    	
-    	Integer numberOfPropertiesPlusOne = properties.size()+1;
+    	Integer numberOfPropertiesPlusOne = basic_properties.size()+1;
     	for(Integer i = 0; i <= numberOfPropertiesPlusOne; i++ )
     	{
     		this.tryCycling();

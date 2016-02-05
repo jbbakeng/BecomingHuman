@@ -1,10 +1,11 @@
 package thestinkerbell.becominghuman.human.properties.compound;
 
 import thestinkerbell.becominghuman.human.properties.HumanProperty;
+import thestinkerbell.becominghuman.human.properties.Property;
 import thestinkerbell.becominghuman.human.risks.Risk;
 import thestinkerbell.becominghuman.human.risks.RiskRange;
 
-public abstract class CompoundHumanProperty<A, B, TYPE> extends HumanProperty<TYPE> {
+public abstract class CompoundHumanProperty<A, B, TYPE> extends HumanProperty<TYPE>{
 
 	protected A propertyA;
 	protected B propertyB;

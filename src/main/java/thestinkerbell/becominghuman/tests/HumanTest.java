@@ -9,10 +9,11 @@ import java.util.List;
 import org.junit.Test;
 
 import thestinkerbell.becominghuman.human.Human;
-import thestinkerbell.becominghuman.human.properties.HumanProperty;
+import thestinkerbell.becominghuman.human.properties.Properties;
 import thestinkerbell.becominghuman.human.properties.Property;
 import thestinkerbell.becominghuman.human.properties.basic.BasicHumanProperty;
 import thestinkerbell.becominghuman.human.risks.Risk;
+import thestinkerbell.becominghuman.human.risks.Risks;
 
 public class HumanTest {
 	
@@ -42,7 +43,7 @@ public class HumanTest {
 	@Test
 	public void canGetRiskFromAllHumanProperties() {
 		Human human = new Human();
-		List<HumanProperty> properties = human.getListOfAllHumanProperties();
+		Properties properties = human.getListOfAllHumanProperties();
 		for(Property property : properties) {
 			Risk risk = property.getRisk();
 		}
@@ -51,7 +52,7 @@ public class HumanTest {
 	@Test
 	public void canGetAListOfCurrentRisks() {
 		Human human = new Human();
-		List<Risk> risks = human.getListOfCurrentRisks();
+		Risks risks = human.getListOfCurrentRisks();
 		assertNotNull(risks);
 	}
 	
@@ -92,7 +93,7 @@ public class HumanTest {
 	@Test
 	public void canSerializeAndDeserializeAllHumanProperties() {
 		Human human = new Human();
-		List<BasicHumanProperty> list = human.getListOfBasicHumanProperties();
+		Properties list = human.getListOfBasicHumanProperties();
 		for(Property property: list) {
 			if(property instanceof BasicHumanProperty)
 				HumanPropertyTest.canSerializeAnDeserialize((BasicHumanProperty)property);

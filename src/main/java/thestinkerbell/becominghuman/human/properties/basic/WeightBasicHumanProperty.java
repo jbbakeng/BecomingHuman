@@ -3,7 +3,7 @@ package thestinkerbell.becominghuman.human.properties.basic;
 import thestinkerbell.becominghuman.human.risks.DoubleRiskRange;
 import thestinkerbell.becominghuman.human.risks.Risk;
 
-public class WeightBasicHumanProperty extends BasicHumanProperty {
+final public class WeightBasicHumanProperty extends BasicHumanProperty {
 	
 	public WeightBasicHumanProperty() {
 		super("Weight", 75, "kg", 0, 635);

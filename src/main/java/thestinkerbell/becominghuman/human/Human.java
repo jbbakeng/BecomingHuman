@@ -21,7 +21,7 @@ import thestinkerbell.becominghuman.human.properties.compound.CompoundHumanPrope
 import thestinkerbell.becominghuman.human.risks.Risk;
 import thestinkerbell.becominghuman.human.risks.Risks;
 
-public class Human {
+final public class Human {
 
 	private HashMap<String, BasicHumanProperty> basic_properties; //sync using packages
 	private HashMap<String, CompoundHumanProperty> compound_properties; //updates when its basic components updates
@@ -45,8 +45,11 @@ public class Human {
 		return list;
 	}
 	
-	public BasicHumanProperty getHumanPropertyWithName(String name) {
-		return basic_properties.get(name);
+	public Property getHumanPropertyWithName(String name) {
+		HashMap<String, Property> properties = new HashMap();
+		properties.putAll(basic_properties);
+		properties.putAll(compound_properties);
+		return properties.get(name);
 	}
 	
 	private void addHumanProperties() {
@@ -76,7 +79,7 @@ public class Human {
 	}
 
 	public void setValue(String name, Double value) throws Exception {
-		BasicHumanProperty property = getHumanPropertyWithName(name);
+		Property property = getHumanPropertyWithName(name);
 		if(property != null)
 			property.setValue(value);
 		else

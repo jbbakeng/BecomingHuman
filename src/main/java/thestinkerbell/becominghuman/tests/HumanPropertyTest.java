@@ -51,6 +51,10 @@ public class HumanPropertyTest {
 		assertNotNull(basic1);
 		BasicHumanProperty basic2 = getBasicHumanProperty_2();
 		assertNotNull(basic2);
+		
+		assertNotNull(basic1.getName());
+		assertNotNull(basic1.getUnit());
+		assertNotNull(basic1.toString());
 	}
 	
 	@Test
@@ -96,29 +100,9 @@ public class HumanPropertyTest {
 		this.canSerializeAnDeserialize(basic_1);
 	}
 	
-	/*
-	@Test
-	public void hasARange() {
-		HumanProperty property = getBasicHumanProperty_1();
-		assertNotNull(property.getValueRange());
-	}
-	*/
-
 	
 	// --- Compound
 	
-	/*
-	@Test
-	public void canCreateDefaultCompoundHumanProperty() {
-		CompoundHumanProperty compound = new CompoundHumanProperty();
-		assertNotNull(compound);
-		assertTrue(compound.getValue() == 0);
-		compound.setValue(100.0);
-		assertTrue(compound.getValue() == 0);
-		assertTrue(compound.getRisk() == GeneralRisk.HEALTHY);
-		//assertTrue(((Double)compound.getValueRange().lowerEndpoint() == 0.0));
-		//assertTrue(((Double) compound.getValueRange().upperEndpoint() == 1.0));
-	}*/
 	
 	@Test
 	public void canCreateCompoundHumanProperty() {

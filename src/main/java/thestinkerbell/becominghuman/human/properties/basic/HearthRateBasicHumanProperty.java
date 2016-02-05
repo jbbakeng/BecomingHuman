@@ -3,7 +3,7 @@ package thestinkerbell.becominghuman.human.properties.basic;
 import thestinkerbell.becominghuman.human.risks.DoubleRiskRange;
 import thestinkerbell.becominghuman.human.risks.Risk;
 
-public class HearthRateBasicHumanProperty extends BasicHumanProperty {
+final public class HearthRateBasicHumanProperty extends BasicHumanProperty {
 	
 	public HearthRateBasicHumanProperty() {
 		super("Heart Rate", 70, "bpm", 0, 220);

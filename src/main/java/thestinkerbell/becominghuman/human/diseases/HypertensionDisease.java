@@ -4,7 +4,7 @@ import net.minecraft.potion.Potion;
 import thestinkerbell.becominghuman.human.Symptoms.HumanSymptom;
 import thestinkerbell.becominghuman.utilities.Utilities;
 
-public class HypertensionDisease extends HumanDisease implements Disease {
+final public class HypertensionDisease extends HumanDisease implements Disease {
 
 	public HypertensionDisease() {
 		super("Hypertension");

@@ -9,10 +9,10 @@ import thestinkerbell.becominghuman.human.risks.RiskRange;
 
 public abstract class HumanProperty<TYPE> implements Property<TYPE> {
 
-	final public List<RiskRange> risk_ranges = new ArrayList<RiskRange>();
-
 	protected String name;
 	protected String unit;
+
+	final protected List<RiskRange> risk_ranges = new ArrayList<RiskRange>();
 
 	protected TYPE value;
 	protected TYPE range_min;

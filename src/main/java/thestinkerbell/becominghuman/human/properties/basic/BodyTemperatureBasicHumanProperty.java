@@ -3,7 +3,7 @@ package thestinkerbell.becominghuman.human.properties.basic;
 import thestinkerbell.becominghuman.human.risks.DoubleRiskRange;
 import thestinkerbell.becominghuman.human.risks.Risk;
 
-public class BodyTemperatureBasicHumanProperty extends BasicHumanProperty {
+final public class BodyTemperatureBasicHumanProperty extends BasicHumanProperty {
 
 	public BodyTemperatureBasicHumanProperty() {
 		super("Body Temperatur", 37, "celcius", -273, 980);

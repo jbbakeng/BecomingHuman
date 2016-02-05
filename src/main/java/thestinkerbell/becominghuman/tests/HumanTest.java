@@ -17,7 +17,8 @@ import thestinkerbell.becominghuman.human.risks.Risks;
 
 public class HumanTest {
 	
-	private final String testPropertyName = "Age";
+	private final String BasicHumanPropertyName = "Age";
+	private final String CompoundHumanPropertyName = "BMI";
 
 	@Test
 	public void canCreateAHuman() {
@@ -59,24 +60,38 @@ public class HumanTest {
 	@Test
 	public void canGetAHumanProperty() {
 		Human human = new Human();
-		Property property = human.getHumanPropertyWithName(testPropertyName);
+		Property property = human.getHumanPropertyWithName(BasicHumanPropertyName);
 		assertNotNull(property);
 	}
 	
 	@Test
-	public void canUpdateAHumanProperty() {
-		Double newValue = 33.0;
+	public void canSetValueOnABasicHumanProperty() {		
 		Human human = new Human();
-		Property oldProperty = human.getHumanPropertyWithName(testPropertyName);
+		Double newValue = 10.0;
+		Double oldValue = tryToSetValue(human, BasicHumanPropertyName, newValue);
+		Property newProperty = human.getHumanPropertyWithName(BasicHumanPropertyName);
+		assertTrue(newValue.doubleValue() == ((Double)newProperty.getValue()).doubleValue());
+	}
+	
+	@Test
+	public void canNotSetValueOnACompoundHumanProperty() {		
+		Human human = new Human();
+		Double oldValue = tryToSetValue(human, CompoundHumanPropertyName, 10.0);
+		Property newProperty = human.getHumanPropertyWithName(CompoundHumanPropertyName);
+		assertTrue(oldValue.doubleValue() == ((Double)newProperty.getValue()).doubleValue());
+	}
+
+	private Double tryToSetValue(Human human, String propertyname, Double newValue) {
+		Property oldProperty = human.getHumanPropertyWithName(propertyname);
+		Double oldValue = (Double)oldProperty.getValue();
 		assertNotNull(oldProperty);
 		assertTrue(newValue != oldProperty.getValue());
 		try {
-			human.setValue(testPropertyName, newValue);
+			human.setValue(propertyname, newValue);
 		} catch (Exception e) {
 			fail("SetValue in Human failed, property does not exist.");
 		}
-		Property newProperty = human.getHumanPropertyWithName(testPropertyName);
-		assertTrue(newValue == newProperty.getValue());
+		return oldValue;
 	}
 	
 	@Test

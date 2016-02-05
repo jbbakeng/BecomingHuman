@@ -3,7 +3,7 @@ package thestinkerbell.becominghuman.human.properties.basic;
 import thestinkerbell.becominghuman.human.risks.DoubleRiskRange;
 import thestinkerbell.becominghuman.human.risks.Risk;
 
-public class SystolicBloodPressureBasicHumanProperty extends BasicHumanProperty{
+final public class SystolicBloodPressureBasicHumanProperty extends BasicHumanProperty{
 
 	public SystolicBloodPressureBasicHumanProperty() {
 		super("Systolic Blood Pressure", 105, "mmHg", 0, 340);

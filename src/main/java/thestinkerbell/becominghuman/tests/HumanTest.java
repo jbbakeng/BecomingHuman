@@ -4,14 +4,15 @@ import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 
-import java.util.List;
-
 import org.junit.Test;
 
 import thestinkerbell.becominghuman.human.Human;
+import thestinkerbell.becominghuman.human.diseases.Diseases;
+import thestinkerbell.becominghuman.human.diseases.HypertensionDisease;
 import thestinkerbell.becominghuman.human.properties.Properties;
 import thestinkerbell.becominghuman.human.properties.Property;
 import thestinkerbell.becominghuman.human.properties.basic.BasicHumanProperty;
+import thestinkerbell.becominghuman.human.properties.compound.BloodPressureCompoundHumanProperty.BloodPressureRisk;
 import thestinkerbell.becominghuman.human.risks.Risk;
 import thestinkerbell.becominghuman.human.risks.Risks;
 
@@ -115,6 +116,33 @@ public class HumanTest {
 			if(property instanceof BasicHumanProperty)
 				HumanPropertyTest.canSerializeAnDeserialize((BasicHumanProperty)property);
 		}
+	}
+
+	@Test
+	public void aHumanCanTick() {
+		Human human = new Human();
+		human.tick();
+	}
+	
+	@Test
+	public void tickWithHightBloodPressureCausesHypertension() {
+		Human human = new Human();
+		try {
+			human.setValue("Systolic Blood Pressure", 145.0);
+			human.setValue("Diastolic Blood Pressure", 98.0);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		Risks risks = human.getListOfCurrentRisks();
+		assertNotNull(risks);
+		System.out.println(risks);
+		assertTrue(risks.contains(BloodPressureRisk.BP_STAGE1HYPERTENSION));
+		
+		Diseases diseases = human.getListOfDiseases();
+		assertNotNull(diseases);
+		System.out.println(diseases);
+		assertTrue(diseases.contains(new HypertensionDisease()));
 	}
 
 }

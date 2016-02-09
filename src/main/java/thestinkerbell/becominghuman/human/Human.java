@@ -1,10 +1,9 @@
 package thestinkerbell.becominghuman.human;
 
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 
-import thestinkerbell.becominghuman.human.properties.HumanProperty;
+import thestinkerbell.becominghuman.human.diseases.Diseases;
+import thestinkerbell.becominghuman.human.diseases.HypertensionDisease;
 import thestinkerbell.becominghuman.human.properties.Properties;
 import thestinkerbell.becominghuman.human.properties.Property;
 import thestinkerbell.becominghuman.human.properties.basic.AgeBasicHumanProperty;
@@ -94,5 +93,35 @@ final public class Human {
 			risks.add(risk);
 		}
 		return risks;
+	}
+
+	public void tick() {
+		//this.environmentInfluenceHuman();
+		//this.influencesAffectProperties();
+		this.propertiesGenerateRisks();
+		this.risksCauseDiseases();
+		this.diseasesCauseSymptoms();
+		//this.humanInfluenceEnvironment();
+	}
+
+	private void diseasesCauseSymptoms() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	private void risksCauseDiseases() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	private void propertiesGenerateRisks() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	public Diseases getListOfDiseases() {
+		Diseases diseases = new Diseases();
+		diseases.add(new HypertensionDisease());
+		return diseases;
 	}
 }

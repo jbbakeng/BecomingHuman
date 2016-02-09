@@ -20,14 +20,14 @@ public abstract class CompoundHumanProperty<A, B, TYPE> extends HumanProperty<TY
 	}
 
 	@Override
-	public final void setValue(TYPE value) {
+	final public void setValue(TYPE value) {
 		//CompoundHumanProperty calculates its value based on its BasicHumanProperty values
 		return;
 	}
 
 	@Override
-	public final Risk getRisk() {
-		return RiskRange.getRisk(risk_ranges, this.value);
+	final public Risk getRisk() {
+		return RiskRange.getRisk(risk_ranges, this.getValue());
 	}
 
 }

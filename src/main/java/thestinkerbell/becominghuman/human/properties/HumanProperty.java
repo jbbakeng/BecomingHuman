@@ -19,7 +19,7 @@ public abstract class HumanProperty<TYPE> implements Property<TYPE> {
 	protected TYPE range_max;
 
 	public enum GeneralRisk implements Risk {
-		HEALTHY
+		HEALTHY, UNDEFINED
 	}
 	
 	public HumanProperty(String propertyName, TYPE defaultValue, String unit, TYPE range_min, TYPE range_max) {

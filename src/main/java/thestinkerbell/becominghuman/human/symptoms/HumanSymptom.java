@@ -22,5 +22,10 @@ public class HumanSymptom implements Symptom {
 	public PotionEffect getEffect() {
 		return new PotionEffect(potion_id, duration);
 	}
+	
+	@Override
+	public String toString() {
+		return "SYMPTOM: potion_id="+this.potion_id+", duration="+this.duration;
+	}
 
 }

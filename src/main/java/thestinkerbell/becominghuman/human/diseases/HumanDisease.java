@@ -29,5 +29,12 @@ public class HumanDisease implements Disease {
 	final public Boolean hasSymptoms() {
 		return !symptoms.isEmpty();
 	}
+	
+	@Override
+	public String toString() {
+		return "\n	DISEASE: "
+			 + "\n	name="+this.getName()+", "
+	 		 + "\n	symptoms="+this.getSymptoms();
+	}
 
 }

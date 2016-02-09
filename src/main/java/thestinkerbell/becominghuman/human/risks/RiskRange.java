@@ -2,6 +2,8 @@ package thestinkerbell.becominghuman.human.risks;
 
 import java.util.List;
 
+import thestinkerbell.becominghuman.human.properties.HumanProperty.GeneralRisk;
+
 public abstract class RiskRange<TYPE> {
 	
 	public Risk risk;
@@ -17,6 +19,8 @@ public abstract class RiskRange<TYPE> {
 				break;
 			}
 		}
+		if(risk == null)
+			risk = GeneralRisk.UNDEFINED;
 		return risk;
 	}
 

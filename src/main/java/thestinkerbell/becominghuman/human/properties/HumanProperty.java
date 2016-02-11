@@ -37,7 +37,7 @@ public abstract class HumanProperty<TYPE> implements Property<TYPE> {
 	
 	@Override
 	final public String getUnit() {
-		return this.name;
+		return this.unit;
 	}
 
 	@Override

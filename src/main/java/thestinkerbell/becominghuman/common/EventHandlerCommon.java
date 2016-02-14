@@ -4,6 +4,7 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraftforge.event.entity.EntityEvent.EntityConstructing;
 import net.minecraftforge.event.entity.EntityJoinWorldEvent;
+import net.minecraftforge.event.entity.living.LivingEvent.LivingUpdateEvent;
 import net.minecraftforge.event.entity.player.PlayerEvent;
 import net.minecraftforge.event.entity.player.PlayerUseItemEvent;
 import net.minecraftforge.fml.common.eventhandler.EventPriority;
@@ -37,5 +38,12 @@ public class EventHandlerCommon {
 	    NBTTagCompound nbt = new NBTTagCompound();
 	    HumanExtendedEntityProperties.get(e.original).saveReviveRelevantNBTData(nbt, e.wasDeath);
 	    HumanExtendedEntityProperties.get(e.entityPlayer).loadNBTData(nbt);
+	}
+	
+	@SubscribeEvent
+	public void onLivingUpdate(LivingUpdateEvent e) {
+		if (e.entity instanceof EntityPlayer) {
+			HumanExtendedEntityProperties.get((EntityPlayer) e.entity).applyPotionEffectsFromSymptoms();
+		}
 	}
 }

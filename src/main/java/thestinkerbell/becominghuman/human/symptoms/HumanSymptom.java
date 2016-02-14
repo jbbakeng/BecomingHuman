@@ -28,4 +28,29 @@ public class HumanSymptom implements Symptom {
 		return "SYMPTOM: potion_id="+this.potion_id+", duration="+this.duration;
 	}
 
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + duration;
+		result = prime * result + potion_id;
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (!(obj instanceof HumanSymptom))
+			return false;
+		HumanSymptom other = (HumanSymptom) obj;
+		if (duration != other.duration)
+			return false;
+		if (potion_id != other.potion_id)
+			return false;
+		return true;
+	}
+
 }

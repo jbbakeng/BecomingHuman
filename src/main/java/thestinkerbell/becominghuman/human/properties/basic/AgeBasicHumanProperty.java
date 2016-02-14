@@ -28,6 +28,6 @@ final public class AgeBasicHumanProperty extends BasicHumanProperty {
 		AGE_EARLYADULTHOOD, //21-35
 		AGE_MIDLIFE, //36-50
 		AGE_MATUREADULTHOOD, //50-80
-		AGE_LATEADULTHOOD, //80+
+		AGE_LATEADULTHOOD //80+
 	};
 }

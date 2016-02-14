@@ -1,19 +1,22 @@
 package thestinkerbell.becominghuman.human;
 
-import java.util.List;
-
 import io.netty.buffer.ByteBuf;
 import io.netty.buffer.Unpooled;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.potion.PotionEffect;
 import net.minecraft.world.World;
 import net.minecraftforge.common.IExtendedEntityProperties;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 import thestinkerbell.becominghuman.BecomingHuman;
 import thestinkerbell.becominghuman.human.properties.Properties;
 import thestinkerbell.becominghuman.human.properties.Property;
 import thestinkerbell.becominghuman.human.properties.basic.BasicHumanProperty;
+import thestinkerbell.becominghuman.human.symptoms.Symptom;
+import thestinkerbell.becominghuman.human.symptoms.Symptoms;
 import thestinkerbell.becominghuman.network.packets.PacketBasicHumanProperty;
 
 
@@ -58,6 +61,7 @@ public class HumanExtendedEntityProperties implements IExtendedEntityProperties 
      * Should only be called on SERVER side!
      * @param property The property to be sent to the client
      */
+	//@SideOnly(Side.SERVER)
 	public void sendToClient(BasicHumanProperty property) {
     	//we are on the server side, we want to send human property information to correct players client
     	PacketBasicHumanProperty msg = new PacketBasicHumanProperty(property);
@@ -69,6 +73,7 @@ public class HumanExtendedEntityProperties implements IExtendedEntityProperties 
      * Should only be called on CLIENT side!
      * @param property The property that should be set on the client
      */
+	//@SideOnly(Side.CLIENT)
     public void set(BasicHumanProperty property) {
     	if (this.isServerSide()) {
     		System.err.println("DO NOT CALL THIS FROM SERVER SIDE!");
@@ -83,6 +88,14 @@ public class HumanExtendedEntityProperties implements IExtendedEntityProperties 
         }
     }
     
+    public void applyPotionEffectsFromSymptoms() {
+		Symptoms symptoms = human.getListOfAllSymptoms();
+		for(Symptom symptom : symptoms) {
+			PotionEffect effect = symptom.getEffect();
+			//TODO on client or server side???
+			player.addPotionEffect(effect);
+		}
+    }
     
     public void saveReviveRelevantNBTData(NBTTagCompound nbt, boolean wasDeath) {
         if (!wasDeath)

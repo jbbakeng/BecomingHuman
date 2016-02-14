@@ -15,6 +15,7 @@ import thestinkerbell.becominghuman.human.properties.basic.BasicHumanProperty;
 import thestinkerbell.becominghuman.human.properties.compound.BloodPressureCompoundHumanProperty.BloodPressureRisk;
 import thestinkerbell.becominghuman.human.risks.Risk;
 import thestinkerbell.becominghuman.human.risks.Risks;
+import thestinkerbell.becominghuman.human.symptoms.Symptoms;
 
 public class HumanTest {
 	
@@ -32,6 +33,15 @@ public class HumanTest {
 			fail("SetValue in Human failed, property does not exist.");
 		}
 		return oldValue;
+	}
+	
+	private void createBPStage1Hypertension(Human human) {
+		try {
+			human.setValue("Systolic Blood Pressure", 145.0);
+			human.setValue("Diastolic Blood Pressure", 98.0);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
 	
 	//--- TESTS ---
@@ -125,24 +135,24 @@ public class HumanTest {
 	}
 	
 	@Test
-	public void tickWithHightBloodPressureCausesHypertension() {
+	public void riskStage1HypertensionCausesDiseaseHypertension() {
 		Human human = new Human();
-		try {
-			human.setValue("Systolic Blood Pressure", 145.0);
-			human.setValue("Diastolic Blood Pressure", 98.0);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
+		createBPStage1Hypertension(human);
 		
 		Risks risks = human.getListOfCurrentRisks();
 		assertNotNull(risks);
-		System.out.println(risks);
 		assertTrue(risks.contains(BloodPressureRisk.BP_STAGE1HYPERTENSION));
 		
 		Diseases diseases = human.getListOfDiseases();
 		assertNotNull(diseases);
-		System.out.println(diseases);
 		assertTrue(diseases.contains(new HypertensionDisease()));
+	}
+	
+	@Test
+	public void getAllSymptoms() {
+		Human human = new Human();
+		Symptoms all_symptoms = human.getListOfAllSymptoms();
+		assertNotNull(all_symptoms);
 	}
 
 }

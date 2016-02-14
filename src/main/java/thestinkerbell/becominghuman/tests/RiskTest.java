@@ -8,11 +8,15 @@ import org.junit.Test;
 
 import thestinkerbell.becominghuman.human.properties.HumanProperty;
 import thestinkerbell.becominghuman.human.properties.HumanProperty.GeneralRisk;
+import thestinkerbell.becominghuman.human.properties.basic.AgeBasicHumanProperty.AgeRisk;
 import thestinkerbell.becominghuman.human.properties.basic.BasicHumanProperty;
+import thestinkerbell.becominghuman.human.properties.compound.BMICompoundHumanProperty.BMIRisk;
 import thestinkerbell.becominghuman.human.risks.DoubleRiskRange;
 import thestinkerbell.becominghuman.human.risks.PairDoubleRiskRange;
 import thestinkerbell.becominghuman.human.risks.Risk;
+import thestinkerbell.becominghuman.human.risks.RiskComparator;
 import thestinkerbell.becominghuman.human.risks.RiskRange;
+import thestinkerbell.becominghuman.human.risks.Risks;
 import thestinkerbell.becominghuman.utilities.Pair;
 
 public class RiskTest {
@@ -63,6 +67,61 @@ public class RiskTest {
 		RiskRange risk_range = new PairDoubleRiskRange(GeneralRisk.HEALTHY, min, max);
 		assertTrue(risk_range.contains(shouldContain));
 		assertFalse(risk_range.contains(shoulNotContain));
+	}
+	
+	@Test
+	public void canCheckIfRisksContainsOtherRisks() {
+		Risks risks1 = new Risks();
+		Risks risks2 = new Risks();
+		for(Risk risk : risks1) {
+			assertTrue(risks2.contains(risk));
+		}	
+	}
+	
+	@Test
+	public void canCompareRisks() {
+		Risk risk1 = AgeRisk.AGE_INFANCY;
+		Risk risk2 = AgeRisk.AGE_EARLYCHILDHOOD;
+		
+		assertTrue(new RiskComparator().compare(risk1, risk2) == -1);
+		assertFalse(new RiskComparator().compare(risk1, risk2) >= 0);
+	}
+	
+	@Test
+	public void riskHasOrdinal() {
+		Risk risk = GeneralRisk.HEALTHY;
+		assertTrue(risk.ordinal() == 0);
+	}
+	
+	@Test
+	public void canGetSubsetOfRisksOfTheSameType() {
+		Risk risk1 = AgeRisk.AGE_INFANCY;
+		Risk risk2 = AgeRisk.AGE_EARLYCHILDHOOD;
+		Risk risk3 = GeneralRisk.HEALTHY;
+		Risk risk4 = BMIRisk.BMI_MODERATELYOVERWEIGHT;
+		Risks risks = new Risks();
+		risks.add(risk1);
+		risks.add(risk2);
+		risks.add(risk3);
+		risks.add(risk4);
+		
+		Risks same_type_risks = risks.getSubsetOfRisksOfTheSameType(risk1);
+		assertTrue(same_type_risks.size() == 2);
+	}
+	
+	@Test
+	public void canCheckIfRiskThatIsSmallerOrEqualIsInRisks() {
+		Risk risk1 = AgeRisk.AGE_INFANCY;
+		Risk risk2 = AgeRisk.AGE_EARLYCHILDHOOD;
+		Risk risk3 = GeneralRisk.HEALTHY;
+		Risk risk4 = BMIRisk.BMI_MODERATELYOVERWEIGHT;
+		Risks risks = new Risks();
+		risks.add(risk1);
+		risks.add(risk2);
+		risks.add(risk3);
+		risks.add(risk4);
+		
+		assertTrue(risks.isSmallerOrEqualRiskPresentThan(AgeRisk.AGE_MIDLIFE));
 	}
 
 }

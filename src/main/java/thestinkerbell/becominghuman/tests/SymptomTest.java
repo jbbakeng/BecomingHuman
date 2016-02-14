@@ -28,4 +28,10 @@ public class SymptomTest {
 		assertTrue(symptom.hasEffects());
 	}
 
+	@Test
+	public void twoSymptomsOfTheSameClassAreTheSame() {
+		Symptom symptom1 = getSymptom();
+		Symptom symptom2 = getSymptom();
+		assertTrue(symptom1.equals(symptom2));
+	}
 }

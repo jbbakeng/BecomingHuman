@@ -12,10 +12,10 @@ final public class AllKnownDiseases {
 
 	public Diseases identifyDiseasesBasedOnRisks(Risks risks_present_in_human) {
 		Diseases matching_diseases = new Diseases();
-		for(Disease disease : all_known_diseases) {
-			boolean all_risks_for_disease_are_present = HumanDisease.risksMeetsRequirementsForDisease(risks_present_in_human, disease);
+		for(Disease known_disease : all_known_diseases) {
+			boolean all_risks_for_disease_are_present = HumanDisease.risksMeetsRequirementsForDisease(risks_present_in_human, known_disease);
 			if(all_risks_for_disease_are_present) {
-				matching_diseases.add(disease);
+				matching_diseases.add(known_disease);
 			}
 		}
 		return matching_diseases;

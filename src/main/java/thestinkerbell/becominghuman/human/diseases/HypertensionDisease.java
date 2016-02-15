@@ -11,7 +11,7 @@ final public class HypertensionDisease extends HumanDisease implements Disease {
 	public HypertensionDisease() {
 		super("Hypertension");
 		this.assosiated_minimum_risks.add(BloodPressureRisk.BP_STAGE1HYPERTENSION);
-		this.symptoms.add(new HumanSymptom(Potion.blindness.id, Utilities.seconds_to_ticks(60)));
+		this.symptoms.add(new HumanSymptom(Potion.blindness.id, Utilities.seconds_to_ticks(3)));
 	}
 
 }

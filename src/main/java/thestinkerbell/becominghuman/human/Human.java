@@ -2,6 +2,7 @@ package thestinkerbell.becominghuman.human;
 
 import java.util.HashMap;
 
+import thestinkerbell.becominghuman.human.diseases.AllKnownDiseases;
 import thestinkerbell.becominghuman.human.diseases.Disease;
 import thestinkerbell.becominghuman.human.diseases.Diseases;
 import thestinkerbell.becominghuman.human.diseases.HypertensionDisease;
@@ -24,6 +25,8 @@ import thestinkerbell.becominghuman.human.symptoms.Symptoms;
 
 final public class Human {
 
+	final private AllKnownDiseases akd = new AllKnownDiseases(); 
+	
 	private HashMap<String, BasicHumanProperty> basic_properties; //sync using packages
 	private HashMap<String, CompoundHumanProperty> compound_properties; //updates when its basic components updates
 	
@@ -87,7 +90,7 @@ final public class Human {
 			throw new Exception("No human property named "+name);
 	}
 
-	public Risks getListOfCurrentRisks() {
+	public Risks getCurrentRisks() {
 		Risks risks = new Risks();
 		Properties all_properties = this.getListOfAllHumanProperties();
 		for(Property property : all_properties) {
@@ -97,42 +100,22 @@ final public class Human {
 		return risks;
 	}
 	
-	public Diseases getListOfDiseases() {
-		Diseases diseases = new Diseases();
-		diseases.add(new HypertensionDisease());
+	public Diseases getCurrentDiseases() {
+		Risks risks = getCurrentRisks();
+		Diseases diseases = akd.identifyDiseasesBasedOnRisks(risks);
 		return diseases;
 	}
 
 	public Symptoms getListOfAllSymptoms() {
 		Symptoms allSymptoms = new Symptoms();
-		Diseases diseases = getListOfDiseases();
+		Diseases diseases = getCurrentDiseases();
+		if(!diseases.isEmpty()) {
+			System.out.print("Found disease in human: "+diseases);
+		}
+		
 		for(Disease disease : diseases) {
 			allSymptoms.addAll(disease.getSymptoms());
 		}
 		return allSymptoms;
-	}
-
-	public void tick() {
-		//this.environmentInfluenceHuman();
-		//this.influencesAffectProperties();
-		this.propertiesGenerateRisks();
-		this.risksCauseDiseases();
-		this.diseasesCauseSymptoms();
-		//this.humanInfluenceEnvironment();
-	}
-
-	private void diseasesCauseSymptoms() {
-		// TODO Auto-generated method stub
-		
-	}
-
-	private void risksCauseDiseases() {
-		// TODO Auto-generated method stub
-		
-	}
-
-	private void propertiesGenerateRisks() {
-		// TODO Auto-generated method stub
-		
 	}
 }

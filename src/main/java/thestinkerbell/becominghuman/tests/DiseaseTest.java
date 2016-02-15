@@ -83,6 +83,7 @@ public class DiseaseTest {
 		
 		Diseases diseases = akd.identifyDiseasesBasedOnRisks(risks);
 		assertNotNull(diseases);
+
 		assertTrue(diseases.contains(new HypertensionDisease()));
 	}
 	

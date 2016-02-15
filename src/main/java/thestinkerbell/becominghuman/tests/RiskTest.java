@@ -4,6 +4,9 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.junit.Test;
 
 import thestinkerbell.becominghuman.human.properties.HumanProperty;
@@ -11,6 +14,7 @@ import thestinkerbell.becominghuman.human.properties.HumanProperty.GeneralRisk;
 import thestinkerbell.becominghuman.human.properties.basic.AgeBasicHumanProperty.AgeRisk;
 import thestinkerbell.becominghuman.human.properties.basic.BasicHumanProperty;
 import thestinkerbell.becominghuman.human.properties.compound.BMICompoundHumanProperty.BMIRisk;
+import thestinkerbell.becominghuman.human.properties.compound.BloodPressureCompoundHumanProperty.BloodPressureRisk;
 import thestinkerbell.becominghuman.human.risks.DoubleRiskRange;
 import thestinkerbell.becominghuman.human.risks.PairDoubleRiskRange;
 import thestinkerbell.becominghuman.human.risks.Risk;
@@ -110,7 +114,7 @@ public class RiskTest {
 	}
 	
 	@Test
-	public void canCheckIfRiskThatIsSmallerOrEqualIsInRisks() {
+	public void canCheckIsGreaterThanOrEqual() {
 		Risk risk1 = AgeRisk.AGE_INFANCY;
 		Risk risk2 = AgeRisk.AGE_EARLYCHILDHOOD;
 		Risk risk3 = GeneralRisk.HEALTHY;
@@ -120,8 +124,33 @@ public class RiskTest {
 		risks.add(risk2);
 		risks.add(risk3);
 		risks.add(risk4);
+
+		assertFalse(risks.containsGreaterThanOrEqual(AgeRisk.AGE_MIDLIFE));
+	}
+	
+	@Test
+	public void canCheckRiskRanges() {
+		List<RiskRange> risk_ranges = new ArrayList<RiskRange>();
+		risk_ranges.add(new PairDoubleRiskRange(BloodPressureRisk.BP_HYPOTENSION, new Pair(0.0, 0.0), new Pair(90.0, 60.0)));
+		risk_ranges.add(new PairDoubleRiskRange(BloodPressureRisk.BP_DESIRED, new Pair(91.0, 61.0), new Pair(119.0, 79.0)));
+		risk_ranges.add(new PairDoubleRiskRange(BloodPressureRisk.BP_PREHYPERTENSION, new Pair(120.0, 80.0), new Pair(139.0, 89.0)));
+		risk_ranges.add(new PairDoubleRiskRange(BloodPressureRisk.BP_STAGE1HYPERTENSION, new Pair(140.0, 90.0), new Pair(159.0, 99.0)));
+		risk_ranges.add(new PairDoubleRiskRange(BloodPressureRisk.BP_STAGE2HYPERTENSION, new Pair(160.0, 100.0), new Pair(179.0, 109.0)));
+		risk_ranges.add(new PairDoubleRiskRange(BloodPressureRisk.BP_HYPERTENSIVEURGENCY, new Pair(180.0, 110.0), new Pair(340.0, 190.0)));
 		
-		assertTrue(risks.isSmallerOrEqualRiskPresentThan(AgeRisk.AGE_MIDLIFE));
+		assertTrue(RiskRange.getRisk(risk_ranges, new Pair(0.0,0.0)) == BloodPressureRisk.BP_HYPOTENSION);
+		assertTrue(RiskRange.getRisk(risk_ranges, new Pair(90.0,60.0)) == BloodPressureRisk.BP_HYPOTENSION);
+		
+		assertTrue(RiskRange.getRisk(risk_ranges, new Pair(91.0,61.0)) == BloodPressureRisk.BP_DESIRED);
+		assertTrue(RiskRange.getRisk(risk_ranges, new Pair(119.0,79.0)) == BloodPressureRisk.BP_DESIRED);
+		
+		assertTrue(RiskRange.getRisk(risk_ranges, new Pair(120.0,80.0)) == BloodPressureRisk.BP_PREHYPERTENSION);
+		assertTrue(RiskRange.getRisk(risk_ranges, new Pair(139.0,89.0)) == BloodPressureRisk.BP_PREHYPERTENSION);
+		
+		assertTrue(RiskRange.getRisk(risk_ranges, new Pair(140.0,90.0)) == BloodPressureRisk.BP_STAGE1HYPERTENSION);
+		assertTrue(RiskRange.getRisk(risk_ranges, new Pair(159.0,99.0)) == BloodPressureRisk.BP_STAGE1HYPERTENSION);
+		
+		assertFalse(RiskRange.getRisk(risk_ranges, new Pair(120.0,79.0)) == BloodPressureRisk.BP_STAGE1HYPERTENSION);
 	}
 
 }

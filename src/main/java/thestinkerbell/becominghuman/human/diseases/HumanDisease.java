@@ -1,6 +1,9 @@
 package thestinkerbell.becominghuman.human.diseases;
 
+import org.lwjgl.Sys;
+
 import thestinkerbell.becominghuman.human.risks.Risk;
+import thestinkerbell.becominghuman.human.risks.RiskComparator;
 import thestinkerbell.becominghuman.human.risks.Risks;
 import thestinkerbell.becominghuman.human.symptoms.Symptoms;
 
@@ -80,11 +83,16 @@ public class HumanDisease implements Disease {
 	static public boolean risksMeetsRequirementsForDisease(Risks risks_present_in_human, Disease disease) {
 		Risks risks_assosiated_with_disease = disease.assosiatedMinimumRisks();
 		boolean all_risks_for_disease_are_present = true;
-		for(Risk present_risk : risks_present_in_human) {
-			boolean risk_is_present =  risks_assosiated_with_disease.isSmallerOrEqualRiskPresentThan(present_risk);
-			all_risks_for_disease_are_present &= risk_is_present;
+		for(Risk associated_risk : risks_assosiated_with_disease) {
+			boolean risk_meets_disease_requirements = riskMeetsRisksRequirements(risks_present_in_human, associated_risk);
+			all_risks_for_disease_are_present &= risk_meets_disease_requirements;
 		}
 		return all_risks_for_disease_are_present;
+	}
+
+	private static boolean riskMeetsRisksRequirements(Risks risks_present_in_human, Risk associated_risk) {
+		boolean risk_meets_disease_requirements = risks_present_in_human.containsGreaterThanOrEqual(associated_risk);
+		return risk_meets_disease_requirements;
 	}
 
 }

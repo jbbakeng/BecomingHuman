@@ -21,16 +21,16 @@ public class Risks extends ArrayList<Risk>{
 		return retval;
 	}
 
-	public boolean isSmallerOrEqualRiskPresentThan(Risk risk) {
-		boolean retval = false;
+	public boolean containsGreaterThanOrEqual(Risk risk) {
 		Risks same_type_risks = this.getSubsetOfRisksOfTheSameType(risk);
+		boolean contains_greater_than_or_equal = false;
 		if(!same_type_risks.isEmpty()) {
 			RiskComparator comparator = new RiskComparator();
 			same_type_risks.sort(comparator);
-			Risk lowest_risk = same_type_risks.get(0);
-			retval = comparator.compare(lowest_risk, risk) <= 0 ? true : false;
+			Risk highest_risk = same_type_risks.get(same_type_risks.size()-1);
+			contains_greater_than_or_equal = comparator.compare(highest_risk, risk) >= 0 ? true : false;
 		}
-		return retval;
+		return contains_greater_than_or_equal;
 	}
 
 }

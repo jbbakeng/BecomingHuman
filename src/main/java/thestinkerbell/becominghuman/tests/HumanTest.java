@@ -1,5 +1,6 @@
 package thestinkerbell.becominghuman.tests;
 
+import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
@@ -9,6 +10,7 @@ import org.junit.Test;
 import thestinkerbell.becominghuman.human.Human;
 import thestinkerbell.becominghuman.human.diseases.Diseases;
 import thestinkerbell.becominghuman.human.diseases.HypertensionDisease;
+import thestinkerbell.becominghuman.human.properties.HumanProperty.GeneralRisk;
 import thestinkerbell.becominghuman.human.properties.Properties;
 import thestinkerbell.becominghuman.human.properties.Property;
 import thestinkerbell.becominghuman.human.properties.basic.BasicHumanProperty;
@@ -39,6 +41,24 @@ public class HumanTest {
 		try {
 			human.setValue("Systolic Blood Pressure", 145.0);
 			human.setValue("Diastolic Blood Pressure", 98.0);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+	
+	private void createBPPreHypertension(Human human) {
+		try {
+			human.setValue("Systolic Blood Pressure", 120.0);
+			human.setValue("Diastolic Blood Pressure", 80.0);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+	
+	private void createUndefinedBPRisk(Human human) {
+		try {
+			human.setValue("Systolic Blood Pressure", 120.0);
+			human.setValue("Diastolic Blood Pressure", 79.0);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -79,7 +99,7 @@ public class HumanTest {
 	@Test
 	public void canGetAListOfCurrentRisks() {
 		Human human = new Human();
-		Risks risks = human.getListOfCurrentRisks();
+		Risks risks = human.getCurrentRisks();
 		assertNotNull(risks);
 	}
 	
@@ -129,9 +149,18 @@ public class HumanTest {
 	}
 
 	@Test
-	public void aHumanCanTick() {
+	public void canGetAllSymptomsFromAHuman() {
 		Human human = new Human();
-		human.tick();
+		Symptoms all_symptoms = human.getListOfAllSymptoms();
+		assertNotNull(all_symptoms);
+	}
+	
+	
+	@Test
+	public void defaultHumanDoesNotHaveAnyDiseases() {
+		Human human = new Human();
+		Diseases diseases = human.getCurrentDiseases();
+		assertTrue(diseases.isEmpty());
 	}
 	
 	@Test
@@ -139,20 +168,35 @@ public class HumanTest {
 		Human human = new Human();
 		createBPStage1Hypertension(human);
 		
-		Risks risks = human.getListOfCurrentRisks();
-		assertNotNull(risks);
+		Risks risks = human.getCurrentRisks();
 		assertTrue(risks.contains(BloodPressureRisk.BP_STAGE1HYPERTENSION));
 		
-		Diseases diseases = human.getListOfDiseases();
-		assertNotNull(diseases);
+		Diseases diseases = human.getCurrentDiseases();
 		assertTrue(diseases.contains(new HypertensionDisease()));
 	}
 	
 	@Test
-	public void getAllSymptoms() {
+	public void riskPreHypertensionDoesNotCausesDiseaseHypertension() {
 		Human human = new Human();
-		Symptoms all_symptoms = human.getListOfAllSymptoms();
-		assertNotNull(all_symptoms);
+		createBPPreHypertension(human);
+		
+		Risks risks = human.getCurrentRisks();
+		assertTrue(risks.contains(BloodPressureRisk.BP_PREHYPERTENSION));
+		
+		Diseases diseases = human.getCurrentDiseases();
+		assertFalse(diseases.contains(new HypertensionDisease()));
+	}
+	
+	@Test
+	public void noBPRisksDoesNotCausesDiseaseHypertension() {
+		Human human = new Human();
+		createUndefinedBPRisk(human);
+		
+		Risks risks = human.getCurrentRisks();
+		assertTrue(risks.contains(GeneralRisk.UNDEFINED));
+		
+		Diseases diseases = human.getCurrentDiseases();
+		assertFalse(diseases.contains(new HypertensionDisease()));
 	}
 
 }

@@ -5,6 +5,7 @@ import static org.junit.Assert.assertTrue;
 
 import org.junit.Test;
 
+import thestinkerbell.becominghuman.human.properties.HumanProperty.GeneralRisk;
 import thestinkerbell.becominghuman.human.properties.basic.DiastolicBloodPressureBasicHumanProperty;
 import thestinkerbell.becominghuman.human.properties.basic.SystolicBloodPressureBasicHumanProperty;
 import thestinkerbell.becominghuman.human.properties.compound.BloodPressureCompoundHumanProperty;
@@ -45,5 +46,23 @@ public class BloodPressureTest {
 	public void bloodPressureIsDefaultToDesired() {
 		BloodPressureCompoundHumanProperty bp = getBloodPressure();
 		assertTrue(bp.getRisk() == BloodPressureRisk.BP_DESIRED);
+	}
+	
+	@Test
+	public void canSetBloodPressureToCreateRisks() {
+		SystolicBloodPressureBasicHumanProperty systolic = new SystolicBloodPressureBasicHumanProperty();
+		DiastolicBloodPressureBasicHumanProperty diastolic = new DiastolicBloodPressureBasicHumanProperty();
+		BloodPressureCompoundHumanProperty bp = new BloodPressureCompoundHumanProperty(systolic, diastolic);
+		
+		assertTrue(bp.getRisk() == BloodPressureRisk.BP_DESIRED);
+		systolic.setValue(80.0);
+		diastolic.setValue(50.0);
+		assertTrue(bp.getRisk() == BloodPressureRisk.BP_HYPOTENSION);
+		systolic.setValue(120.0);
+		diastolic.setValue(80.0);
+		assertTrue(bp.getRisk() == BloodPressureRisk.BP_PREHYPERTENSION);
+		systolic.setValue(0.0);
+		diastolic.setValue(120.0);		
+		assertTrue(bp.getRisk() == GeneralRisk.UNDEFINED);
 	}
 }

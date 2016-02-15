@@ -5,7 +5,17 @@ import org.junit.runners.Suite;
 import org.junit.runners.Suite.SuiteClasses;
 
 @RunWith(Suite.class)
-@SuiteClasses({ HumanPropertiesTest.class, HumanPropertyTest.class })
+@SuiteClasses({ 
+	HumanTest.class, 
+	HumanPropertyTest.class,
+	BloodPressureTest.class,
+	HumanPropertiesDebugItemsTest.class,
+	RiskTest.class,
+	BasicItemTest.class,
+	PairTest.class,
+	DiseaseTest.class,
+	SymptomTest.class
+	})
 public class AllTests {
 
 }

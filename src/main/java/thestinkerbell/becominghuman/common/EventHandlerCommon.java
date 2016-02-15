@@ -4,6 +4,7 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraftforge.event.entity.EntityEvent.EntityConstructing;
 import net.minecraftforge.event.entity.EntityJoinWorldEvent;
+import net.minecraftforge.event.entity.living.LivingEvent.LivingUpdateEvent;
 import net.minecraftforge.event.entity.player.PlayerEvent;
 import net.minecraftforge.event.entity.player.PlayerUseItemEvent;
 import net.minecraftforge.fml.common.eventhandler.EventPriority;
@@ -14,7 +15,6 @@ public class EventHandlerCommon {
 	
 	@SubscribeEvent(priority = EventPriority.NORMAL)
 	public void onPlayerUseItemEvent(PlayerUseItemEvent.Start e) {
-		System.out.println("PlayerUseItemEvent.Start, Player: "+e.entityPlayer.getDisplayNameString()+", Item: "+e.item.getDisplayName());
 	}
 
 	@SubscribeEvent
@@ -29,7 +29,6 @@ public class EventHandlerCommon {
 		//NTB data is loaded before this event
 		//This is called on both server and client side, first server then client
 	    if (e.entity instanceof EntityPlayer) {
-	    	System.out.println("1.		onEntityJoinWorld");
 	    	HumanExtendedEntityProperties.get((EntityPlayer) e.entity).syncAll();
 	    }
 	}
@@ -39,5 +38,12 @@ public class EventHandlerCommon {
 	    NBTTagCompound nbt = new NBTTagCompound();
 	    HumanExtendedEntityProperties.get(e.original).saveReviveRelevantNBTData(nbt, e.wasDeath);
 	    HumanExtendedEntityProperties.get(e.entityPlayer).loadNBTData(nbt);
+	}
+	
+	@SubscribeEvent
+	public void onLivingUpdate(LivingUpdateEvent e) {
+		if (e.entity instanceof EntityPlayer) {
+			HumanExtendedEntityProperties.get((EntityPlayer) e.entity).applyPotionEffectsFromSymptoms();
+		}
 	}
 }

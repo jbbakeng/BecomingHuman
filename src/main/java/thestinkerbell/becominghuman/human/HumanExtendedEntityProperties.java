@@ -1,28 +1,34 @@
 package thestinkerbell.becominghuman.human;
 
-import java.util.List;
-
 import io.netty.buffer.ByteBuf;
 import io.netty.buffer.Unpooled;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.potion.PotionEffect;
 import net.minecraft.world.World;
 import net.minecraftforge.common.IExtendedEntityProperties;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 import thestinkerbell.becominghuman.BecomingHuman;
-import thestinkerbell.becominghuman.network.packets.PacketHumanProperty;
+import thestinkerbell.becominghuman.human.properties.Properties;
+import thestinkerbell.becominghuman.human.properties.Property;
+import thestinkerbell.becominghuman.human.properties.basic.BasicHumanProperty;
+import thestinkerbell.becominghuman.human.symptoms.Symptom;
+import thestinkerbell.becominghuman.human.symptoms.Symptoms;
+import thestinkerbell.becominghuman.network.packets.PacketBasicHumanProperty;
 
 
 public class HumanExtendedEntityProperties implements IExtendedEntityProperties  {
 	
 	private static final String identifier = "humanproperties";
 	private final EntityPlayer player;
-	private HumanProperties properties;
+	final public Human human;
 	
     public HumanExtendedEntityProperties(EntityPlayer player) {
         this.player = player;
-        this.properties  = new HumanProperties();
+        this.human  = new Human();
     }
 	
     public static HumanExtendedEntityProperties get(EntityPlayer player) {
@@ -41,11 +47,10 @@ public class HumanExtendedEntityProperties implements IExtendedEntityProperties 
      * Can be called from both Server and Client side.
      */
 	public void syncAll() {
-		System.out.println("2.		SYNCING ALL!");
 		if (this.isServerSide()) {
-			List<HumanProperty> list = properties.getListOfHumanProperties();
-			for(HumanProperty property : list) {
-	            this.sendToClient(property);
+			Properties list = human.getListOfBasicHumanProperties();
+			for(Property property : list) {
+	            this.sendToClient((BasicHumanProperty)property);
 	        }
 		} else {
 			return; //do nothing for client side, Packets will arrive from server.
@@ -56,9 +61,10 @@ public class HumanExtendedEntityProperties implements IExtendedEntityProperties 
      * Should only be called on SERVER side!
      * @param property The property to be sent to the client
      */
-	public void sendToClient(HumanProperty property) {
+	//@SideOnly(Side.SERVER)
+	public void sendToClient(BasicHumanProperty property) {
     	//we are on the server side, we want to send human property information to correct players client
-    	PacketHumanProperty msg = new PacketHumanProperty(property);
+    	PacketBasicHumanProperty msg = new PacketBasicHumanProperty(property);
     	EntityPlayerMP serverPlayer = (EntityPlayerMP) this.player;
     	BecomingHuman.network.sendTo(msg, serverPlayer); //here values are pushed to the client
 	}
@@ -67,18 +73,29 @@ public class HumanExtendedEntityProperties implements IExtendedEntityProperties 
      * Should only be called on CLIENT side!
      * @param property The property that should be set on the client
      */
-    public void set(HumanProperty property) {
-    	this.properties.setValue(property.name, property.getValue());
+	//@SideOnly(Side.CLIENT)
+    public void set(BasicHumanProperty property) {
     	if (this.isServerSide()) {
     		System.err.println("DO NOT CALL THIS FROM SERVER SIDE!");
     		return;
     	}
     	else {
-        	System.out.println("Setting property on CLIENT. Package arrived from SERVER I assume.");
-        	this.properties.setValue(property.name, property.value);
+        	try {
+				this.human.setValue(property.getName(), property.getValue());
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
         }
     }
     
+    public void applyPotionEffectsFromSymptoms() {
+		Symptoms symptoms = human.getListOfAllSymptoms();
+		for(Symptom symptom : symptoms) {
+			PotionEffect effect = symptom.getEffect();
+			//TODO on client or server side???
+			player.addPotionEffect(effect);
+		}
+    }
     
     public void saveReviveRelevantNBTData(NBTTagCompound nbt, boolean wasDeath) {
         if (!wasDeath)
@@ -87,11 +104,11 @@ public class HumanExtendedEntityProperties implements IExtendedEntityProperties 
 
 	@Override
 	public void saveNBTData(NBTTagCompound compound) {
-		List<HumanProperty> list = properties.getListOfHumanProperties();
-		for(HumanProperty property : list) {
+		Properties list = human.getListOfBasicHumanProperties();
+		for(Property property : list) {
 			ByteBuf buf = Unpooled.buffer();
-			HumanProperty.serialize(property, buf);			
-			compound.setByteArray(property.name, buf.array());
+			BasicHumanProperty.serialize((BasicHumanProperty)property, buf);			
+			compound.setByteArray(property.getName(), buf.array());
         }
 	}
 
@@ -99,12 +116,11 @@ public class HumanExtendedEntityProperties implements IExtendedEntityProperties 
 	public void loadNBTData(NBTTagCompound compound) {
     	//This only happens on the server!!!
 		//This happens BEFORE the entity joins the world (on both server and client side)
-		System.out.println("0.		LOADING NTB DATA on Server side.");
-		List<HumanProperty> list = properties.getListOfHumanProperties();
-		for(HumanProperty property : list) {
+		Properties list = human.getListOfBasicHumanProperties();
+		for(Property property : list) {
 			ByteBuf buf = Unpooled.buffer();	
-			buf.writeBytes(compound.getByteArray(property.name));
-			HumanProperty.deserialize(buf, property);
+			buf.writeBytes(compound.getByteArray(property.getName()));
+			BasicHumanProperty.deserialize(buf, (BasicHumanProperty)property);
         }
 	}
 

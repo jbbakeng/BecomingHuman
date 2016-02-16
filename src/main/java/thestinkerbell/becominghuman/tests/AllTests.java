@@ -10,6 +10,7 @@ import org.junit.runners.Suite.SuiteClasses;
 	HumanPropertyTest.class,
 	BloodPressureTest.class,
 	WhiteBloodCellsTest.class,
+	InfluenzaAVirusTest.class,
 	HumanPropertiesDebugItemsTest.class,
 	RiskTest.class,
 	BasicItemTest.class,

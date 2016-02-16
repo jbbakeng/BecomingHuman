@@ -87,12 +87,6 @@ public class HumanPropertyTest {
 		Double value = property.getValue();
 		assertNotNull(value);
 	}
-
-	@Test
-	public void canSerializeAndDeserializeHumanProperty() {
-		BasicHumanProperty property = getBasicHumanProperty_1();
-		this.canSerializeAnDeserialize(property);
-	}
 	
 	@Test
 	public void canSerializeAndDeserializeBasicHumanProperty() {

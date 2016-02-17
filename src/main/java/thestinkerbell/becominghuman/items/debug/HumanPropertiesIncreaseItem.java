@@ -5,8 +5,10 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.util.ChatComponentText;
 import net.minecraft.world.World;
 import thestinkerbell.becominghuman.human.HumanExtendedEntityProperties;
+import thestinkerbell.becominghuman.human.properties.DoubleHumanProperty;
 import thestinkerbell.becominghuman.human.properties.HumanProperty;
 import thestinkerbell.becominghuman.human.properties.basic.BasicHumanProperty;
+import thestinkerbell.becominghuman.human.properties.germ.GermHumanProperty;
 
 public class HumanPropertiesIncreaseItem extends HumanPropertiesItem {
 
@@ -21,7 +23,7 @@ public class HumanPropertiesIncreaseItem extends HumanPropertiesItem {
     }
 
 	private void increaseHumanPropertyValue(EntityPlayer player) {
-		BasicHumanProperty property = (BasicHumanProperty) basic_property_list.get(this.getCyclingIndex());
+		DoubleHumanProperty property = (DoubleHumanProperty) basic_and_germ_property_list.get(this.getCyclingIndex());
 		try {
 			HumanExtendedEntityProperties.get(player).human.setValue(property.getName(), property.getValue()+1);
 		} catch (Exception e) {

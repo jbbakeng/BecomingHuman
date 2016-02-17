@@ -7,41 +7,39 @@ import net.minecraftforge.fml.common.network.simpleimpl.IMessage;
 import net.minecraftforge.fml.common.network.simpleimpl.IMessageHandler;
 import net.minecraftforge.fml.common.network.simpleimpl.MessageContext;
 import thestinkerbell.becominghuman.human.HumanExtendedEntityProperties;
-import thestinkerbell.becominghuman.human.properties.DoubleHumanProperty;
-import thestinkerbell.becominghuman.human.properties.HumanProperty;
-import thestinkerbell.becominghuman.human.properties.basic.BasicHumanProperty;
+import thestinkerbell.becominghuman.human.properties.germ.GermHumanProperty;
 
-public class PacketBasicHumanProperty implements IMessage{
+public class PacketGermHumanProperty implements IMessage{
 	
-	private BasicHumanProperty property;
+	private GermHumanProperty property;
 	
-	public PacketBasicHumanProperty(){
-		this.property = new BasicHumanProperty();
+	public PacketGermHumanProperty(){
+		this.property = new GermHumanProperty();
 	}
 	
-	public PacketBasicHumanProperty(BasicHumanProperty property) {
+	public PacketGermHumanProperty(GermHumanProperty property) {
 		this.property = property;
 	}
 
 	@Override
 	public void fromBytes(ByteBuf buf) {
-		BasicHumanProperty.deserialize(buf, this.property);
+		GermHumanProperty.deserialize(buf, this.property);
 	}
 
 	@Override
 	public void toBytes(ByteBuf buf) {
-		BasicHumanProperty.serialize(this.property, buf);
+		GermHumanProperty.serialize(this.property, buf);
 	}
 	
-	public static class HandlerOnClient implements IMessageHandler<PacketBasicHumanProperty, IMessage> {
+	public static class HandlerOnClient implements IMessageHandler<PacketGermHumanProperty, IMessage> {
 
 		@Override
-		public IMessage onMessage(final PacketBasicHumanProperty message, MessageContext ctx) {
+		public IMessage onMessage(final PacketGermHumanProperty message, MessageContext ctx) {
         	IThreadListener mainThread = Minecraft.getMinecraft(); //on the client
             mainThread.addScheduledTask(new Runnable() {
                 @Override
                 public void run() {	
-                    HumanExtendedEntityProperties.get(Minecraft.getMinecraft().thePlayer).set(message.property);
+                    //HumanExtendedEntityProperties.get(Minecraft.getMinecraft().thePlayer).set(message.property);
                 }
             });
             return null; // no response in this case

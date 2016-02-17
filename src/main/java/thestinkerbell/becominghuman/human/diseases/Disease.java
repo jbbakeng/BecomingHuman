@@ -8,6 +8,6 @@ public interface Disease {
 	public String getName();
 	public Symptoms getSymptoms();
 	public Boolean hasSymptoms();
-	public Risks assosiatedMinimumRisks();
+	public Risks assosiatedRisks();
 
 }

@@ -75,8 +75,9 @@ public class DiseaseTest {
 	
 	@Test
 	public void canGetTheDiseaseHypertensionFromKnownRisks() {
-		Risks risks = new Risks();
-		risks.add(BloodPressureRisk.BP_STAGE1HYPERTENSION);
+		
+		HypertensionDisease hypertension = new HypertensionDisease();
+		Risks risks = hypertension.assosiatedRisks();
 		
 		AllKnownDiseases akd = new AllKnownDiseases();
 		assertNotNull(akd);
@@ -84,7 +85,7 @@ public class DiseaseTest {
 		Diseases diseases = akd.identifyDiseasesBasedOnRisks(risks);
 		assertNotNull(diseases);
 
-		assertTrue(diseases.contains(new HypertensionDisease()));
+		assertTrue(diseases.contains(hypertension));
 	}
 	
 	@Test

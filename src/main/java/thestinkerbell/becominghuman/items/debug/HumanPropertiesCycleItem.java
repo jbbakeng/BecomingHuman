@@ -6,6 +6,8 @@ import net.minecraft.util.ChatComponentText;
 import net.minecraft.world.World;
 import thestinkerbell.becominghuman.human.properties.Properties;
 import thestinkerbell.becominghuman.human.properties.Property;
+import thestinkerbell.becominghuman.human.properties.basic.BasicHumanProperty;
+import thestinkerbell.becominghuman.human.properties.germ.GermHumanProperty;
 
 public class HumanPropertiesCycleItem extends HumanPropertiesItem {
 
@@ -17,7 +19,7 @@ public class HumanPropertiesCycleItem extends HumanPropertiesItem {
 	
 	public HumanPropertiesCycleItem(Properties properties) {
 		this();
-		this.basic_property_list = properties;
+		this.basic_and_germ_property_list = properties;
 	}
 	
 	public Integer getIndex() {
@@ -25,7 +27,7 @@ public class HumanPropertiesCycleItem extends HumanPropertiesItem {
 	}
 	
 	public void cycleIndex() {
-		Integer index = (this.index + 1) % basic_property_list.size();
+		Integer index = (this.index + 1) % basic_and_germ_property_list.size();
 		this.index = index;
 	}
 
@@ -40,8 +42,15 @@ public class HumanPropertiesCycleItem extends HumanPropertiesItem {
 
 	private void cycleHumanPropertiesIndex(EntityPlayer player) {
 		this.cycleIndex();
-		Property property = basic_property_list.get(this.index);
-		player.addChatMessage(new ChatComponentText("o "+property.getName()+": "+property.getValue()+" "+property.getUnit()));
+		Property property = basic_and_germ_property_list.get(this.index);
+		
+		if(property instanceof BasicHumanProperty){			
+			player.addChatMessage(new ChatComponentText("o "+property.getName()+": "+property.getValue()+" "+property.getUnit()));
+		} else if(property instanceof GermHumanProperty) {
+			GermHumanProperty germ = (GermHumanProperty) property;
+			player.addChatMessage(new ChatComponentText("o "+germ.getName()+": "+germ.getValue()+" "+germ.getUnit()+" antibodies: "+germ.getAntibodies()));
+		}
+
 	}
 
 

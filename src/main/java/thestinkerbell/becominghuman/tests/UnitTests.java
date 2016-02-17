@@ -6,10 +6,12 @@ import org.junit.runners.Suite.SuiteClasses;
 
 @RunWith(Suite.class)
 @SuiteClasses({ 
+	AllKnownDiseasesTest.class,
 	HumanTest.class, 
 	HumanPropertyTest.class,
 	BloodPressureTest.class,
 	WhiteBloodCellsTest.class,
+	GermHumanPropertyTest.class,
 	HumanPropertiesDebugItemsTest.class,
 	RiskTest.class,
 	BasicItemTest.class,
@@ -17,6 +19,6 @@ import org.junit.runners.Suite.SuiteClasses;
 	DiseaseTest.class,
 	SymptomTest.class
 	})
-public class AllTests {
+public class UnitTests {
 
 }

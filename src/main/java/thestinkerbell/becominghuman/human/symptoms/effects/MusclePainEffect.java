@@ -6,10 +6,11 @@ public class MusclePainEffect extends PainEffect {
 
 	public MusclePainEffect(int id) {
 		super(	id,
-				new ResourceLocation("becominghuman", "/textures/potioneffects/musclepain.png".substring(1)),
+				new ResourceLocation("becominghuman", "/textures/potioneffects/pain.png".substring(1)),
 				true,
 				0,
 				"potion.musclepaineffect"
 				);
+		this.setIconIndex(2,0);
 	}
 }

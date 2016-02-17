@@ -6,10 +6,11 @@ public class SoarThroatEffect extends PainEffect {
 
 	public SoarThroatEffect(int id) {
 		super(	id,
-				new ResourceLocation("becominghuman", "/textures/potioneffects/soarthroat.png".substring(1)),
+				new ResourceLocation("becominghuman", "/textures/potioneffects/pain.png".substring(1)),
 				true,
 				0,
 				"potion.soarthroateffect"
 				);
+		this.setIconIndex(3,0);
 	}
 }

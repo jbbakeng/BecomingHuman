@@ -6,11 +6,12 @@ public class HeadAcheEffect extends PainEffect {
 
 	public HeadAcheEffect(int id) {
 		super(	id,
-				new ResourceLocation("becominghuman", "/textures/potioneffects/headache.png".substring(1)),
+				new ResourceLocation("becominghuman", "/textures/potioneffects/pain.png".substring(1)),
 				true,
 				0,
 				"potion.headacheeffect"
 				);
+		this.setIconIndex(1,0);
 	}
 
 }

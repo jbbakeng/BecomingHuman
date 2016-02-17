@@ -20,6 +20,8 @@ final public class CommonColdDisease extends HumanDisease {
 		this.symptoms.add(new HumanSymptom(Effect.sneez.id, Utilities.seconds_to_ticks(3), severity));
 		this.symptoms.add(new HumanSymptom(Effect.tired.id, Utilities.seconds_to_ticks(3), severity));
 		this.symptoms.add(new HumanSymptom(Effect.fever.id, Utilities.seconds_to_ticks(3), severity));
+		this.symptoms.add(new HumanSymptom(Effect.soar_throat.id, Utilities.seconds_to_ticks(5), severity));
+		this.symptoms.add(new HumanSymptom(Effect.headache.id, Utilities.seconds_to_ticks(5), severity));
 	}
 
 }

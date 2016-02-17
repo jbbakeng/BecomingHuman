@@ -16,9 +16,11 @@ public class InfluenzaDisease extends HumanDisease {
 		this.assosiated_risks.add(InfluenzaARisk.IA_DEADLY);
 		
 		this.symptoms.add(new HumanSymptom(Effect.cough.id, Utilities.seconds_to_ticks(5), severity));
-		this.symptoms.add(new HumanSymptom(Effect.sneez.id, Utilities.seconds_to_ticks(5), severity));
 		this.symptoms.add(new HumanSymptom(Effect.tired.id, Utilities.seconds_to_ticks(5), severity));
 		this.symptoms.add(new HumanSymptom(Effect.fever.id, Utilities.seconds_to_ticks(5), severity));
+		this.symptoms.add(new HumanSymptom(Effect.soar_throat.id, Utilities.seconds_to_ticks(5), severity));
+		this.symptoms.add(new HumanSymptom(Effect.headache.id, Utilities.seconds_to_ticks(5), severity));
+		this.symptoms.add(new HumanSymptom(Effect.muscle_pain.id, Utilities.seconds_to_ticks(5), severity));
 	}
 
 }

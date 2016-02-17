@@ -1,2 +1,14 @@
 < en_US.lang - English localization file for the mod Becoming Human >
 item.tutorial_item.name=Tutorial Item
+
+potion.cougheffect=Coughing
+potion.dyingeffect=Dying
+potion.fevereffect=Fever
+potion.headacheeffect=Head Ache
+potion.musclepaineffect=Muscle Pain
+potion.paineffect=Pain
+potion.sneezeeffect=Sneezing
+potion.soartroateffect=Soar Throat
+potion.tiredeffect=Tired
+
+

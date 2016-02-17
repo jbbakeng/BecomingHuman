@@ -1,16 +1,16 @@
-package thestinkerbell.becominghuman.human.symptoms.potioneffect;
+package thestinkerbell.becominghuman.eventhandlers;
 
 import net.minecraft.util.DamageSource;
 import net.minecraftforge.event.entity.living.LivingEvent.LivingUpdateEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import thestinkerbell.becominghuman.BecomingHuman;
 
-public class PotionEvent {
+public class PotionEventHandler {
 	@SubscribeEvent
 	public void onLivingUpdate(LivingUpdateEvent e) {
-		if(e.entityLiving.isPotionActive(BecomingHuman.pain)) {
-			if(e.entityLiving.getActivePotionEffect(BecomingHuman.pain).getDuration() == 0) {
-				e.entityLiving.removePotionEffect(BecomingHuman.pain.id);
+		if(e.entityLiving.isPotionActive(BecomingHuman.potions.pain)) {
+			if(e.entityLiving.getActivePotionEffect(BecomingHuman.potions.pain).getDuration() == 0) {
+				e.entityLiving.removePotionEffect(BecomingHuman.potions.pain.id);
 				return; 
 			}
 		} else if(e.entityLiving.worldObj.rand.nextInt(30) == 0) {

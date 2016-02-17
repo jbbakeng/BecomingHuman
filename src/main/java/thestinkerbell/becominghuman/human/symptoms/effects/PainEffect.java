@@ -1,4 +1,4 @@
-package thestinkerbell.becominghuman.human.symptoms.potioneffect;
+package thestinkerbell.becominghuman.human.symptoms.effects;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.texture.ITextureObject;
@@ -25,6 +25,7 @@ public class PainEffect extends Potion {
 		return super.getStatusIconIndex();
 	}
 	
+	@Override
 	public boolean isBadEffect() {
 		return true;
 	}

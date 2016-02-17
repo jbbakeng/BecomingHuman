@@ -11,7 +11,7 @@ public class InfluenzaDisease extends HumanDisease {
 		super("Influenza");
 		this.assosiated_risks.add(InfluenzaARisk.IA_HIGH);
 		this.assosiated_risks.add(InfluenzaARisk.IA_DEADLY);
-		this.symptoms.add(new HumanSymptom(BecomingHuman.pain.id, Utilities.seconds_to_ticks(3)));
+		this.symptoms.add(new HumanSymptom(BecomingHuman.potions.pain.id, Utilities.seconds_to_ticks(3)));
 	}
 
 }

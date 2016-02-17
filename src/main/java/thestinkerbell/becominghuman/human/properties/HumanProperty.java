@@ -11,12 +11,11 @@ public abstract class HumanProperty<TYPE> implements Property<TYPE> {
 
 	protected String name;
 	protected String unit;
-
-	final protected List<RiskRange> risk_ranges = new ArrayList<RiskRange>();
-
 	protected TYPE value;
 	protected TYPE range_min;
 	protected TYPE range_max;
+	
+	final protected List<RiskRange> risk_ranges = new ArrayList<RiskRange>();
 
 	public enum GeneralRisk implements Risk {
 		HEALTHY, UNDEFINED

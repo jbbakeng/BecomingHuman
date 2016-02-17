@@ -3,29 +3,29 @@ package thestinkerbell.becominghuman.tests;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.fail;
 
 import org.junit.Test;
 
 import io.netty.buffer.ByteBuf;
 import io.netty.buffer.Unpooled;
-import thestinkerbell.becominghuman.human.properties.basic.BasicHumanProperty;
-import thestinkerbell.becominghuman.human.properties.virus.InfluenzaAVirusHumanProperty;
-import thestinkerbell.becominghuman.human.properties.virus.VirusHumanProperty;
+import thestinkerbell.becominghuman.human.properties.germ.GermHumanProperty;
+import thestinkerbell.becominghuman.human.properties.germ.InfluenzaAVirusHumanProperty;
 import thestinkerbell.becominghuman.human.risks.Risk;
 
-public class InfluenzaAVirusTest {
+public class GermHumanPropertyTest {
 	
-	private VirusHumanProperty getVirusHumanProperty_1() {
+	private GermHumanProperty getVirusHumanProperty_1() {
 		return new InfluenzaAVirusHumanProperty();
 	}
 	
-	private void canSerializeAnDeserialize(VirusHumanProperty property) {
+	private void canSerializeAnDeserialize(GermHumanProperty property) {
 		ByteBuf buf = Unpooled.buffer(128);
-		VirusHumanProperty.serialize(property, buf);
+		GermHumanProperty.serialize(property, buf);
 		assertNotNull(buf);
 		
-		VirusHumanProperty property2 = new VirusHumanProperty();
-		VirusHumanProperty.deserialize(buf, property2);
+		GermHumanProperty property2 = new GermHumanProperty();
+		GermHumanProperty.deserialize(buf, property2);
 		assertEquals(property, property2);
 	}
 	
@@ -48,7 +48,7 @@ public class InfluenzaAVirusTest {
 
 	@Test
 	public void canSetValue() {
-		InfluenzaAVirusHumanProperty influenza_a = new InfluenzaAVirusHumanProperty();
+		GermHumanProperty influenza_a = getVirusHumanProperty_1();
 		Double oldValue = influenza_a.getValue();
 		Double newValue = 1.0;
 		influenza_a.setValue(newValue);
@@ -57,8 +57,14 @@ public class InfluenzaAVirusTest {
 	
 	@Test
 	public void canSerializeAndDeserializeVirusHumanProperty() {
-		VirusHumanProperty property = getVirusHumanProperty_1();
+		GermHumanProperty property = getVirusHumanProperty_1();
 		this.canSerializeAnDeserialize(property);
+	}
+	
+	@Test
+	public void canSyncVirusHumanProperties() {
+		//fail("Not implementet yet");
+		//Think about bacteria and parasites etc
 	}
 
 }

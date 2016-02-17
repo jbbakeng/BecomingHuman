@@ -11,6 +11,7 @@ import thestinkerbell.becominghuman.human.Human;
 import thestinkerbell.becominghuman.human.diseases.Diseases;
 import thestinkerbell.becominghuman.human.diseases.HypertensionDisease;
 import thestinkerbell.becominghuman.human.properties.HumanProperty.GeneralRisk;
+import thestinkerbell.becominghuman.human.properties.DoubleHumanProperty;
 import thestinkerbell.becominghuman.human.properties.Properties;
 import thestinkerbell.becominghuman.human.properties.Property;
 import thestinkerbell.becominghuman.human.properties.basic.BasicHumanProperty;
@@ -143,7 +144,7 @@ public class HumanTest {
 		Human human = new Human();
 		Properties list = human.getListOfBasicHumanProperties();
 		for(Property property: list) {
-			if(property instanceof BasicHumanProperty)
+			if(property instanceof DoubleHumanProperty)
 				HumanPropertyTest.canSerializeAnDeserialize((BasicHumanProperty)property);
 		}
 	}

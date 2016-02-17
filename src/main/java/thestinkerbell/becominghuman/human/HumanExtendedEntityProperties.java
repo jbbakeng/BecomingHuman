@@ -12,6 +12,7 @@ import net.minecraftforge.common.IExtendedEntityProperties;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import thestinkerbell.becominghuman.BecomingHuman;
+import thestinkerbell.becominghuman.human.properties.DoubleHumanProperty;
 import thestinkerbell.becominghuman.human.properties.Properties;
 import thestinkerbell.becominghuman.human.properties.Property;
 import thestinkerbell.becominghuman.human.properties.basic.BasicHumanProperty;
@@ -50,7 +51,7 @@ public class HumanExtendedEntityProperties implements IExtendedEntityProperties 
 		if (this.isServerSide()) {
 			Properties list = human.getListOfBasicHumanProperties();
 			for(Property property : list) {
-	            this.sendToClient((BasicHumanProperty)property);
+	            this.sendToClient((DoubleHumanProperty)property);
 	        }
 		} else {
 			return; //do nothing for client side, Packets will arrive from server.
@@ -62,7 +63,7 @@ public class HumanExtendedEntityProperties implements IExtendedEntityProperties 
      * @param property The property to be sent to the client
      */
 	//@SideOnly(Side.SERVER)
-	public void sendToClient(BasicHumanProperty property) {
+	public void sendToClient(DoubleHumanProperty property) {
     	//we are on the server side, we want to send human property information to correct players client
     	PacketBasicHumanProperty msg = new PacketBasicHumanProperty(property);
     	EntityPlayerMP serverPlayer = (EntityPlayerMP) this.player;
@@ -74,7 +75,7 @@ public class HumanExtendedEntityProperties implements IExtendedEntityProperties 
      * @param property The property that should be set on the client
      */
 	//@SideOnly(Side.CLIENT)
-    public void set(BasicHumanProperty property) {
+    public void set(DoubleHumanProperty property) {
     	if (this.isServerSide()) {
     		System.err.println("DO NOT CALL THIS FROM SERVER SIDE!");
     		return;
@@ -107,7 +108,7 @@ public class HumanExtendedEntityProperties implements IExtendedEntityProperties 
 		Properties list = human.getListOfBasicHumanProperties();
 		for(Property property : list) {
 			ByteBuf buf = Unpooled.buffer();
-			BasicHumanProperty.serialize((BasicHumanProperty)property, buf);			
+			BasicHumanProperty.serialize((DoubleHumanProperty)property, buf);			
 			compound.setByteArray(property.getName(), buf.array());
         }
 	}
@@ -120,7 +121,7 @@ public class HumanExtendedEntityProperties implements IExtendedEntityProperties 
 		for(Property property : list) {
 			ByteBuf buf = Unpooled.buffer();	
 			buf.writeBytes(compound.getByteArray(property.getName()));
-			BasicHumanProperty.deserialize(buf, (BasicHumanProperty)property);
+			BasicHumanProperty.deserialize(buf, (DoubleHumanProperty)property);
         }
 	}
 

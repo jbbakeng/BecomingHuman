@@ -9,7 +9,7 @@ public class HeadAcheEffect extends PainEffect {
 				new ResourceLocation("becominghuman", "/textures/potioneffects/headache.png".substring(1)),
 				true,
 				0,
-				"potion.headacheffect"
+				"potion.headacheeffect"
 				);
 	}
 

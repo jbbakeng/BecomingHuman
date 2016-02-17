@@ -13,6 +13,7 @@ import thestinkerbell.becominghuman.human.diseases.HumanDisease;
 import thestinkerbell.becominghuman.human.diseases.HypertensionDisease;
 import thestinkerbell.becominghuman.human.properties.compound.BloodPressureCompoundHumanProperty.BloodPressureRisk;
 import thestinkerbell.becominghuman.human.risks.Risks;
+import thestinkerbell.becominghuman.human.symptoms.HumanSymptom.Severity;
 import thestinkerbell.becominghuman.human.symptoms.Symptom;
 import thestinkerbell.becominghuman.human.symptoms.Symptoms;
 
@@ -21,7 +22,7 @@ public class DiseaseTest {
 	private final String disease_name = "DISEASE_TEST"; 
 
 	private Disease getDisease() {
-		return new HumanDisease(disease_name);
+		return new HumanDisease(disease_name, Severity.SYMPTOM_MILD);
 	}
 
 	@Test

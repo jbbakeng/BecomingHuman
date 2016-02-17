@@ -9,7 +9,7 @@ import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import net.minecraftforge.fml.common.network.simpleimpl.SimpleNetworkWrapper;
-import thestinkerbell.becominghuman.human.symptoms.effects.CustomPotions;
+import thestinkerbell.becominghuman.human.symptoms.effects.Effect;
 import thestinkerbell.becominghuman.human.symptoms.effects.PainEffect;
 import thestinkerbell.becominghuman.proxy.CommonProxy;
 
@@ -29,7 +29,7 @@ public class BecomingHuman
     public static CommonProxy proxy;
     
     public static SimpleNetworkWrapper network;
-    public static CustomPotions potions;
+    public static Effect potions;
 
     @EventHandler
     public void preInit(FMLPreInitializationEvent e) {
@@ -38,7 +38,7 @@ public class BecomingHuman
     	//and register them with the GameRegistry.
     	System.out.println("Called method: [preInit]");
     	
-    	potions = new CustomPotions();
+    	potions = new Effect();
     	
     	this.proxy.preInit(e);
     }

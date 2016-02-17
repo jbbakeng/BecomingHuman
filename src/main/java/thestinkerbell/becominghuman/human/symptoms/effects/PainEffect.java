@@ -1,33 +1,19 @@
 package thestinkerbell.becominghuman.human.symptoms.effects;
 
-import net.minecraft.client.Minecraft;
-import net.minecraft.client.renderer.texture.ITextureObject;
-import net.minecraft.potion.Potion;
 import net.minecraft.util.ResourceLocation;
 
-public class PainEffect extends Potion {
+public class PainEffect extends HumanEffect {
 
-	public static final ResourceLocation icon = new ResourceLocation("becominghuman", "/textures/potioneffects/pain.png".substring(1));
-
-	public PainEffect(int potionID, boolean badEffect, int potionColor) {
-		super(potionID, icon, badEffect, potionColor);
-	}
-
-	public Potion setIconIndex(int x, int y) {
-		super.setIconIndex(x, y);
-		return (Potion) this;
+	public PainEffect(int id) {
+		this(	id, 
+				new ResourceLocation("becominghuman", "/textures/potioneffects/pain.png".substring(1)), 
+				true, 
+				0, 
+				"potion.paineffect");
 	}
 	
-	public int getStatusIconIndex() {
-		ITextureObject texture = Minecraft.getMinecraft().renderEngine.getTexture(icon);
-		Minecraft.getMinecraft().renderEngine.bindTexture(icon);
-		
-		return super.getStatusIconIndex();
-	}
-	
-	@Override
-	public boolean isBadEffect() {
-		return true;
+	protected PainEffect(int id, ResourceLocation icon, boolean is_bad, int color, String name) {
+		super(id, icon ,is_bad, color, name);
 	}
 	
 }

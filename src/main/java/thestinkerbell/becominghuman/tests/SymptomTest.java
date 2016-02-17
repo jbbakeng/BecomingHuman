@@ -1,18 +1,22 @@
 package thestinkerbell.becominghuman.tests;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertTrue;
 
 import org.junit.Test;
 
-import net.minecraft.potion.Potion;
-import net.minecraft.potion.PotionEffect;
 import thestinkerbell.becominghuman.human.symptoms.HumanSymptom;
+import thestinkerbell.becominghuman.human.symptoms.HumanSymptom.Severity;
 import thestinkerbell.becominghuman.human.symptoms.Symptom;
+import thestinkerbell.becominghuman.human.symptoms.effects.Effect;
+import thestinkerbell.becominghuman.utilities.Utilities;
 
 public class SymptomTest {
+	
+	public static Effect effect = new Effect();
 
 	private Symptom getSymptom() {
-		Symptom symptom = new HumanSymptom(Potion.moveSlowdown.id, 1200);
+		Symptom symptom = new HumanSymptom(Effect.pain.id, Utilities.seconds_to_ticks(2), Severity.SYMPTOM_MILD);
 		return symptom;
 	}
 

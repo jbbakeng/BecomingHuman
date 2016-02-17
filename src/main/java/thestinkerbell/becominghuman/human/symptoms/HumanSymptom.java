@@ -4,13 +4,22 @@ import net.minecraft.potion.Potion;
 import net.minecraft.potion.PotionEffect;
 
 public class HumanSymptom implements Symptom {
+	
+	public enum Severity {
+		SYMPTOM_MILD,
+		SYMPTOM_MODERATE,
+		SYMPTOM_SEVERE,
+		SYMPTOM_VERYSEVERE
+	}
 
 	final int potion_id;
 	final int duration;
+	final Severity severity;
 	
-	public HumanSymptom(int potion_id, int duration) {
+	public HumanSymptom(int potion_id, int duration, Severity severity) {
 		this.potion_id = potion_id;
 		this.duration = duration;
+		this.severity = severity;
 	}
 	
 	@Override

@@ -16,6 +16,8 @@ import thestinkerbell.becominghuman.human.properties.Properties;
 import thestinkerbell.becominghuman.human.properties.Property;
 import thestinkerbell.becominghuman.human.properties.basic.BasicHumanProperty;
 import thestinkerbell.becominghuman.human.properties.compound.BloodPressureCompoundHumanProperty.BloodPressureRisk;
+import thestinkerbell.becominghuman.human.properties.germ.InfluenzaAVirusHumanProperty;
+import thestinkerbell.becominghuman.human.properties.germ.InfluenzaAVirusHumanProperty.InfluenzaARisk;
 import thestinkerbell.becominghuman.human.risks.Risk;
 import thestinkerbell.becominghuman.human.risks.Risks;
 import thestinkerbell.becominghuman.human.symptoms.Symptoms;
@@ -198,6 +200,22 @@ public class HumanTest {
 		
 		Diseases diseases = human.getCurrentDiseases();
 		assertFalse(diseases.contains(new HypertensionDisease()));
+	}
+	
+	@Test
+	public void having65log10mLOfInfluenzaAWillGiveInfluenzaDisease() {
+		Human human = new Human();
+		try {
+			human.setValue("Influenza A", 6.5);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		Risks risks = human.getCurrentRisks();
+		assertTrue(risks.contains(InfluenzaARisk.IA_HIGH));
+		
+		Diseases diseases = human.getCurrentDiseases();
+		assertFalse(diseases.contains(new InfluenzaAVirusHumanProperty()));
 	}
 
 }

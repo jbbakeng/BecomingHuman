@@ -11,15 +11,12 @@ public class HumanDisease implements Disease {
 	
 	private String name;
 	protected Symptoms symptoms;
-	protected Risks assosiated_minimum_risks;
-	
-	//duration/time-left: or should a disease only dissapear when risks are removed?
-	//symptoms/signs: during the disease course
+	protected Risks assosiated_risks;
 	
 	public HumanDisease(String name) {
 		this.name = name;
 		this.symptoms = new Symptoms();
-		this.assosiated_minimum_risks = new Risks();
+		this.assosiated_risks = new Risks();
 	}
 	
 	@Override
@@ -76,12 +73,38 @@ public class HumanDisease implements Disease {
 	}
 
 	@Override
-	public Risks assosiatedMinimumRisks() {
-		return this.assosiated_minimum_risks;
+	public Risks assosiatedRisks() {
+		return this.assosiated_risks;
 	}
 	
 	static public boolean risksMeetsRequirementsForDisease(Risks risks_present_in_human, Disease disease) {
-		Risks risks_assosiated_with_disease = disease.assosiatedMinimumRisks();
+		//return risksHaveToBeGreaterThanOrEqual(risks_present_in_human, disease);
+		return risksHaveToBeEqual(risks_present_in_human, disease);
+	}
+
+	private static boolean risksHaveToBeEqual(Risks risks_present_in_human, Disease disease) {
+		Risks risks_assosiated_with_disease = disease.assosiatedRisks();
+		boolean all_risks_for_disease_are_present = true;
+		for(Risk associated_risk : risks_assosiated_with_disease) {
+			Risks same_type_risks_in_human = risks_present_in_human.getSubsetOfRisksOfTheSameType(associated_risk);
+			if(same_type_risks_in_human.isEmpty()){				
+				all_risks_for_disease_are_present &= false;
+			} else {
+				boolean found_risk = false;
+				for(Risk risk_in_human : same_type_risks_in_human) {
+					if(risks_assosiated_with_disease.contains(risk_in_human))
+						found_risk = true;
+				}
+				all_risks_for_disease_are_present &= found_risk;
+			}
+			
+		}
+		return all_risks_for_disease_are_present;
+	}
+
+	@Deprecated
+	private static boolean risksHaveToBeGreaterThanOrEqual(Risks risks_present_in_human, Disease disease) {
+		Risks risks_assosiated_with_disease = disease.assosiatedRisks();
 		boolean all_risks_for_disease_are_present = true;
 		for(Risk associated_risk : risks_assosiated_with_disease) {
 			boolean risk_meets_disease_requirements = riskMeetsRisksRequirements(risks_present_in_human, associated_risk);
@@ -90,6 +113,7 @@ public class HumanDisease implements Disease {
 		return all_risks_for_disease_are_present;
 	}
 
+	@Deprecated
 	private static boolean riskMeetsRisksRequirements(Risks risks_present_in_human, Risk associated_risk) {
 		boolean risk_meets_disease_requirements = risks_present_in_human.containsGreaterThanOrEqual(associated_risk);
 		return risk_meets_disease_requirements;

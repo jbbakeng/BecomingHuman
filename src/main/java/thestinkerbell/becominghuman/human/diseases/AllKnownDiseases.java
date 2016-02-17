@@ -4,10 +4,12 @@ import thestinkerbell.becominghuman.human.risks.Risks;
 
 final public class AllKnownDiseases {
 
-	private Diseases all_known_diseases = new Diseases();
+	final private Diseases all_known_diseases = new Diseases();
 	
 	public AllKnownDiseases() {
 		all_known_diseases.add(new HypertensionDisease());
+		all_known_diseases.add(new CommonColdDisease());
+		all_known_diseases.add(new InfluenzaDisease());
 	}
 
 	public Diseases identifyDiseasesBasedOnRisks(Risks risks_present_in_human) {
@@ -23,6 +25,10 @@ final public class AllKnownDiseases {
 
 	public boolean isEmpty() {
 		return all_known_diseases.isEmpty();
+	}
+	
+	public Diseases getAllKnownDiseses() {
+		return this.all_known_diseases;
 	}
 
 }

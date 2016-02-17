@@ -6,6 +6,7 @@ import org.junit.runners.Suite.SuiteClasses;
 
 @RunWith(Suite.class)
 @SuiteClasses({ 
+	AllKnownDiseasesTest.class,
 	HumanTest.class, 
 	HumanPropertyTest.class,
 	BloodPressureTest.class,

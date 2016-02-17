@@ -60,11 +60,5 @@ public class GermHumanPropertyTest {
 		GermHumanProperty property = getVirusHumanProperty_1();
 		this.canSerializeAnDeserialize(property);
 	}
-	
-	@Test
-	public void canSyncVirusHumanProperties() {
-		//fail("Not implementet yet");
-		//Think about bacteria and parasites etc
-	}
 
 }

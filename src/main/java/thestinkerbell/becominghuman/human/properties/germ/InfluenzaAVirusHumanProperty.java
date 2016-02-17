@@ -14,10 +14,10 @@ public class InfluenzaAVirusHumanProperty extends GermHumanProperty {
 		this.risk_ranges.add(new DoubleRiskRange(InfluenzaARisk.IA_NONE, 0.0,	0.0));
 		this.risk_ranges.add(new DoubleRiskRange(InfluenzaARisk.IA_MILD, 0.01, 2.84));
 		this.risk_ranges.add(new DoubleRiskRange(InfluenzaARisk.IA_MODERATE, 2.85, 6.18));
-		this.risk_ranges.add(new DoubleRiskRange(InfluenzaARisk.IA_HIGH, 6.19, 6.99));
-		this.risk_ranges.add(new DoubleRiskRange(InfluenzaARisk.IA_DEADLY, 7.0, 7.5));
+		this.risk_ranges.add(new DoubleRiskRange(InfluenzaARisk.IA_HIGH, 6.19, 7.0));
+		this.risk_ranges.add(new DoubleRiskRange(InfluenzaARisk.IA_DEADLY, 7.01, 7.5));
 		
-		this.antibodies = 1.0;
+		this.antibodies = 0.0;
 	}
 	
 	public enum InfluenzaARisk implements Risk  {

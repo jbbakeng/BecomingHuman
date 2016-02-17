@@ -21,6 +21,7 @@ public class Risks extends ArrayList<Risk>{
 		return retval;
 	}
 
+	@Deprecated
 	public boolean containsGreaterThanOrEqual(Risk risk) {
 		Risks same_type_risks = this.getSubsetOfRisksOfTheSameType(risk);
 		boolean contains_greater_than_or_equal = false;

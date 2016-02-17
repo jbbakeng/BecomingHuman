@@ -139,11 +139,7 @@ final public class Human {
 
 	public Symptoms getListOfAllSymptoms() {
 		Symptoms allSymptoms = new Symptoms();
-		Diseases diseases = getCurrentDiseases();
-		if(!diseases.isEmpty()) {
-			System.out.print("Found disease in human: "+diseases);
-		}
-		
+		Diseases diseases = getCurrentDiseases();		
 		for(Disease disease : diseases) {
 			allSymptoms.addAll(disease.getSymptoms());
 		}

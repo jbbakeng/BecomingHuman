@@ -18,6 +18,6 @@ import org.junit.runners.Suite.SuiteClasses;
 	DiseaseTest.class,
 	SymptomTest.class
 	})
-public class AllTests {
+public class UnitTests {
 
 }

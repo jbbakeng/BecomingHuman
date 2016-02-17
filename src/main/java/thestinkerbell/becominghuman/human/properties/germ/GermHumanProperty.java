@@ -71,4 +71,12 @@ public class GermHumanProperty extends DoubleHumanProperty {
 			return false;
 		return true;
 	}
+
+	public Double getAntibodies() {
+		return this.antibodies;
+	}
+
+	public void setAntibodies(Double antibodies) {
+		this.antibodies = antibodies;
+	}
 }

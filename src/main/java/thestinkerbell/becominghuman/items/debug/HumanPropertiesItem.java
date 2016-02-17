@@ -7,7 +7,7 @@ import thestinkerbell.becominghuman.human.properties.Properties;
 
 public class HumanPropertiesItem extends Item {
 	
-	protected Properties basic_property_list;
+	protected Properties basic_and_germ_property_list;
 	protected Properties all_property_list;
 	protected HumanPropertiesCycleItem cycle_item;
 
@@ -24,7 +24,8 @@ public class HumanPropertiesItem extends Item {
 	}
 	
 	protected void setListOfProperties(EntityPlayer player) {
-		this.basic_property_list = HumanExtendedEntityProperties.get(player).human.getListOfBasicHumanProperties();
+		this.basic_and_germ_property_list = HumanExtendedEntityProperties.get(player).human.getListOfBasicHumanProperties();
+		this.basic_and_germ_property_list.addAll(HumanExtendedEntityProperties.get(player).human.getListOfGermHumanProperties());
 		this.all_property_list = HumanExtendedEntityProperties.get(player).human.getListOfAllHumanProperties();
 	}
 	

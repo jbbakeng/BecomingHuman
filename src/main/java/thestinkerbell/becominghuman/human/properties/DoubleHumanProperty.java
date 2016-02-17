@@ -37,7 +37,16 @@ public abstract class DoubleHumanProperty extends HumanProperty<Double> {
 	
 	@Override
 	final public void setValue(Double value) {
-		this.value = value;
+		if(value > this.range_max) {
+			this.value = range_max;			
+		}
+		else if(value < this.range_min) {
+			this.value = range_min;			
+		}
+		else {
+			this.value = value;
+		}
+			
 	}
 
 	@Override

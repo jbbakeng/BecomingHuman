@@ -9,16 +9,16 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.potion.PotionEffect;
 import net.minecraft.world.World;
 import net.minecraftforge.common.IExtendedEntityProperties;
-import net.minecraftforge.fml.relauncher.Side;
-import net.minecraftforge.fml.relauncher.SideOnly;
 import thestinkerbell.becominghuman.BecomingHuman;
 import thestinkerbell.becominghuman.human.properties.DoubleHumanProperty;
 import thestinkerbell.becominghuman.human.properties.Properties;
 import thestinkerbell.becominghuman.human.properties.Property;
 import thestinkerbell.becominghuman.human.properties.basic.BasicHumanProperty;
+import thestinkerbell.becominghuman.human.properties.germ.GermHumanProperty;
 import thestinkerbell.becominghuman.human.symptoms.Symptom;
 import thestinkerbell.becominghuman.human.symptoms.Symptoms;
 import thestinkerbell.becominghuman.network.packets.PacketBasicHumanProperty;
+import thestinkerbell.becominghuman.network.packets.PacketGermHumanProperty;
 
 
 public class HumanExtendedEntityProperties implements IExtendedEntityProperties  {
@@ -49,12 +49,24 @@ public class HumanExtendedEntityProperties implements IExtendedEntityProperties 
      */
 	public void syncAll() {
 		if (this.isServerSide()) {
-			Properties list = human.getListOfBasicHumanProperties();
-			for(Property property : list) {
-	            this.sendToClient((DoubleHumanProperty)property);
-	        }
+			this.syncBasicHumanProperties();
+			this.syncGermHumanProperties();
 		} else {
 			return; //do nothing for client side, Packets will arrive from server.
+		}
+	}
+
+	private void syncBasicHumanProperties() {
+		Properties list = human.getListOfBasicHumanProperties();
+		for(Property property : list) {
+		    this.sendToClient((BasicHumanProperty)property);
+		}
+	}
+	
+	private void syncGermHumanProperties() {
+		Properties list = human.getListOfGermHumanProperties();
+		for(Property property : list) {
+		    this.sendToClient((GermHumanProperty)property);
 		}
 	}
     
@@ -63,9 +75,22 @@ public class HumanExtendedEntityProperties implements IExtendedEntityProperties 
      * @param property The property to be sent to the client
      */
 	//@SideOnly(Side.SERVER)
-	public void sendToClient(DoubleHumanProperty property) {
+	public void sendToClient(BasicHumanProperty property) {
     	//we are on the server side, we want to send human property information to correct players client
     	PacketBasicHumanProperty msg = new PacketBasicHumanProperty(property);
+    	EntityPlayerMP serverPlayer = (EntityPlayerMP) this.player;
+    	BecomingHuman.network.sendTo(msg, serverPlayer); //here values are pushed to the client
+	}
+	
+    /**
+     * Should only be called on SERVER side!
+     * @param property The property to be sent to the client
+     */
+	//@SideOnly(Side.SERVER)
+	public void sendToClient(GermHumanProperty property) {
+		System.out.println("Sending germs to client");
+    	//we are on the server side, we want to send human property information to correct players client
+    	PacketGermHumanProperty msg = new PacketGermHumanProperty(property);
     	EntityPlayerMP serverPlayer = (EntityPlayerMP) this.player;
     	BecomingHuman.network.sendTo(msg, serverPlayer); //here values are pushed to the client
 	}
@@ -75,7 +100,7 @@ public class HumanExtendedEntityProperties implements IExtendedEntityProperties 
      * @param property The property that should be set on the client
      */
 	//@SideOnly(Side.CLIENT)
-    public void set(DoubleHumanProperty property) {
+    public void set(BasicHumanProperty property) {
     	if (this.isServerSide()) {
     		System.err.println("DO NOT CALL THIS FROM SERVER SIDE!");
     		return;
@@ -83,6 +108,27 @@ public class HumanExtendedEntityProperties implements IExtendedEntityProperties 
     	else {
         	try {
 				this.human.setValue(property.getName(), property.getValue());
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+        }
+    }
+    
+    /**
+     * Should only be called on CLIENT side!
+     * @param property The property that should be set on the client
+     */
+	//@SideOnly(Side.CLIENT)
+    public void set(GermHumanProperty property) {
+    	if (this.isServerSide()) {
+    		System.err.println("DO NOT CALL THIS FROM SERVER SIDE!");
+    		return;
+    	}
+    	else {
+        	try {
+        		System.out.println("Setting germ properties");
+				this.human.setValue(property.getName(), property.getValue());
+				this.human.setAntibodies(property.getName(), property.getAntibodies());
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
@@ -105,10 +151,24 @@ public class HumanExtendedEntityProperties implements IExtendedEntityProperties 
 
 	@Override
 	public void saveNBTData(NBTTagCompound compound) {
+		saveBasicHumanProperties(compound);
+		saveGermHumanProperties(compound);
+	}
+
+	private void saveBasicHumanProperties(NBTTagCompound compound) {
 		Properties list = human.getListOfBasicHumanProperties();
 		for(Property property : list) {
 			ByteBuf buf = Unpooled.buffer();
-			BasicHumanProperty.serialize((DoubleHumanProperty)property, buf);			
+			BasicHumanProperty.serialize((BasicHumanProperty)property, buf);			
+			compound.setByteArray(property.getName(), buf.array());
+        }
+	}
+	
+	private void saveGermHumanProperties(NBTTagCompound compound) {
+		Properties list = human.getListOfGermHumanProperties();
+		for(Property property : list) {
+			ByteBuf buf = Unpooled.buffer();
+			GermHumanProperty.serialize((GermHumanProperty)property, buf);			
 			compound.setByteArray(property.getName(), buf.array());
         }
 	}
@@ -117,11 +177,25 @@ public class HumanExtendedEntityProperties implements IExtendedEntityProperties 
 	public void loadNBTData(NBTTagCompound compound) {
     	//This only happens on the server!!!
 		//This happens BEFORE the entity joins the world (on both server and client side)
+		loadBasicHumanProperties(compound);
+		loadGermHumanProperties(compound);
+	}
+
+	private void loadBasicHumanProperties(NBTTagCompound compound) {
 		Properties list = human.getListOfBasicHumanProperties();
 		for(Property property : list) {
 			ByteBuf buf = Unpooled.buffer();	
 			buf.writeBytes(compound.getByteArray(property.getName()));
-			BasicHumanProperty.deserialize(buf, (DoubleHumanProperty)property);
+			BasicHumanProperty.deserialize(buf, (BasicHumanProperty)property);
+        }
+	}
+	
+	private void loadGermHumanProperties(NBTTagCompound compound) {
+		Properties list = human.getListOfGermHumanProperties();
+		for(Property property : list) {
+			ByteBuf buf = Unpooled.buffer();	
+			buf.writeBytes(compound.getByteArray(property.getName()));
+			GermHumanProperty.deserialize(buf, (GermHumanProperty)property);
         }
 	}
 

@@ -21,7 +21,7 @@ public class HumanPropertiesIncreaseItem extends HumanPropertiesItem {
     }
 
 	private void increaseHumanPropertyValue(EntityPlayer player) {
-		DoubleHumanProperty property = (DoubleHumanProperty) basic_property_list.get(this.getCyclingIndex());
+		DoubleHumanProperty property = (DoubleHumanProperty) basic_and_germ_property_list.get(this.getCyclingIndex());
 		try {
 			HumanExtendedEntityProperties.get(player).human.setValue(property.getName(), property.getValue()+1);
 		} catch (Exception e) {

@@ -119,6 +119,13 @@ public class HumanPropertyTest {
 		this.canSerializeAnDeserialize(germ_1);
 	}
 	
+	@Test
+	public void settingValueToLessThanRangeMinWillClampValue() {
+		GermHumanProperty germ_1 = getGermHumanProperty_1();
+		germ_1.setValue(-10.0);
+		assertTrue(germ_1.getValue() == 0);
+	}
+	
 	
 	// --- Compound
 	

@@ -1,5 +1,6 @@
 package thestinkerbell.becominghuman;
 
+import net.minecraft.potion.Potion;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.Mod.EventHandler;
 import net.minecraftforge.fml.common.Mod.Instance;
@@ -9,6 +10,7 @@ import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import net.minecraftforge.fml.common.network.simpleimpl.SimpleNetworkWrapper;
 import thestinkerbell.becominghuman.common.CommonProxy;
+import thestinkerbell.becominghuman.human.symptoms.potioneffect.PainEffect;
 
 @Mod(modid = BecomingHuman.MODID, name = BecomingHuman.MODNAME, version = BecomingHuman.VERSION)
 public class BecomingHuman
@@ -17,6 +19,8 @@ public class BecomingHuman
     public static final String MODNAME = "Becoming Human";
     //versioning rules: https://mcforge.readthedocs.org/en/latest/conventions/versioning/
     public static final String VERSION = "1.8-0.0.0.0"; 
+    
+    public static Potion pain;
 
     @Instance(MODID)
     public static BecomingHuman instance = new BecomingHuman();
@@ -50,6 +54,8 @@ public class BecomingHuman
     	// is called at the very end. Its used to communicate with other mods 
     	//and adjust your setup based on this.
     	System.out.println("Called method: [postInit]");
+    	
+    	pain = new PainEffect(25, true, 0).setIconIndex(0,0).setPotionName("potion.paineffect");
     	
     	this.proxy.postInit(e);
     }

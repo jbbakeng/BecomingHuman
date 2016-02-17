@@ -20,7 +20,6 @@ public class ClientProxy extends CommonProxy{
 	public void init(FMLInitializationEvent e) {
 		super.init(e);
 		
-		//BecomingHuman.network.registerMessage(PacketHumanProperty.HandlerOnClient.class, PacketHumanProperty.class, 0, Side.CLIENT);
 		ItemRenderRegister.registerItemRenderer();
 	}
 

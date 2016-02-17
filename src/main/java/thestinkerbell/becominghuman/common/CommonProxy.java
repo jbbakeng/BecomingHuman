@@ -8,6 +8,7 @@ import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import net.minecraftforge.fml.common.network.NetworkRegistry;
 import net.minecraftforge.fml.relauncher.Side;
 import thestinkerbell.becominghuman.BecomingHuman;
+import thestinkerbell.becominghuman.human.symptoms.potioneffect.PotionEvent;
 import thestinkerbell.becominghuman.items.ModItems;
 import thestinkerbell.becominghuman.network.packets.PacketBasicHumanProperty;
 import thestinkerbell.becominghuman.network.packets.PacketGermHumanProperty;
@@ -27,6 +28,7 @@ public class CommonProxy{
     	//Registering to event buses
     	EventHandlerCommon handler = new EventHandlerCommon();
     	MinecraftForge.EVENT_BUS.register(handler);
+    	MinecraftForge.EVENT_BUS.register(new PotionEvent());
     	FMLCommonHandler.instance().bus().register(handler);
     }
 

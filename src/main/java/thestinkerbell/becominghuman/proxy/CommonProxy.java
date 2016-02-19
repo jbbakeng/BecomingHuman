@@ -1,4 +1,4 @@
-package thestinkerbell.becominghuman.common;
+package thestinkerbell.becominghuman.proxy;
 
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fml.common.FMLCommonHandler;
@@ -8,6 +8,8 @@ import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import net.minecraftforge.fml.common.network.NetworkRegistry;
 import net.minecraftforge.fml.relauncher.Side;
 import thestinkerbell.becominghuman.BecomingHuman;
+import thestinkerbell.becominghuman.eventhandlers.HumanExtendedEntityPropertiesEventHandler;
+import thestinkerbell.becominghuman.eventhandlers.PotionEventHandler;
 import thestinkerbell.becominghuman.items.ModItems;
 import thestinkerbell.becominghuman.network.packets.PacketBasicHumanProperty;
 import thestinkerbell.becominghuman.network.packets.PacketGermHumanProperty;
@@ -25,8 +27,9 @@ public class CommonProxy{
     	BecomingHuman.network.registerMessage(PacketGermHumanProperty.HandlerOnClient.class, PacketGermHumanProperty.class, 1, Side.CLIENT);
     	
     	//Registering to event buses
-    	EventHandlerCommon handler = new EventHandlerCommon();
+    	HumanExtendedEntityPropertiesEventHandler handler = new HumanExtendedEntityPropertiesEventHandler();
     	MinecraftForge.EVENT_BUS.register(handler);
+    	MinecraftForge.EVENT_BUS.register(new PotionEventHandler());
     	FMLCommonHandler.instance().bus().register(handler);
     }
 

@@ -1,4 +1,4 @@
-package thestinkerbell.becominghuman.common;
+package thestinkerbell.becominghuman.eventhandlers;
 
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.nbt.NBTTagCompound;
@@ -11,7 +11,7 @@ import net.minecraftforge.fml.common.eventhandler.EventPriority;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import thestinkerbell.becominghuman.human.HumanExtendedEntityProperties;
 
-public class EventHandlerCommon {
+public class HumanExtendedEntityPropertiesEventHandler {
 	
 	@SubscribeEvent(priority = EventPriority.NORMAL)
 	public void onPlayerUseItemEvent(PlayerUseItemEvent.Start e) {

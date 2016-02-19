@@ -1,9 +1,8 @@
-package thestinkerbell.becominghuman.server;
+package thestinkerbell.becominghuman.proxy;
 
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
-import thestinkerbell.becominghuman.common.CommonProxy;
 
 public class ServerProxy extends CommonProxy{
 

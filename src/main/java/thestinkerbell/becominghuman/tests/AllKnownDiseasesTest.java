@@ -7,15 +7,16 @@ import static org.junit.Assert.assertTrue;
 import org.junit.Test;
 
 import thestinkerbell.becominghuman.human.diseases.AllKnownDiseases;
-import thestinkerbell.becominghuman.human.diseases.CommonColdDisease;
 import thestinkerbell.becominghuman.human.diseases.Disease;
 import thestinkerbell.becominghuman.human.diseases.Diseases;
-import thestinkerbell.becominghuman.human.diseases.HypertensionDisease;
 import thestinkerbell.becominghuman.human.diseases.InfluenzaDisease;
 import thestinkerbell.becominghuman.human.properties.germ.InfluenzaAVirusHumanProperty.InfluenzaARisk;
 import thestinkerbell.becominghuman.human.risks.Risks;
+import thestinkerbell.becominghuman.human.symptoms.effects.Effect;
 
 public class AllKnownDiseasesTest {
+	
+	public static Effect effect = new Effect();
 
 	final private AllKnownDiseases akd = new AllKnownDiseases();
 	

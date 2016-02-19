@@ -1,20 +1,20 @@
 package thestinkerbell.becominghuman.human.diseases;
 
-import org.lwjgl.Sys;
-
 import thestinkerbell.becominghuman.human.risks.Risk;
-import thestinkerbell.becominghuman.human.risks.RiskComparator;
 import thestinkerbell.becominghuman.human.risks.Risks;
+import thestinkerbell.becominghuman.human.symptoms.HumanSymptom.Severity;
 import thestinkerbell.becominghuman.human.symptoms.Symptoms;
 
 public class HumanDisease implements Disease {
 	
-	private String name;
+	private final String name;
+	protected final Severity severity;
 	protected Symptoms symptoms;
 	protected Risks assosiated_risks;
 	
-	public HumanDisease(String name) {
+	public HumanDisease(String name, Severity severity) {
 		this.name = name;
+		this.severity = severity;
 		this.symptoms = new Symptoms();
 		this.assosiated_risks = new Risks();
 	}

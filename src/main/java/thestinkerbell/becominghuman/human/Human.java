@@ -13,6 +13,7 @@ import thestinkerbell.becominghuman.human.properties.basic.BodyTemperatureBasicH
 import thestinkerbell.becominghuman.human.properties.basic.DiastolicBloodPressureBasicHumanProperty;
 import thestinkerbell.becominghuman.human.properties.basic.HearthRateBasicHumanProperty;
 import thestinkerbell.becominghuman.human.properties.basic.HeightBasicHumanProperty;
+import thestinkerbell.becominghuman.human.properties.basic.SetPointBodyTemperatureBasicHumanProperty;
 import thestinkerbell.becominghuman.human.properties.basic.SystolicBloodPressureBasicHumanProperty;
 import thestinkerbell.becominghuman.human.properties.basic.WeightBasicHumanProperty;
 import thestinkerbell.becominghuman.human.properties.basic.WhiteBloodCellsBasicHumanProperty;
@@ -65,6 +66,7 @@ final public class Human {
 		properties.putAll(basic_properties);
 		properties.putAll(compound_properties);
 		properties.putAll(germ_properties);
+		Property test = properties.get(name);
 		return properties.get(name);
 	}
 	
@@ -82,6 +84,7 @@ final public class Human {
 		this.addHumanProperty(basic_properties, weight);
 		this.addHumanProperty(basic_properties, height);
 		this.addHumanProperty(basic_properties, new BodyTemperatureBasicHumanProperty());
+		this.addHumanProperty(basic_properties, new SetPointBodyTemperatureBasicHumanProperty());
 		this.addHumanProperty(basic_properties, new HearthRateBasicHumanProperty());
 		this.addHumanProperty(basic_properties, systolic);
 		this.addHumanProperty(basic_properties, diastolic);

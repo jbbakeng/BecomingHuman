@@ -81,9 +81,9 @@ public class InfluenceTest {
 	@Test
 	public void airTemperatureCanInfluenceHumanProperties() {
 		assertTrue(this.applyAirTemperatureInfluence(TempCategory.COLD) < 37.0);
-		assertTrue(this.applyAirTemperatureInfluence(TempCategory.MEDIUM) == 37.0);
+		assertTrue(Math.round(this.applyAirTemperatureInfluence(TempCategory.MEDIUM)) == 37.0);
 		assertTrue(this.applyAirTemperatureInfluence(TempCategory.WARM) > 37.0);
-		assertTrue(this.applyAirTemperatureInfluence(TempCategory.OCEAN) == 37.0);
+		assertTrue(this.applyAirTemperatureInfluence(TempCategory.OCEAN) < 37.0);
 		
 	}
 	

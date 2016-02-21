@@ -12,6 +12,7 @@ public class AirTemperatureInfluence extends HumanInfluence implements Influence
 	private final double ocean_factor = cold_factor*0.1;
 	private final TempCategory temp;
 	private String bt = "Body Temperature";
+	private String spbt = "Set Point Body Temperature";
 
 	public AirTemperatureInfluence(Human human, TempCategory temp) {
 		super(human);
@@ -58,7 +59,7 @@ public class AirTemperatureInfluence extends HumanInfluence implements Influence
 	}
 
 	private TempCategory getRelativeTemp() {
-		Double set_point_temp = 37.0;
+		Double set_point_temp = (Double) this.human.getHumanPropertyWithName(spbt).getValue();
 		Double current_temp = (Double) this.human.getHumanPropertyWithName(bt).getValue();
 		TempCategory relative_temp = this.temp;
 		if(this.temp == TempCategory.MEDIUM) {

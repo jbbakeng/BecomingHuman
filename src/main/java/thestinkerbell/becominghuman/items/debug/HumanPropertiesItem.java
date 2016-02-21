@@ -2,7 +2,7 @@ package thestinkerbell.becominghuman.items.debug;
 
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
-import thestinkerbell.becominghuman.human.HumanExtendedEntityProperties;
+import thestinkerbell.becominghuman.extendedentityproperties.HumanExtendedEntityProperties;
 import thestinkerbell.becominghuman.human.properties.Properties;
 
 public class HumanPropertiesItem extends Item {

@@ -17,7 +17,8 @@ import org.junit.runners.Suite.SuiteClasses;
 	BasicItemTest.class,
 	PairTest.class,
 	DiseaseTest.class,
-	SymptomTest.class
+	SymptomTest.class,
+	InfluenceTest.class
 	})
 public class UnitTests {
 

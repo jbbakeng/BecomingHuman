@@ -27,7 +27,7 @@ import thestinkerbell.becominghuman.human.symptoms.Symptoms;
 
 final public class Human {
 
-	final private AllKnownDiseases akd = new AllKnownDiseases(); 
+	private final AllKnownDiseases akd = new AllKnownDiseases(); 
 	
 	private HashMap<String, BasicHumanProperty> basic_properties; //sync using packages
 	private HashMap<String, CompoundHumanProperty> compound_properties; //updates when its basic components updates

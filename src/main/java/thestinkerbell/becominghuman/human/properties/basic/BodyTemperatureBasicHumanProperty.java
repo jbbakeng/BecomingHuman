@@ -6,7 +6,7 @@ import thestinkerbell.becominghuman.human.risks.Risk;
 final public class BodyTemperatureBasicHumanProperty extends BasicHumanProperty {
 
 	public BodyTemperatureBasicHumanProperty() {
-		super("Body Temperatur", 37, "celcius", -273, 980);
+		super("Body Temperature", 37, "celcius", -273, 980);
 		this.risk_ranges.add(new DoubleRiskRange(BodyTemperatureRisk.BODYTEMPERATURE_VERYCOLD, -273, 31));
 		this.risk_ranges.add(new DoubleRiskRange(BodyTemperatureRisk.BODYTEMPERATURE_COLD, 32, 35));
 		this.risk_ranges.add(new DoubleRiskRange(BodyTemperatureRisk.BODYTEMPERATURE_NORMAL, 36, 38));

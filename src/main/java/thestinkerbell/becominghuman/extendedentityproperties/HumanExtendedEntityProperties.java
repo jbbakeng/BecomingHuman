@@ -1,4 +1,4 @@
-package thestinkerbell.becominghuman.human;
+package thestinkerbell.becominghuman.extendedentityproperties;
 
 import io.netty.buffer.ByteBuf;
 import io.netty.buffer.Unpooled;
@@ -10,7 +10,9 @@ import net.minecraft.potion.PotionEffect;
 import net.minecraft.world.World;
 import net.minecraftforge.common.IExtendedEntityProperties;
 import thestinkerbell.becominghuman.BecomingHuman;
-import thestinkerbell.becominghuman.human.properties.DoubleHumanProperty;
+import thestinkerbell.becominghuman.human.Human;
+import thestinkerbell.becominghuman.human.influences.Influence;
+import thestinkerbell.becominghuman.human.influences.InfluenceQueue;
 import thestinkerbell.becominghuman.human.properties.Properties;
 import thestinkerbell.becominghuman.human.properties.Property;
 import thestinkerbell.becominghuman.human.properties.basic.BasicHumanProperty;
@@ -25,11 +27,14 @@ public class HumanExtendedEntityProperties implements IExtendedEntityProperties 
 	
 	private static final String identifier = "humanproperties";
 	private final EntityPlayer player;
-	final public Human human;
+	public final Human human;
+	
+	private final InfluenceQueue influence_queue;
 	
     public HumanExtendedEntityProperties(EntityPlayer player) {
         this.player = player;
         this.human  = new Human();
+        this.influence_queue = new InfluenceQueue();
     }
 	
     public static HumanExtendedEntityProperties get(EntityPlayer player) {
@@ -144,6 +149,10 @@ public class HumanExtendedEntityProperties implements IExtendedEntityProperties 
 		}
     }
     
+	public void addInfluenceToQueue(Influence influence) {
+		this.influence_queue.add(influence);
+	}
+    
     public void saveReviveRelevantNBTData(NBTTagCompound nbt, boolean wasDeath) {
         if (!wasDeath)
             this.saveNBTData(nbt);
@@ -202,5 +211,10 @@ public class HumanExtendedEntityProperties implements IExtendedEntityProperties 
 	@Override
 	public void init(Entity entity, World world) {	
 	}
+
+	public void applyInfluences() {
+		this.influence_queue.process();
+	}
+
 
 }

@@ -5,7 +5,7 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ChatComponentText;
 import net.minecraft.world.World;
-import thestinkerbell.becominghuman.human.HumanExtendedEntityProperties;
+import thestinkerbell.becominghuman.extendedentityproperties.HumanExtendedEntityProperties;
 import thestinkerbell.becominghuman.human.properties.DoubleHumanProperty;
 import thestinkerbell.becominghuman.human.properties.HumanProperty;
 

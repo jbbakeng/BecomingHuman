@@ -2,21 +2,19 @@ package thestinkerbell.becominghuman.eventhandlers;
 
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.world.biome.BiomeGenBase;
 import net.minecraftforge.event.entity.EntityEvent.EntityConstructing;
 import net.minecraftforge.event.entity.EntityJoinWorldEvent;
 import net.minecraftforge.event.entity.living.LivingEvent.LivingUpdateEvent;
 import net.minecraftforge.event.entity.player.PlayerEvent;
 import net.minecraftforge.event.entity.player.PlayerUseItemEvent;
-import net.minecraftforge.fml.common.eventhandler.EventPriority;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
-import thestinkerbell.becominghuman.human.HumanExtendedEntityProperties;
+import thestinkerbell.becominghuman.extendedentityproperties.HumanExtendedEntityProperties;
+import thestinkerbell.becominghuman.human.Human;
+import thestinkerbell.becominghuman.human.influences.AirTemperatureInfluence;
 
 public class HumanExtendedEntityPropertiesEventHandler {
 	
-	@SubscribeEvent(priority = EventPriority.NORMAL)
-	public void onPlayerUseItemEvent(PlayerUseItemEvent.Start e) {
-	}
-
 	@SubscribeEvent
 	public void onEntityConstructing(EntityConstructing e) {
 	    if (e.entity instanceof EntityPlayer && HumanExtendedEntityProperties.get((EntityPlayer) e.entity) == null) {
@@ -42,8 +40,23 @@ public class HumanExtendedEntityPropertiesEventHandler {
 	
 	@SubscribeEvent
 	public void onLivingUpdate(LivingUpdateEvent e) {
+		
+		
 		if (e.entity instanceof EntityPlayer) {
-			HumanExtendedEntityProperties.get((EntityPlayer) e.entity).applyPotionEffectsFromSymptoms();
+			HumanExtendedEntityProperties extended_properties = HumanExtendedEntityProperties.get((EntityPlayer) e.entity);
+			extended_properties.applyPotionEffectsFromSymptoms();
+			
+			BiomeGenBase.TempCategory temp = e.entityLiving.worldObj.getBiomeGenForCoords(e.entity.getPosition()).getTempCategory();
+			extended_properties.addInfluenceToQueue(new AirTemperatureInfluence(extended_properties.human, temp));
+			
+			extended_properties.applyInfluences();
 		}
+	}
+	
+	@SubscribeEvent
+	public void onPlayerUseItemEvent(PlayerUseItemEvent.Start e) {
+		//eating
+		//drinking
+		//etc.
 	}
 }

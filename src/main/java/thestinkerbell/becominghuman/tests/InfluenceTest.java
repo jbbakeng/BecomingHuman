@@ -11,6 +11,7 @@ import thestinkerbell.becominghuman.human.influences.AirTemperatureInfluence;
 import thestinkerbell.becominghuman.human.influences.HumanInfluence;
 import thestinkerbell.becominghuman.human.influences.Influence;
 import thestinkerbell.becominghuman.human.influences.InfluenceQueue;
+import thestinkerbell.becominghuman.human.influences.MovementInfluence;
 import thestinkerbell.becominghuman.human.properties.Property;
 
 public class InfluenceTest {
@@ -90,6 +91,12 @@ public class InfluenceTest {
 	@Test
 	public void canProcessQueueWithOneAirTemperatureInfluence() {
 		Influence influence = new AirTemperatureInfluence(new Human(), TempCategory.COLD);
+		this.popQueue(influence, 3);
+	}
+	
+	@Test
+	public void canProcessQueueWithOneMovementInfluence() {
+		Influence influence = new MovementInfluence(new Human());
 		this.popQueue(influence, 3);
 	}
 

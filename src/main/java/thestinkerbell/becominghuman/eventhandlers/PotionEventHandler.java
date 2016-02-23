@@ -8,6 +8,7 @@ import thestinkerbell.becominghuman.BecomingHuman;
 public class PotionEventHandler {
 	@SubscribeEvent
 	public void onLivingUpdate(LivingUpdateEvent e) {
+		/*
 		if(e.entityLiving.isPotionActive(BecomingHuman.potions.pain)) {
 			if(e.entityLiving.getActivePotionEffect(BecomingHuman.potions.pain).getDuration() == 0) {
 				e.entityLiving.removePotionEffect(BecomingHuman.potions.pain.id);
@@ -16,5 +17,6 @@ public class PotionEventHandler {
 		} else if(e.entityLiving.worldObj.rand.nextInt(30) == 0) {
 			e.entityLiving.attackEntityFrom(DamageSource.generic, 2); //2 == 1 heart
 		}
+		*/
 	}
 }

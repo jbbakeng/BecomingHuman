@@ -48,7 +48,7 @@ public class HumanExtendedEntityPropertiesEventHandler {
 		if (e.entity instanceof EntityPlayer) {
 			//--- Symptoms
 			HumanExtendedEntityProperties extended_properties = HumanExtendedEntityProperties.get((EntityPlayer) e.entity);
-			//extended_properties.applyPotionEffectsFromSymptoms();
+			extended_properties.applyPotionEffectsFromSymptoms();
 			
 			//--- Influences
 			//AirTemperature
@@ -57,7 +57,7 @@ public class HumanExtendedEntityPropertiesEventHandler {
 			
 			//debugMovementSpeed(e);
 			
-			//extended_properties.applyInfluences();
+			extended_properties.applyInfluences();
 		}
 	}
 

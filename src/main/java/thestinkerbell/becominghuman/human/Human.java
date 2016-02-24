@@ -17,11 +17,13 @@ import thestinkerbell.becominghuman.human.properties.basic.HeartRateBasicHumanPr
 import thestinkerbell.becominghuman.human.properties.basic.HeightBasicHumanProperty;
 import thestinkerbell.becominghuman.human.properties.basic.SetPointBodyTemperatureBasicHumanProperty;
 import thestinkerbell.becominghuman.human.properties.basic.SystolicBloodPressureBasicHumanProperty;
+import thestinkerbell.becominghuman.human.properties.basic.WaterBasicHumanProperty;
 import thestinkerbell.becominghuman.human.properties.basic.WeightBasicHumanProperty;
 import thestinkerbell.becominghuman.human.properties.basic.WhiteBloodCellsBasicHumanProperty;
 import thestinkerbell.becominghuman.human.properties.compound.BMICompoundHumanProperty;
 import thestinkerbell.becominghuman.human.properties.compound.BloodPressureCompoundHumanProperty;
 import thestinkerbell.becominghuman.human.properties.compound.CompoundHumanProperty;
+import thestinkerbell.becominghuman.human.properties.compound.HydrationLevelCompoundHumanProperty;
 import thestinkerbell.becominghuman.human.properties.germ.GermHumanProperty;
 import thestinkerbell.becominghuman.human.properties.germ.InfluenzaAVirusHumanProperty;
 import thestinkerbell.becominghuman.human.risks.Risk;
@@ -81,10 +83,12 @@ final public class Human {
 		HeightBasicHumanProperty height = new HeightBasicHumanProperty();
 		SystolicBloodPressureBasicHumanProperty systolic = new SystolicBloodPressureBasicHumanProperty();
 		DiastolicBloodPressureBasicHumanProperty diastolic = new DiastolicBloodPressureBasicHumanProperty();
+		WaterBasicHumanProperty water = new WaterBasicHumanProperty();
 
 		this.addHumanProperty(basic_properties, new AgeBasicHumanProperty());
 		this.addHumanProperty(basic_properties, weight);
 		this.addHumanProperty(basic_properties, height);
+		this.addHumanProperty(basic_properties, water);
 		this.addHumanProperty(basic_properties, new BodyTemperatureBasicHumanProperty());
 		this.addHumanProperty(basic_properties, new SetPointBodyTemperatureBasicHumanProperty());
 		this.addHumanProperty(basic_properties, new HeartRateBasicHumanProperty());
@@ -96,6 +100,7 @@ final public class Human {
 		
 		this.addHumanProperty(compound_properties, new BMICompoundHumanProperty(weight, height));
 		this.addHumanProperty(compound_properties, new BloodPressureCompoundHumanProperty(systolic, diastolic));
+		this.addHumanProperty(compound_properties, new HydrationLevelCompoundHumanProperty(water, weight));
 		
 		this.addHumanProperty(germ_properties, new InfluenzaAVirusHumanProperty());
 	}

@@ -1,6 +1,5 @@
-package thestinkerbell.becominghuman.human.properties.basic;
+package thestinkerbell.becominghuman.human.properties;
 
-import thestinkerbell.becominghuman.human.properties.DoubleHumanProperty;
 import thestinkerbell.becominghuman.human.risks.DoubleRiskRange;
 import thestinkerbell.becominghuman.human.risks.Risk;
 import thestinkerbell.becominghuman.human.risks.RiskRange;

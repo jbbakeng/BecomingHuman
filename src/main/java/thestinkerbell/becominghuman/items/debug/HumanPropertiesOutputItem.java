@@ -4,8 +4,8 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ChatComponentText;
 import net.minecraft.world.World;
+import thestinkerbell.becominghuman.human.properties.PairedCompoundHumanProperty;
 import thestinkerbell.becominghuman.human.properties.Property;
-import thestinkerbell.becominghuman.human.properties.compound.PairedCompoundHumanProperty;
 
 public class HumanPropertiesOutputItem extends HumanPropertiesItem {
 	

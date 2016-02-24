@@ -9,10 +9,10 @@ import java.util.List;
 
 import org.junit.Test;
 
+import thestinkerbell.becominghuman.human.properties.BasicHumanProperty;
 import thestinkerbell.becominghuman.human.properties.HumanProperty;
 import thestinkerbell.becominghuman.human.properties.HumanProperty.GeneralRisk;
 import thestinkerbell.becominghuman.human.properties.basic.AgeBasicHumanProperty.AgeRisk;
-import thestinkerbell.becominghuman.human.properties.basic.BasicHumanProperty;
 import thestinkerbell.becominghuman.human.properties.compound.BMICompoundHumanProperty.BMIRisk;
 import thestinkerbell.becominghuman.human.properties.compound.BloodPressureCompoundHumanProperty.BloodPressureRisk;
 import thestinkerbell.becominghuman.human.risks.DoubleRiskRange;

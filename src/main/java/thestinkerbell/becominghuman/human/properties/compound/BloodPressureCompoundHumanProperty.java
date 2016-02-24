@@ -1,5 +1,6 @@
 package thestinkerbell.becominghuman.human.properties.compound;
 
+import thestinkerbell.becominghuman.human.properties.PairedCompoundHumanProperty;
 import thestinkerbell.becominghuman.human.properties.basic.DiastolicBloodPressureBasicHumanProperty;
 import thestinkerbell.becominghuman.human.properties.basic.SystolicBloodPressureBasicHumanProperty;
 import thestinkerbell.becominghuman.human.risks.PairDoubleRiskRange;

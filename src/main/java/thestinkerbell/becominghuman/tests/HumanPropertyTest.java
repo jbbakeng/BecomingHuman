@@ -10,12 +10,12 @@ import org.junit.Test;
 import io.netty.buffer.ByteBuf;
 import io.netty.buffer.Unpooled;
 import javafx.beans.property.DoubleProperty;
+import thestinkerbell.becominghuman.human.properties.BasicHumanProperty;
+import thestinkerbell.becominghuman.human.properties.DoubleCompoundHumanProperty;
 import thestinkerbell.becominghuman.human.properties.DoubleHumanProperty;
-import thestinkerbell.becominghuman.human.properties.basic.BasicHumanProperty;
 import thestinkerbell.becominghuman.human.properties.basic.HeightBasicHumanProperty;
 import thestinkerbell.becominghuman.human.properties.basic.WeightBasicHumanProperty;
 import thestinkerbell.becominghuman.human.properties.compound.BMICompoundHumanProperty;
-import thestinkerbell.becominghuman.human.properties.compound.DoubleCompoundHumanProperty;
 import thestinkerbell.becominghuman.human.properties.germ.GermHumanProperty;
 import thestinkerbell.becominghuman.human.properties.germ.InfluenzaAVirusHumanProperty;
 

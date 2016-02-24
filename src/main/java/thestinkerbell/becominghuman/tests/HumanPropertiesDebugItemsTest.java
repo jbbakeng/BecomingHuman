@@ -9,8 +9,8 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
+import thestinkerbell.becominghuman.human.properties.BasicHumanProperty;
 import thestinkerbell.becominghuman.human.properties.Properties;
-import thestinkerbell.becominghuman.human.properties.basic.BasicHumanProperty;
 import thestinkerbell.becominghuman.items.debug.HumanPropertiesCycleItem;
 import thestinkerbell.becominghuman.items.debug.HumanPropertiesDecreaseItem;
 import thestinkerbell.becominghuman.items.debug.HumanPropertiesIncreaseItem;

@@ -1,8 +1,7 @@
-package thestinkerbell.becominghuman.human.properties.compound;
+package thestinkerbell.becominghuman.human.properties;
 
 import com.google.common.collect.Range;
 
-import thestinkerbell.becominghuman.human.properties.HumanProperty;
 import thestinkerbell.becominghuman.human.risks.Risk;
 import thestinkerbell.becominghuman.human.risks.RiskRange;
 import thestinkerbell.becominghuman.utilities.Pair;

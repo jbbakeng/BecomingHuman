@@ -7,7 +7,7 @@ import net.minecraft.potion.PotionEffect;
 import net.minecraft.util.ChatComponentText;
 import net.minecraft.world.World;
 import thestinkerbell.becominghuman.extendedentityproperties.HumanExtendedEntityProperties;
-import thestinkerbell.becominghuman.human.properties.basic.BasicHumanProperty;
+import thestinkerbell.becominghuman.human.properties.BasicHumanProperty;
 import thestinkerbell.becominghuman.utilities.Utilities;
 
 public class HumanPropertiesTryPotionEffect extends HumanPropertiesItem {

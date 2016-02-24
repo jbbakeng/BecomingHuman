@@ -5,9 +5,9 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.util.ChatComponentText;
 import net.minecraft.world.World;
 import thestinkerbell.becominghuman.extendedentityproperties.HumanExtendedEntityProperties;
+import thestinkerbell.becominghuman.human.properties.BasicHumanProperty;
 import thestinkerbell.becominghuman.human.properties.DoubleHumanProperty;
 import thestinkerbell.becominghuman.human.properties.HumanProperty;
-import thestinkerbell.becominghuman.human.properties.basic.BasicHumanProperty;
 import thestinkerbell.becominghuman.human.properties.germ.GermHumanProperty;
 
 public class HumanPropertiesIncreaseItem extends HumanPropertiesItem {

@@ -1,5 +1,6 @@
 package thestinkerbell.becominghuman.human.properties.compound;
 
+import thestinkerbell.becominghuman.human.properties.DoubleCompoundHumanProperty;
 import thestinkerbell.becominghuman.human.properties.basic.HeightBasicHumanProperty;
 import thestinkerbell.becominghuman.human.properties.basic.WeightBasicHumanProperty;
 import thestinkerbell.becominghuman.human.risks.DoubleRiskRange;

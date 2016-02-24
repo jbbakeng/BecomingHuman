@@ -1,7 +1,5 @@
-package thestinkerbell.becominghuman.human.properties.compound;
+package thestinkerbell.becominghuman.human.properties;
 
-import thestinkerbell.becominghuman.human.properties.HumanProperty;
-import thestinkerbell.becominghuman.human.properties.Property;
 import thestinkerbell.becominghuman.human.risks.Risk;
 import thestinkerbell.becominghuman.human.risks.RiskRange;
 

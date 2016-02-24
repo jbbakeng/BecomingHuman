@@ -155,8 +155,8 @@ public class HumanExtendedEntityProperties implements IExtendedEntityProperties 
 	}
     
     public void saveReviveRelevantNBTData(NBTTagCompound nbt, boolean wasDeath) {
-        if (!wasDeath)
-            this.saveNBTData(nbt);
+        //if (!wasDeath)
+        this.saveNBTData(nbt);
     }
 
 	@Override

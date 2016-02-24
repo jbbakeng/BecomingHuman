@@ -1,5 +1,7 @@
 package thestinkerbell.becominghuman.human.diseases;
 
+import thestinkerbell.becominghuman.human.properties.GermHumanProperty;
+import thestinkerbell.becominghuman.human.properties.GermHumanProperty.Transmission;
 import thestinkerbell.becominghuman.human.risks.Risks;
 
 final public class AllKnownDiseases {

@@ -18,6 +18,7 @@ import net.minecraftforge.fml.common.eventhandler.EventPriority;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import thestinkerbell.becominghuman.extendedentityproperties.HumanExtendedEntityProperties;
 import thestinkerbell.becominghuman.human.influences.external.AirTemperatureInfluence;
+import thestinkerbell.becominghuman.human.influences.external.BreathingInfluence;
 import thestinkerbell.becominghuman.human.influences.external.DrinkingWaterInfluence;
 import thestinkerbell.becominghuman.human.influences.external.HungerInfluence;
 import thestinkerbell.becominghuman.human.influences.external.MovementInfluence;
@@ -81,6 +82,9 @@ public class HumanExtendedEntityPropertiesEventHandler {
 				//		Hunger
 				FoodStats food_stats = ((EntityPlayer)e.entityLiving).getFoodStats();
 				extended_properties.addInfluenceToQueue(new HungerInfluence(extended_properties.human, food_stats));
+				
+				//		Breathing
+				extended_properties.addInfluenceToQueue(new BreathingInfluence(extended_properties.human));
 				
 				
 				//		APPLY

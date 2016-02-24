@@ -1,10 +1,13 @@
 package thestinkerbell.becominghuman.human;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Random;
 
 import thestinkerbell.becominghuman.human.properties.BasicHumanProperty;
 import thestinkerbell.becominghuman.human.properties.CompoundHumanProperty;
 import thestinkerbell.becominghuman.human.properties.GermHumanProperty;
+import thestinkerbell.becominghuman.human.properties.GermHumanProperty.Transmission;
 import thestinkerbell.becominghuman.human.properties.basic.AgeBasicHumanProperty;
 import thestinkerbell.becominghuman.human.properties.basic.BodyTemperatureBasicHumanProperty;
 import thestinkerbell.becominghuman.human.properties.basic.DiastolicBloodPressureBasicHumanProperty;
@@ -71,5 +74,21 @@ public class HumanBiology {
 	
 	static private void addHumanProperty(HashMap<String, CompoundHumanProperty> properties, CompoundHumanProperty humanProperty) {
 		properties.put(humanProperty.getName(), humanProperty);
+	}
+
+	public GermHumanProperty getRandomGerm() {
+		ArrayList<GermHumanProperty> germs = getArrayListOfGerms();
+		int min = 0;
+		int max = germs.size()-1;
+		Random random = new Random();
+		int randomNum = random.nextInt((max - min) + 1) + min;
+		GermHumanProperty random_germ = germs.get(randomNum);
+		return random_germ;
+	}
+
+	private ArrayList<GermHumanProperty> getArrayListOfGerms() {
+		ArrayList<GermHumanProperty> germs = new ArrayList<GermHumanProperty>(); 
+		germs.addAll(germ_properties.values());
+		return germs;
 	}
 }

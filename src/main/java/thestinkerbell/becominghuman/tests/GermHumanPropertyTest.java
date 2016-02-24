@@ -11,6 +11,7 @@ import io.netty.buffer.ByteBuf;
 import io.netty.buffer.Unpooled;
 import thestinkerbell.becominghuman.human.properties.GermHumanProperty;
 import thestinkerbell.becominghuman.human.properties.germ.InfluenzaAVirusHumanProperty;
+import thestinkerbell.becominghuman.human.properties.germ.VirusHumanProperty;
 import thestinkerbell.becominghuman.human.risks.Risk;
 
 public class GermHumanPropertyTest {
@@ -33,7 +34,7 @@ public class GermHumanPropertyTest {
 
 	@Test
 	public void canCreateInfluenzaA() {
-		InfluenzaAVirusHumanProperty influenza_a = new InfluenzaAVirusHumanProperty();
+		VirusHumanProperty influenza_a = new InfluenzaAVirusHumanProperty();
 		assertNotNull(influenza_a);
 		
 		String name = influenza_a.getName();

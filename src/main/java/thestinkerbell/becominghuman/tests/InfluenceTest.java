@@ -11,6 +11,7 @@ import thestinkerbell.becominghuman.human.Human;
 import thestinkerbell.becominghuman.human.influences.HumanInfluence;
 import thestinkerbell.becominghuman.human.influences.Influence;
 import thestinkerbell.becominghuman.human.influences.external.AirTemperatureInfluence;
+import thestinkerbell.becominghuman.human.influences.external.BreathingInfluence;
 import thestinkerbell.becominghuman.human.influences.external.DrinkingWaterInfluence;
 import thestinkerbell.becominghuman.human.influences.external.HungerInfluence;
 import thestinkerbell.becominghuman.human.influences.external.InfluenceQueue;
@@ -198,6 +199,13 @@ public class InfluenceTest {
 		
 		assertTrue(this.applyDrinkingWaterInfluence(not_drinking_water) == 50.0);
 		assertTrue(this.applyDrinkingWaterInfluence(drinking_water) > 50.0);
+	}
+	
+	@Test
+	public void canProcessQueueWithOneBreathingInfluence() {
+
+		Influence breathing = new BreathingInfluence(new Human());
+		this.popQueue(breathing, 1);
 	}
 
 }

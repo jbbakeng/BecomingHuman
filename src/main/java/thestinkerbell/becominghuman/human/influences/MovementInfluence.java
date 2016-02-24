@@ -11,6 +11,8 @@ public class MovementInfluence extends HumanInfluence implements Influence {
 
 	private final double speed_km_h;
 	private String hr = "Heart Rate";
+	private String hr_resting = "Heart Rate Resting";
+	private String hr_max = "Heart Rate Max";
 	
 	public MovementInfluence(Human human, double speed_km_h) {
 		super(human);
@@ -33,8 +35,8 @@ public class MovementInfluence extends HumanInfluence implements Influence {
 	}
 
 	private double getHeartRateChange(double current_heart_rate) {
-		double heart_rate_resting = 70.0;
-		double heart_rate_max = 220.0;
+		double heart_rate_resting = (Double) this.human.getHumanPropertyWithName(hr_resting).getValue();
+		double heart_rate_max = (Double) this.human.getHumanPropertyWithName(hr_max).getValue();
 
 		double factor = 0.001;
 		

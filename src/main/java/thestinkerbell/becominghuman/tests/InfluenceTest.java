@@ -5,10 +5,12 @@ import static org.junit.Assert.assertTrue;
 
 import org.junit.Test;
 
+import net.minecraft.util.FoodStats;
 import net.minecraft.world.biome.BiomeGenBase.TempCategory;
 import thestinkerbell.becominghuman.human.Human;
 import thestinkerbell.becominghuman.human.influences.AirTemperatureInfluence;
 import thestinkerbell.becominghuman.human.influences.HumanInfluence;
+import thestinkerbell.becominghuman.human.influences.HungerInfluence;
 import thestinkerbell.becominghuman.human.influences.Influence;
 import thestinkerbell.becominghuman.human.influences.InfluenceQueue;
 import thestinkerbell.becominghuman.human.influences.MovementInfluence;
@@ -32,8 +34,8 @@ public class InfluenceTest {
 		Double old_body_temp = (Double) body_temperature.getValue();
 		assertTrue((Double)body_temperature.getValue() == 37.0);
 		
-		Influence air_temp_influence = new AirTemperatureInfluence(human, temp);
-		air_temp_influence.apply();
+		Influence influence = new AirTemperatureInfluence(human, temp);
+		influence.apply();
 		
 		Double new_body_temp = (Double)body_temperature.getValue();
 		return new_body_temp;
@@ -45,11 +47,24 @@ public class InfluenceTest {
 		Double old_heart_rate = (Double) heart_rate.getValue();
 		assertTrue((Double)heart_rate.getValue() == 70.0);
 		
-		Influence movement_influence = new MovementInfluence(human, speed_km_h);
-		movement_influence.apply();
+		Influence influence = new MovementInfluence(human, speed_km_h);
+		influence.apply();
 		
 		Double new_heart_rate = (Double)heart_rate.getValue();
 		return new_heart_rate;
+	}
+	
+	private double applyHungerInfluence(FoodStats food_stat) {
+		Human human = new Human();
+		Property weight = human.getHumanPropertyWithName("Weight");
+		Double old_weight = (Double) weight.getValue();
+		assertTrue((Double)weight.getValue() == 75.0);
+		
+		Influence influence = new HungerInfluence(human, food_stat);
+		influence.apply();
+		
+		Double new_weight = (Double)weight.getValue();
+		return new_weight;
 	}
 	
 	// --- TESTS
@@ -128,6 +143,41 @@ public class InfluenceTest {
 		assertTrue(this.applyMovementInfluence(walking_speed) <= heart_rate_walking);
 		assertTrue(this.applyMovementInfluence(running_speed) > heart_rate_resting);
 		assertTrue(this.applyMovementInfluence(running_speed) <= heart_rate_max);
+	}
+	
+	@Test
+	public void canProcessQueueWithOneHungerInfluence() {
+		FoodStats food_stats = new FoodStats();
+		food_stats.addExhaustion(0.0F);
+		
+		Influence hunger = new HungerInfluence(new Human(), food_stats);
+		this.popQueue(hunger, 1);
+	}
+	
+	@Test
+	public void hungerCanInfluenceHumanProperties() {
+		double weight = 75.0;
+		
+		FoodStats gain_weight = new FoodStats();
+		gain_weight.setFoodLevel(20);
+		gain_weight.setFoodSaturationLevel(20);
+		assertTrue(this.applyHungerInfluence(gain_weight) > weight);
+		gain_weight.setFoodSaturationLevel(1);
+		assertTrue(this.applyHungerInfluence(gain_weight) > weight);
+		gain_weight.setFoodSaturationLevel(0);
+		assertTrue(this.applyHungerInfluence(gain_weight) == weight);
+		
+		FoodStats loose_weight = new FoodStats();
+		loose_weight.setFoodSaturationLevel(0);
+		loose_weight.setFoodLevel(20);
+		assertTrue(this.applyHungerInfluence(loose_weight) == weight);
+		loose_weight.setFoodLevel(10);
+		assertTrue(this.applyHungerInfluence(loose_weight) < weight);
+		loose_weight.setFoodLevel(0);
+		assertTrue(this.applyHungerInfluence(loose_weight) < weight);
+		
+		
+		
 	}
 
 }

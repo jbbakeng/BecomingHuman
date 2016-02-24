@@ -18,6 +18,7 @@ import net.minecraftforge.fml.common.eventhandler.EventPriority;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import thestinkerbell.becominghuman.extendedentityproperties.HumanExtendedEntityProperties;
 import thestinkerbell.becominghuman.human.influences.AirTemperatureInfluence;
+import thestinkerbell.becominghuman.human.influences.HungerInfluence;
 import thestinkerbell.becominghuman.human.influences.MovementInfluence;
 import thestinkerbell.becominghuman.utilities.SpeedConverter;
 
@@ -60,21 +61,25 @@ public class HumanExtendedEntityPropertiesEventHandler {
 	public void onLivingUpdate(LivingUpdateEvent e) {
 		
 		if (e.entity instanceof EntityPlayer) {
-			//--- Symptoms
 			HumanExtendedEntityProperties extended_properties = HumanExtendedEntityProperties.get((EntityPlayer) e.entity);
 			if(extended_properties.isServerSide()) {
 				
+				//--- Symptoms
 				extended_properties.applyPotionEffectsFromSymptoms();
 				
 				//--- Influences
-				//AirTemperature
+				//		AirTemperature
 				BiomeGenBase.TempCategory temp = e.entityLiving.worldObj.getBiomeGenForCoords(e.entity.getPosition()).getTempCategory();
 				extended_properties.addInfluenceToQueue(new AirTemperatureInfluence(extended_properties.human, temp));
 				
-				//Movement
+				//		Movement
 				Vec3 server_motion = getServersMotionVector(e);
 				double speed_kph = SpeedConverter.getSpeed_kph(server_motion.xCoord, server_motion.zCoord);
 				extended_properties.addInfluenceToQueue(new MovementInfluence(extended_properties.human, speed_kph));
+				
+				//		Hunger
+				FoodStats food_stats = ((EntityPlayer)e.entityLiving).getFoodStats();
+				extended_properties.addInfluenceToQueue(new HungerInfluence(extended_properties.human, food_stats));
 				
 				extended_properties.applyInfluences();
 			}

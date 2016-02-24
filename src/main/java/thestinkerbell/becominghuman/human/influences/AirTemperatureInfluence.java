@@ -67,15 +67,4 @@ public class AirTemperatureInfluence extends HumanInfluence implements Influence
 		}
 		return relative_temp;
 	}
-
-	private void printDebug(Double old_body_temperatur, Double temp_change, Double new_body_temperatur) {
-		System.out.println("Applying AirTemperatureInfluence");
-		System.out.println("old_body_temperatur: "+old_body_temperatur);
-		System.out.println("temp_change: "+temp_change);
-		System.out.println("new_body_temperatur: "+new_body_temperatur);
-		Double after_one_min = (temp_change*20*60)+old_body_temperatur;
-		System.out.println("after 1 min: "+after_one_min);
-		Double after_five_min = (temp_change*20*60*5)+old_body_temperatur;
-		System.out.println("after 5 min: "+after_five_min);
-	}
 }

@@ -11,6 +11,7 @@ import thestinkerbell.becominghuman.human.influences.AirTemperatureInfluence;
 import thestinkerbell.becominghuman.human.influences.HumanInfluence;
 import thestinkerbell.becominghuman.human.influences.Influence;
 import thestinkerbell.becominghuman.human.influences.InfluenceQueue;
+import thestinkerbell.becominghuman.human.influences.MovementInfluence;
 import thestinkerbell.becominghuman.human.properties.Property;
 
 public class InfluenceTest {
@@ -36,6 +37,19 @@ public class InfluenceTest {
 		
 		Double new_body_temp = (Double)body_temperature.getValue();
 		return new_body_temp;
+	}
+	
+	private double applyMovementInfluence(double speed_km_h) {
+		Human human = new Human();
+		Property heart_rate = human.getHumanPropertyWithName("Heart Rate");
+		Double old_heart_rate = (Double) heart_rate.getValue();
+		assertTrue((Double)heart_rate.getValue() == 70.0);
+		
+		Influence movement_influence = new MovementInfluence(human, speed_km_h);
+		movement_influence.apply();
+		
+		Double new_heart_rate = (Double)heart_rate.getValue();
+		return new_heart_rate;
 	}
 	
 	// --- TESTS
@@ -84,13 +98,36 @@ public class InfluenceTest {
 		assertTrue(Math.round(this.applyAirTemperatureInfluence(TempCategory.MEDIUM)) == 37.0);
 		assertTrue(this.applyAirTemperatureInfluence(TempCategory.WARM) > 37.0);
 		assertTrue(this.applyAirTemperatureInfluence(TempCategory.OCEAN) < 37.0);
-		
 	}
 	
 	@Test
 	public void canProcessQueueWithOneAirTemperatureInfluence() {
 		Influence influence = new AirTemperatureInfluence(new Human(), TempCategory.COLD);
 		this.popQueue(influence, 3);
+	}
+	
+	@Test
+	public void canProcessQueueWithOneMovementInfluence() {
+		double walking_speed_km_h = 5.0; //avarage walking speed
+		Influence influence = new MovementInfluence(new Human(), walking_speed_km_h);
+		this.popQueue(influence, 3);
+	}
+	
+	@Test
+	public void movementCanInfluenceHumanProperties() {
+		double heart_rate_resting = 70.0;
+		double heart_rate_walking = heart_rate_resting + MovementInfluence.max_walking_heart_rate_addition;
+		double heart_rate_max = 220.0;
+		
+		double standing_still_speed = MovementInfluence.stationary_speed_km_h;
+		double walking_speed = MovementInfluence.walking_speed_km_h;
+		double running_speed = MovementInfluence.walking_speed_km_h+2.0;
+		
+		assertTrue(this.applyMovementInfluence(standing_still_speed) == heart_rate_resting);
+		assertTrue(this.applyMovementInfluence(walking_speed) > heart_rate_resting);
+		assertTrue(this.applyMovementInfluence(walking_speed) <= heart_rate_walking);
+		assertTrue(this.applyMovementInfluence(running_speed) > heart_rate_resting);
+		assertTrue(this.applyMovementInfluence(running_speed) <= heart_rate_max);
 	}
 
 }

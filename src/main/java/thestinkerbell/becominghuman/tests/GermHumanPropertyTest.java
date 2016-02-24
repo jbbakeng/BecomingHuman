@@ -9,7 +9,7 @@ import org.junit.Test;
 
 import io.netty.buffer.ByteBuf;
 import io.netty.buffer.Unpooled;
-import thestinkerbell.becominghuman.human.properties.germ.GermHumanProperty;
+import thestinkerbell.becominghuman.human.properties.GermHumanProperty;
 import thestinkerbell.becominghuman.human.properties.germ.InfluenzaAVirusHumanProperty;
 import thestinkerbell.becominghuman.human.risks.Risk;
 

@@ -7,6 +7,7 @@ import thestinkerbell.becominghuman.human.diseases.Disease;
 import thestinkerbell.becominghuman.human.diseases.Diseases;
 import thestinkerbell.becominghuman.human.properties.BasicHumanProperty;
 import thestinkerbell.becominghuman.human.properties.CompoundHumanProperty;
+import thestinkerbell.becominghuman.human.properties.GermHumanProperty;
 import thestinkerbell.becominghuman.human.properties.Properties;
 import thestinkerbell.becominghuman.human.properties.Property;
 import thestinkerbell.becominghuman.human.properties.basic.AgeBasicHumanProperty;
@@ -24,7 +25,6 @@ import thestinkerbell.becominghuman.human.properties.basic.WhiteBloodCellsBasicH
 import thestinkerbell.becominghuman.human.properties.compound.BMICompoundHumanProperty;
 import thestinkerbell.becominghuman.human.properties.compound.BloodPressureCompoundHumanProperty;
 import thestinkerbell.becominghuman.human.properties.compound.HydrationLevelCompoundHumanProperty;
-import thestinkerbell.becominghuman.human.properties.germ.GermHumanProperty;
 import thestinkerbell.becominghuman.human.properties.germ.InfluenzaAVirusHumanProperty;
 import thestinkerbell.becominghuman.human.risks.Risk;
 import thestinkerbell.becominghuman.human.risks.Risks;

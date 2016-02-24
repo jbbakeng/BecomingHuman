@@ -1,9 +1,6 @@
 package thestinkerbell.becominghuman.tests;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotEquals;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.*;
 
 import org.junit.Test;
 
@@ -13,10 +10,11 @@ import javafx.beans.property.DoubleProperty;
 import thestinkerbell.becominghuman.human.properties.BasicHumanProperty;
 import thestinkerbell.becominghuman.human.properties.DoubleCompoundHumanProperty;
 import thestinkerbell.becominghuman.human.properties.DoubleHumanProperty;
+import thestinkerbell.becominghuman.human.properties.GermHumanProperty;
+import thestinkerbell.becominghuman.human.properties.GermHumanProperty.Transmission;
 import thestinkerbell.becominghuman.human.properties.basic.HeightBasicHumanProperty;
 import thestinkerbell.becominghuman.human.properties.basic.WeightBasicHumanProperty;
 import thestinkerbell.becominghuman.human.properties.compound.BMICompoundHumanProperty;
-import thestinkerbell.becominghuman.human.properties.germ.GermHumanProperty;
 import thestinkerbell.becominghuman.human.properties.germ.InfluenzaAVirusHumanProperty;
 
 public class HumanPropertyTest {
@@ -117,6 +115,15 @@ public class HumanPropertyTest {
 	public void canSerializeAndDeserializeGermHumanProperty() {
 		GermHumanProperty germ_1 = getGermHumanProperty_1();
 		this.canSerializeAnDeserialize(germ_1);
+	}
+	
+	@Test
+	public void canCheckTransmissionWaysOfInfluenzaAVirus() {
+		GermHumanProperty germ_1 = new InfluenzaAVirusHumanProperty();
+		assertTrue(germ_1.canBeTransmittedBy(Transmission.TRANSMISSION_AIRBORN));
+		assertTrue(germ_1.canBeTransmittedBy(Transmission.TRANSMISSION_DIRECT_CONTACT));
+		assertTrue(germ_1.canBeTransmittedBy(Transmission.TRANSMISSION_DROPLET));
+		assertFalse(germ_1.canBeTransmittedBy(Transmission.TRANSMISSION_VERTICAL));
 	}
 	
 	@Test

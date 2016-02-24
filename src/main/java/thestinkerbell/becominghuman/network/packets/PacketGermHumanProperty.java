@@ -7,7 +7,7 @@ import net.minecraftforge.fml.common.network.simpleimpl.IMessage;
 import net.minecraftforge.fml.common.network.simpleimpl.IMessageHandler;
 import net.minecraftforge.fml.common.network.simpleimpl.MessageContext;
 import thestinkerbell.becominghuman.extendedentityproperties.HumanExtendedEntityProperties;
-import thestinkerbell.becominghuman.human.properties.germ.GermHumanProperty;
+import thestinkerbell.becominghuman.human.properties.GermHumanProperty;
 
 public class PacketGermHumanProperty implements IMessage{
 	

@@ -1,5 +1,6 @@
 package thestinkerbell.becominghuman.human.properties.germ;
 
+import thestinkerbell.becominghuman.human.properties.GermHumanProperty;
 import thestinkerbell.becominghuman.human.risks.DoubleRiskRange;
 import thestinkerbell.becominghuman.human.risks.Risk;
 
@@ -18,6 +19,10 @@ public class InfluenzaAVirusHumanProperty extends GermHumanProperty {
 		this.risk_ranges.add(new DoubleRiskRange(InfluenzaARisk.IA_DEADLY, 7.01, 7.5));
 		
 		this.antibodies = 0.0;
+		
+		this.transmission_ways.add(Transmission.TRANSMISSION_AIRBORN);
+		this.transmission_ways.add(Transmission.TRANSMISSION_DROPLET);
+		this.transmission_ways.add(Transmission.TRANSMISSION_DIRECT_CONTACT);
 	}
 	
 	public enum InfluenzaARisk implements Risk  {

@@ -1,15 +1,16 @@
-package thestinkerbell.becominghuman.human.properties.germ;
+package thestinkerbell.becominghuman.human.properties;
+
+import java.util.ArrayList;
 
 import io.netty.buffer.ByteBuf;
-import net.minecraftforge.fml.common.network.ByteBufUtils;
-import thestinkerbell.becominghuman.human.properties.DoubleHumanProperty;
 import thestinkerbell.becominghuman.human.risks.DoubleRiskRange;
 import thestinkerbell.becominghuman.human.risks.Risk;
 import thestinkerbell.becominghuman.human.risks.RiskRange;
 
 public class GermHumanProperty extends DoubleHumanProperty {
 	
-	protected Double antibodies;
+	protected Double antibodies = 0.0;
+	protected final ArrayList<Transmission> transmission_ways = new ArrayList<Transmission>();
 	
 	public static void deserialize(ByteBuf buf_in, GermHumanProperty property) {
 		DoubleHumanProperty.deserialize(buf_in, property);
@@ -29,7 +30,6 @@ public class GermHumanProperty extends DoubleHumanProperty {
 
 	public GermHumanProperty(String virusName, Double defaultValue, String unit, Double range_min, Double range_max) {
 		super(virusName, defaultValue, unit, range_min, range_max);
-		this.antibodies = 0.0;
 	}
 
 	@Override
@@ -78,5 +78,22 @@ public class GermHumanProperty extends DoubleHumanProperty {
 
 	public void setAntibodies(Double antibodies) {
 		this.antibodies = antibodies;
+	}
+	
+	public boolean canBeTransmittedBy(Transmission transmission) {
+		return this.transmission_ways.contains(transmission);
+	}
+	
+	public enum Transmission {
+		//https://en.wikipedia.org/wiki/Transmission_(medicine)
+		TRANSMISSION_AIRBORN,
+		TRANSMISSION_DROPLET,
+		TRANSMISSION_FECAL_ORAL,
+		TRANSMISSION_SEXUAL,
+		TRANSMISSION_ORAL,
+		TRANSMISSION_DIRECT_CONTACT,
+		TRANSMISSION_VERTICAL,
+		TRANSMISSION_LATROGENIC,
+		TRANSMISSION_VECTOR_BORNE
 	}
 }

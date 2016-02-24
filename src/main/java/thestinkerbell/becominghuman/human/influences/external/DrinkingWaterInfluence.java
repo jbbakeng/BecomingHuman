@@ -1,6 +1,8 @@
-package thestinkerbell.becominghuman.human.influences;
+package thestinkerbell.becominghuman.human.influences.external;
 
 import thestinkerbell.becominghuman.human.Human;
+import thestinkerbell.becominghuman.human.influences.HumanInfluence;
+import thestinkerbell.becominghuman.human.influences.Influence;
 import thestinkerbell.becominghuman.human.properties.Property;
 
 public class DrinkingWaterInfluence extends HumanInfluence implements Influence {

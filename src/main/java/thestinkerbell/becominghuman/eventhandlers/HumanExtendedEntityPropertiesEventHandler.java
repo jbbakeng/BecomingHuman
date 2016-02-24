@@ -17,10 +17,10 @@ import net.minecraftforge.event.entity.player.PlayerUseItemEvent;
 import net.minecraftforge.fml.common.eventhandler.EventPriority;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import thestinkerbell.becominghuman.extendedentityproperties.HumanExtendedEntityProperties;
-import thestinkerbell.becominghuman.human.influences.AirTemperatureInfluence;
-import thestinkerbell.becominghuman.human.influences.DrinkingWaterInfluence;
-import thestinkerbell.becominghuman.human.influences.HungerInfluence;
-import thestinkerbell.becominghuman.human.influences.MovementInfluence;
+import thestinkerbell.becominghuman.human.influences.external.AirTemperatureInfluence;
+import thestinkerbell.becominghuman.human.influences.external.DrinkingWaterInfluence;
+import thestinkerbell.becominghuman.human.influences.external.HungerInfluence;
+import thestinkerbell.becominghuman.human.influences.external.MovementInfluence;
 import thestinkerbell.becominghuman.utilities.SpeedConverter;
 
 public class HumanExtendedEntityPropertiesEventHandler {

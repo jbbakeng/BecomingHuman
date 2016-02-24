@@ -1,7 +1,9 @@
-package thestinkerbell.becominghuman.human.influences;
+package thestinkerbell.becominghuman.human.influences.external;
 
 import net.minecraft.util.FoodStats;
 import thestinkerbell.becominghuman.human.Human;
+import thestinkerbell.becominghuman.human.influences.HumanInfluence;
+import thestinkerbell.becominghuman.human.influences.Influence;
 import thestinkerbell.becominghuman.human.properties.Property;
 
 public class HungerInfluence extends HumanInfluence implements Influence {

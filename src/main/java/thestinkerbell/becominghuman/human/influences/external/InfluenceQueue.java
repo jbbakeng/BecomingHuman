@@ -1,6 +1,8 @@
-package thestinkerbell.becominghuman.human.influences;
+package thestinkerbell.becominghuman.human.influences.external;
 
 import java.util.LinkedList;
+
+import thestinkerbell.becominghuman.human.influences.Influence;
 
 public class InfluenceQueue extends LinkedList<Influence> {
 

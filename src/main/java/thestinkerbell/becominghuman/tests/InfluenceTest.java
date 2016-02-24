@@ -8,13 +8,13 @@ import org.junit.Test;
 import net.minecraft.util.FoodStats;
 import net.minecraft.world.biome.BiomeGenBase.TempCategory;
 import thestinkerbell.becominghuman.human.Human;
-import thestinkerbell.becominghuman.human.influences.AirTemperatureInfluence;
-import thestinkerbell.becominghuman.human.influences.DrinkingWaterInfluence;
 import thestinkerbell.becominghuman.human.influences.HumanInfluence;
-import thestinkerbell.becominghuman.human.influences.HungerInfluence;
 import thestinkerbell.becominghuman.human.influences.Influence;
-import thestinkerbell.becominghuman.human.influences.InfluenceQueue;
-import thestinkerbell.becominghuman.human.influences.MovementInfluence;
+import thestinkerbell.becominghuman.human.influences.external.AirTemperatureInfluence;
+import thestinkerbell.becominghuman.human.influences.external.DrinkingWaterInfluence;
+import thestinkerbell.becominghuman.human.influences.external.HungerInfluence;
+import thestinkerbell.becominghuman.human.influences.external.InfluenceQueue;
+import thestinkerbell.becominghuman.human.influences.external.MovementInfluence;
 import thestinkerbell.becominghuman.human.properties.Property;
 
 public class InfluenceTest {

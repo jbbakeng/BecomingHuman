@@ -18,6 +18,7 @@ import net.minecraftforge.fml.common.eventhandler.EventPriority;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import thestinkerbell.becominghuman.extendedentityproperties.HumanExtendedEntityProperties;
 import thestinkerbell.becominghuman.human.influences.AirTemperatureInfluence;
+import thestinkerbell.becominghuman.human.influences.DrinkingWaterInfluence;
 import thestinkerbell.becominghuman.human.influences.HungerInfluence;
 import thestinkerbell.becominghuman.human.influences.MovementInfluence;
 import thestinkerbell.becominghuman.utilities.SpeedConverter;
@@ -81,11 +82,31 @@ public class HumanExtendedEntityPropertiesEventHandler {
 				FoodStats food_stats = ((EntityPlayer)e.entityLiving).getFoodStats();
 				extended_properties.addInfluenceToQueue(new HungerInfluence(extended_properties.human, food_stats));
 				
+				
+				//		APPLY
 				extended_properties.applyInfluences();
 			}
 		}
 	}
-
+	
+	@SubscribeEvent
+	public void onPlayerUseItemEvent(PlayerUseItemEvent.Finish e) {
+		if (e.entity instanceof EntityPlayer) {
+			HumanExtendedEntityProperties extended_properties = HumanExtendedEntityProperties.get((EntityPlayer) e.entity);
+			if(extended_properties.isServerSide()) {
+				
+				//--- Influences
+				//		DrinkingWater
+				if(e.item.getDisplayName().equals("Water Bottle")) {
+					double water_liter = 0.5;
+					extended_properties.addInfluenceToQueue(new DrinkingWaterInfluence(extended_properties.human, water_liter));
+				}
+			
+			}
+		}
+	}
+	
+	
 	private void debugMovementSpeed(LivingUpdateEvent e) {
 		
 		Vec3 diff = getServersMotionVector(e);
@@ -144,10 +165,4 @@ public class HumanExtendedEntityPropertiesEventHandler {
 		FoodStats food_stats = player.getFoodStats();
 	}
 	
-	@SubscribeEvent
-	public void onPlayerUseItemEvent(PlayerUseItemEvent.Start e) {
-		//eating
-		//drinking
-		//etc.
-	}
 }

@@ -14,7 +14,6 @@ public class HumanInfluence implements Influence {
 	@Override
 	public void apply() {
 	}
-
 	
 	protected void printDebug(Double old_value, Double change, Double new_value) {
 		System.out.println("\nApplying "+this.getClass().getSimpleName());

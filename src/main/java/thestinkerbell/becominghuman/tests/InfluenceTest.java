@@ -9,6 +9,7 @@ import net.minecraft.util.FoodStats;
 import net.minecraft.world.biome.BiomeGenBase.TempCategory;
 import thestinkerbell.becominghuman.human.Human;
 import thestinkerbell.becominghuman.human.influences.AirTemperatureInfluence;
+import thestinkerbell.becominghuman.human.influences.DrinkingWaterInfluence;
 import thestinkerbell.becominghuman.human.influences.HumanInfluence;
 import thestinkerbell.becominghuman.human.influences.HungerInfluence;
 import thestinkerbell.becominghuman.human.influences.Influence;
@@ -65,6 +66,19 @@ public class InfluenceTest {
 		
 		Double new_weight = (Double)weight.getValue();
 		return new_weight;
+	}
+	
+	private double applyDrinkingWaterInfluence(double water_liter) {
+		Human human = new Human();
+		Property water = human.getHumanPropertyWithName("Water");
+		Double old_water = (Double) water.getValue();
+		assertTrue((Double)water.getValue() == 50.0);
+		
+		Influence influence = new DrinkingWaterInfluence(human, water_liter);
+		influence.apply();
+		
+		Double new_water = (Double)water.getValue();
+		return new_water;
 	}
 	
 	// --- TESTS
@@ -175,9 +189,15 @@ public class InfluenceTest {
 		assertTrue(this.applyHungerInfluence(loose_weight) < weight);
 		loose_weight.setFoodLevel(0);
 		assertTrue(this.applyHungerInfluence(loose_weight) < weight);
+	}
+	
+	@Test
+	public void drinkingWaterBottleInfluencesHumanProperties() {
+		double drinking_water = 1.0;
+		double not_drinking_water = 0.0;
 		
-		
-		
+		assertTrue(this.applyDrinkingWaterInfluence(not_drinking_water) == 50.0);
+		assertTrue(this.applyDrinkingWaterInfluence(drinking_water) > 50.0);
 	}
 
 }

@@ -11,6 +11,7 @@ import net.minecraft.world.World;
 import net.minecraftforge.common.IExtendedEntityProperties;
 import thestinkerbell.becominghuman.BecomingHuman;
 import thestinkerbell.becominghuman.human.Human;
+import thestinkerbell.becominghuman.human.influences.DrinkingWaterInfluence;
 import thestinkerbell.becominghuman.human.influences.Influence;
 import thestinkerbell.becominghuman.human.influences.InfluenceQueue;
 import thestinkerbell.becominghuman.human.properties.Properties;

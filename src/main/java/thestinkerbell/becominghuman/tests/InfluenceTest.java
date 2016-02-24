@@ -115,9 +115,6 @@ public class InfluenceTest {
 	
 	@Test
 	public void movementCanInfluenceHumanProperties() {
-		
-		System.out.println("\n\n");
-		
 		double heart_rate_resting = 70.0;
 		double heart_rate_walking = heart_rate_resting + MovementInfluence.max_walking_heart_rate_addition;
 		double heart_rate_max = 220.0;
@@ -126,12 +123,9 @@ public class InfluenceTest {
 		double walking_speed = MovementInfluence.walking_speed_km_h;
 		double running_speed = MovementInfluence.walking_speed_km_h+2.0;
 		
-		System.out.println("standing_still_speed");
 		assertTrue(this.applyMovementInfluence(standing_still_speed) == heart_rate_resting);
-		System.out.println("\nwalking_speed");
 		assertTrue(this.applyMovementInfluence(walking_speed) > heart_rate_resting);
 		assertTrue(this.applyMovementInfluence(walking_speed) <= heart_rate_walking);
-		System.out.println("\nrunning_speed");
 		assertTrue(this.applyMovementInfluence(running_speed) > heart_rate_resting);
 		assertTrue(this.applyMovementInfluence(running_speed) <= heart_rate_max);
 	}

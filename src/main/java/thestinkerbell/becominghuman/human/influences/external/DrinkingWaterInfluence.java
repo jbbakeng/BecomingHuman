@@ -8,7 +8,7 @@ import thestinkerbell.becominghuman.human.properties.Property;
 public class DrinkingWaterInfluence extends HumanInfluence implements Influence {
 
 	private final double drinking_water_liter;
-	private final String w = "Water";
+	private static final String w = "Water";
 	
 	public DrinkingWaterInfluence(Human human, double water_liter) {
 		super(human);
@@ -18,13 +18,17 @@ public class DrinkingWaterInfluence extends HumanInfluence implements Influence 
 	@Override
 	public void apply() {
 		
-		Property water = this.human.getHumanPropertyWithName(w);
+		applyDrinkingWater(this.human ,this.drinking_water_liter);
+	}
+
+	public static void applyDrinkingWater(Human human, double drinking_water_liter) {
+		Property water = human.getHumanPropertyWithName(w);
 		Double old_water = (Double) water.getValue();
-		Double change = this.drinking_water_liter;
+		Double change = drinking_water_liter;
 		Double new_water = old_water + change;
 		
 		try {
-			this.human.setValue(w, new_water);
+			human.setValue(w, new_water);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

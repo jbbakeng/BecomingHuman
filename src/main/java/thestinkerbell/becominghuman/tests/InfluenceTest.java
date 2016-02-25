@@ -5,16 +5,18 @@ import static org.junit.Assert.assertTrue;
 
 import org.junit.Test;
 
+import net.minecraft.item.ItemFood;
 import net.minecraft.util.FoodStats;
 import net.minecraft.world.biome.BiomeGenBase.TempCategory;
 import thestinkerbell.becominghuman.human.Human;
 import thestinkerbell.becominghuman.human.influences.HumanInfluence;
 import thestinkerbell.becominghuman.human.influences.Influence;
+import thestinkerbell.becominghuman.human.influences.InfluenceQueue;
 import thestinkerbell.becominghuman.human.influences.external.AirTemperatureInfluence;
 import thestinkerbell.becominghuman.human.influences.external.BreathingInfluence;
 import thestinkerbell.becominghuman.human.influences.external.DrinkingWaterInfluence;
+import thestinkerbell.becominghuman.human.influences.external.EatingInfluence;
 import thestinkerbell.becominghuman.human.influences.external.HungerInfluence;
-import thestinkerbell.becominghuman.human.influences.external.InfluenceQueue;
 import thestinkerbell.becominghuman.human.influences.external.MovementInfluence;
 import thestinkerbell.becominghuman.human.properties.Property;
 
@@ -76,6 +78,19 @@ public class InfluenceTest {
 		assertTrue((Double)water.getValue() == 50.0);
 		
 		Influence influence = new DrinkingWaterInfluence(human, water_liter);
+		influence.apply();
+		
+		Double new_water = (Double)water.getValue();
+		return new_water;
+	}
+	
+	private double applyEatingInfluence(ItemFood food) {
+		Human human = new Human();
+		Property water = human.getHumanPropertyWithName("Water");
+		Double old_water = (Double) water.getValue();
+		assertTrue((Double)water.getValue() == 50.0);
+		
+		Influence influence = new EatingInfluence(human, food);
 		influence.apply();
 		
 		Double new_water = (Double)water.getValue();
@@ -203,9 +218,24 @@ public class InfluenceTest {
 	
 	@Test
 	public void canProcessQueueWithOneBreathingInfluence() {
-
 		Influence breathing = new BreathingInfluence(new Human());
 		this.popQueue(breathing, 1);
+	}
+	
+	@Test
+	public void canProcessQueueWithOneEatingInfluence() {
+		ItemFood bread = new ItemFood(5, 0.6F, false);
+		bread.setUnlocalizedName("bread");
+		Influence eating = new EatingInfluence(new Human(), bread);
+		this.popQueue(eating, 1);
+	}
+	
+	@Test
+	public void eatingInfluencesHumanProperties() {
+		ItemFood bread = new ItemFood(5, 0.6F, false);
+		bread.setUnlocalizedName("bread");
+		
+		assertTrue(this.applyEatingInfluence(bread) > 50.0);
 	}
 
 }

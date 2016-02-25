@@ -4,6 +4,7 @@ import net.minecraft.entity.SharedMonsterAttributes;
 import net.minecraft.entity.ai.attributes.IAttributeInstance;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.PlayerCapabilities;
+import net.minecraft.item.ItemFood;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.FoodStats;
 import net.minecraft.util.MathHelper;
@@ -20,8 +21,12 @@ import thestinkerbell.becominghuman.extendedentityproperties.HumanExtendedEntity
 import thestinkerbell.becominghuman.human.influences.external.AirTemperatureInfluence;
 import thestinkerbell.becominghuman.human.influences.external.BreathingInfluence;
 import thestinkerbell.becominghuman.human.influences.external.DrinkingWaterInfluence;
+import thestinkerbell.becominghuman.human.influences.external.EatingInfluence;
+import thestinkerbell.becominghuman.human.influences.external.GermInfluence;
 import thestinkerbell.becominghuman.human.influences.external.HungerInfluence;
 import thestinkerbell.becominghuman.human.influences.external.MovementInfluence;
+import thestinkerbell.becominghuman.human.properties.GermHumanProperty;
+import thestinkerbell.becominghuman.human.properties.GermHumanProperty.Transmission;
 import thestinkerbell.becominghuman.utilities.SpeedConverter;
 
 public class HumanExtendedEntityPropertiesEventHandler {
@@ -84,8 +89,14 @@ public class HumanExtendedEntityPropertiesEventHandler {
 				extended_properties.addInfluenceToQueue(new HungerInfluence(extended_properties.human, food_stats));
 				
 				//		Breathing
-				extended_properties.addInfluenceToQueue(new BreathingInfluence(extended_properties.human));
-				
+				//20ticks*60seconds*60minutes*24hours*7days = 12096000
+				// 1/12096000 = 0,00000008267196
+				// -> chance of getting infected once every week
+				double chance_of_getting_infected_airborn = 8.2e-8;
+				double random_getting_sick = Math.random();
+				if(random_getting_sick <= chance_of_getting_infected_airborn) {					
+					extended_properties.addInfluenceToQueue(new BreathingInfluence(extended_properties.human));
+				}
 				
 				//		APPLY
 				extended_properties.applyInfluences();
@@ -104,6 +115,10 @@ public class HumanExtendedEntityPropertiesEventHandler {
 				if(e.item.getDisplayName().equals("Water Bottle")) {
 					double water_liter = 0.5;
 					extended_properties.addInfluenceToQueue(new DrinkingWaterInfluence(extended_properties.human, water_liter));
+				}
+				//		Eating
+				if(e.item.getItem() instanceof ItemFood) {
+					extended_properties.addInfluenceToQueue(new EatingInfluence(extended_properties.human, (ItemFood) e.item.getItem()));
 				}
 			
 			}

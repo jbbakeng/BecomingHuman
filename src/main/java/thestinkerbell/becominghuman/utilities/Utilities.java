@@ -5,6 +5,7 @@ import thestinkerbell.becominghuman.human.properties.HumanProperty;
 
 public class Utilities {
 	
+	
 	public static void print(ByteBuf buf) {
 		for (int i = 0; i < buf.capacity(); i ++) {
 			 byte b = buf.getByte(i);
@@ -13,9 +14,9 @@ public class Utilities {
 	}
 	
 	// --- TIME
+	private final static int ticks_per_second = 20;
 	
 	public static int seconds_to_ticks(int seconds) {
-		int ticks_per_second = 20;
 		int ticks = seconds * ticks_per_second;
 		return ticks;
 	}
@@ -44,8 +45,27 @@ public class Utilities {
 		return ticks;
 	}
 	
+	public static int months_to_ticks(int months) {
+		int weeks_per_month = 4; //4.348125
+		int ticks = weeks_to_ticks(weeks_per_month) * months;
+		return ticks;
+	}
+	
+	private static int years_to_ticks(int years) {
+		int months_per_year = 12;
+		int ticks = months_to_ticks(months_per_year) * years;
+		return ticks;
+	}
+
+	public static double ticks_to_years(int ticks) {
+		int ticks_per_year = years_to_ticks(1);
+		double years = ((double)ticks)/ticks_per_year;
+		return years;
+	}
+	
 	// --- CHANCE
 	
+
 	public static double getChanceOfHappening(double ticks) {
 		return 1/ticks;
 	}
@@ -55,4 +75,5 @@ public class Utilities {
 		boolean occur = random_chance <= chance_of_occuring;
 		return occur;
 	}
+
 }

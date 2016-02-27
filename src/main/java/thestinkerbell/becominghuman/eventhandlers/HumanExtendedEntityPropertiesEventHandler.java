@@ -97,7 +97,8 @@ public class HumanExtendedEntityPropertiesEventHandler {
 				}
 				
 				//		Time
-				extended_properties.addInfluenceToQueue(new TimeInfluence(extended_properties.human));
+				int ticks_per_living_update = 1;
+				extended_properties.addInfluenceToQueue(new TimeInfluence(extended_properties.human, ticks_per_living_update));
 				
 				//		APPLY INFLUENCES
 				extended_properties.applyInfluences();

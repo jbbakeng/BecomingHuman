@@ -223,7 +223,8 @@ public class InfluenceTest {
 	
 	@Test
 	public void canProcessQueueWithOneTimeInfluence() {
-		canProcessQueueWithInfluence(new TimeInfluence(new Human()), 1);
+		int ticks = 20;
+		canProcessQueueWithInfluence(new TimeInfluence(new Human(), ticks), 1);
 	}
 
 }

@@ -21,13 +21,15 @@ import net.minecraftforge.fml.common.eventhandler.EventPriority;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import thestinkerbell.becominghuman.extendedentityproperties.HumanExtendedEntityProperties;
 import thestinkerbell.becominghuman.human.influences.natural.AirTemperatureInfluence;
-import thestinkerbell.becominghuman.human.influences.natural.BreathingInfluence;
+import thestinkerbell.becominghuman.human.influences.natural.BreathingGermsInfluence;
 import thestinkerbell.becominghuman.human.influences.natural.DrinkingWaterInfluence;
 import thestinkerbell.becominghuman.human.influences.natural.EatingInfluence;
 import thestinkerbell.becominghuman.human.influences.natural.HungerInfluence;
 import thestinkerbell.becominghuman.human.influences.natural.MovementInfluence;
-import thestinkerbell.becominghuman.human.influences.natural.TouchingInfluence;
+import thestinkerbell.becominghuman.human.influences.natural.TimeInfluence;
+import thestinkerbell.becominghuman.human.influences.natural.TouchingGermsInfluence;
 import thestinkerbell.becominghuman.utilities.SpeedConverter;
+import thestinkerbell.becominghuman.utilities.Utilities;
 
 public class HumanExtendedEntityPropertiesEventHandler {
 	
@@ -89,16 +91,16 @@ public class HumanExtendedEntityPropertiesEventHandler {
 				extended_properties.addInfluenceToQueue(new HungerInfluence(extended_properties.human, food_stats));
 				
 				//		Breathing
-				//20ticks*60seconds*60minutes*24hours*7days = 12096000
-				// 1/12096000 = 0,00000008267196
-				// -> chance of getting infected once every week
-				double chance_of_getting_infected_airborn = 8.2e-8;
-				double random_getting_sick = Math.random();
-				if(random_getting_sick <= chance_of_getting_infected_airborn) {					
-					extended_properties.addInfluenceToQueue(new BreathingInfluence(extended_properties.human));
+				double chance_of_happening_once_a_week = Utilities.getChanceOfHappening(Utilities.weeks_to_ticks(1));
+				if(Utilities.chanceOccured(chance_of_happening_once_a_week)) {					
+					extended_properties.addInfluenceToQueue(new BreathingGermsInfluence(extended_properties.human));
 				}
 				
-				//		APPLY
+				//		Time
+				int ticks_per_living_update = 1;
+				extended_properties.addInfluenceToQueue(new TimeInfluence(extended_properties.human, ticks_per_living_update));
+				
+				//		APPLY INFLUENCES
 				extended_properties.applyInfluences();
 			}
 		}
@@ -117,7 +119,6 @@ public class HumanExtendedEntityPropertiesEventHandler {
 					extended_properties.addInfluenceToQueue(new DrinkingWaterInfluence(extended_properties.human, water_liter));
 				}
 				//		Eating
-				//TODO apply random chance for this to happen
 				if(e.item.getItem() instanceof ItemFood) {
 					extended_properties.addInfluenceToQueue(new EatingInfluence(extended_properties.human, (ItemFood) e.item.getItem()));
 				}
@@ -133,71 +134,13 @@ public class HumanExtendedEntityPropertiesEventHandler {
 
 			//--- Influences
 			//		Touching
-			//TODO apply random chance for this to happen
 			if( (e.action == Action.LEFT_CLICK_BLOCK) || (e.action == Action.RIGHT_CLICK_BLOCK)) {
-				extended_properties.addInfluenceToQueue(new TouchingInfluence(extended_properties.human));
+				double one_percent_chance_of_happening = 0.01;
+				if(Utilities.chanceOccured(one_percent_chance_of_happening)) {
+					extended_properties.addInfluenceToQueue(new TouchingGermsInfluence(extended_properties.human));					
+				}
 			}
 		}
 		
 	}
-	
-	
-	private void debugMovementSpeed(LivingUpdateEvent e) {
-		
-		Vec3 diff = getServersMotionVector(e);
-		
-		double ground = MathHelper.sqrt_double(diff.xCoord * diff.xCoord + diff.zCoord * diff.zCoord);
-		//System.out.println(""+diff.xCoord+" "+diff.zCoord);
-		//System.out.println("serverside ms: "+SpeedConverter.getSpeed_ms(diff.xCoord, diff.zCoord));
-		//sSystem.out.println("serverside kph: "+SpeedConverter.getSpeed_kph(diff.xCoord, diff.zCoord));
-		
-		double server_x = e.entityLiving.lastTickPosX - e.entityLiving.posX;
-		double server_z = e.entityLiving.lastTickPosZ - e.entityLiving.posZ;
-		//System.out.println("serverside: "+SpeedConverter.getSpeed_kph(server_x, server_z));
-		
-		//ai movementspeed
-		double ai_movement_speed = e.entityLiving.getAIMoveSpeed();
-		
-		double bps = ai_movement_speed * 43.17;
-		//System.out.println("bps: "+bps);
-		
-		//constants	
-		IAttributeInstance attribute = e.entityLiving.getAttributeMap().getAttributeInstance(SharedMonsterAttributes.movementSpeed);
-		//System.out.println("BaseValue: "+attribute.getBaseValue()+" AttributeValue: "+attribute.getAttributeValue());
-
-		//actual movement - client side... :(
-		double ticks_per_second = 20;
-		double x = e.entityLiving.motionX;
-		double y = e.entityLiving.motionY;
-		double z = e.entityLiving.motionZ;
-		boolean sprinting = e.entityLiving.isSprinting();
-		double f = MathHelper.sqrt_double(x * x + z * z);
-
-		double speed_ms = (f * 36.48);
-
-		//System.out.println("\nx: "+x+" y: "+y+" z: "+z);
-		//System.out.println("\nf: "+f+" speed_ms: "+speed_ms);
-		//float speed_km = f *0.277778F * 0.05F;
-		//System.out.println("f: "+f+" speed_ms: "+speed_ms+" speed_km: "+speed_km);
-		//System.out.println("f: "+f+" f*bps: "+f*bps);
-		
-		double moveForward = e.entityLiving.moveForward; //acc forward/backward
-		double moveStrafing = e.entityLiving.moveStrafing; //acc left/right
-		
-		double speed_m_s = 0.0;//4.3D / moveForward; 
-		//System.out.println("moveForward: "+moveForward+" speed_m_s: "+speed_m_s+"moveStrafingy: "+moveStrafing);
-		
-		
-		//walking speed seems like a constant
-		EntityPlayer player =  ((EntityPlayer)e.entityLiving);
-		PlayerCapabilities capabilities = player.capabilities;
-		double walking_speed = capabilities.getWalkSpeed();
-		//System.out.println("walking_speed: "+walking_speed);
-		
-		
-		//food stats
-		//TODO create DrinkStats???
-		FoodStats food_stats = player.getFoodStats();
-	}
-	
 }

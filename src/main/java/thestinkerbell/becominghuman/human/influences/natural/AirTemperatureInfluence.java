@@ -28,8 +28,6 @@ public class AirTemperatureInfluence extends HumanInfluence implements Influence
 		Double temp_change = getTemperatureChange();
 		Double new_body_temperatur = old_body_temperatur + temp_change;
 		
-		//printDebug(old_body_temperatur, temp_change, new_body_temperatur);
-		
 		try {
 			this.human.setValue(bt, new_body_temperatur);
 		} catch (Exception e) {

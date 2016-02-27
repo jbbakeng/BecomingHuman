@@ -18,12 +18,13 @@ import thestinkerbell.becominghuman.human.influences.natural.DrinkingWaterInflue
 import thestinkerbell.becominghuman.human.influences.natural.EatingInfluence;
 import thestinkerbell.becominghuman.human.influences.natural.HungerInfluence;
 import thestinkerbell.becominghuman.human.influences.natural.MovementInfluence;
+import thestinkerbell.becominghuman.human.influences.natural.TimeInfluence;
 import thestinkerbell.becominghuman.human.influences.natural.TouchingInfluence;
 import thestinkerbell.becominghuman.human.properties.Property;
 
 public class InfluenceTest {
 	
-	private void popQueue(Influence influence, int add_times) {
+	private void canProcessQueueWithInfluence(Influence influence, int add_times) {
 		InfluenceQueue queue = new InfluenceQueue();
 		for(int i=0 ; i < add_times; i++) {
 			queue.add(influence);			
@@ -33,69 +34,47 @@ public class InfluenceTest {
 		assertTrue(queue.size() == 0);
 	}
 	
+	public double applyInfluence(String property_name, Human human, Influence influence) {
+		Property property = human.getHumanPropertyWithName(property_name);
+		influence.apply();
+		Double new_value = (Double)property.getValue();
+		
+		return new_value;
+	}
+	
 	private double applyAirTemperatureInfluence(TempCategory temp) {
 		Human human = new Human();
-		Property body_temperature = human.getHumanPropertyWithName("Body Temperature");
-		Double old_body_temp = (Double) body_temperature.getValue();
-		assertTrue((Double)body_temperature.getValue() == 37.0);
-		
 		Influence influence = new AirTemperatureInfluence(human, temp);
-		influence.apply();
 		
-		Double new_body_temp = (Double)body_temperature.getValue();
-		return new_body_temp;
+		return applyInfluence("Body Temperature", human, influence);
 	}
 	
 	private double applyMovementInfluence(double speed_km_h) {
 		Human human = new Human();
-		Property heart_rate = human.getHumanPropertyWithName("Heart Rate");
-		Double old_heart_rate = (Double) heart_rate.getValue();
-		assertTrue((Double)heart_rate.getValue() == 70.0);
-		
 		Influence influence = new MovementInfluence(human, speed_km_h);
-		influence.apply();
-		
-		Double new_heart_rate = (Double)heart_rate.getValue();
-		return new_heart_rate;
+
+		return applyInfluence("Heart Rate", human, influence);
 	}
 	
 	private double applyHungerInfluence(FoodStats food_stat) {
 		Human human = new Human();
-		Property weight = human.getHumanPropertyWithName("Weight");
-		Double old_weight = (Double) weight.getValue();
-		assertTrue((Double)weight.getValue() == 75.0);
-		
 		Influence influence = new HungerInfluence(human, food_stat);
-		influence.apply();
 		
-		Double new_weight = (Double)weight.getValue();
-		return new_weight;
+		return applyInfluence("Weight", human, influence);
 	}
 	
 	private double applyDrinkingWaterInfluence(double water_liter) {
 		Human human = new Human();
-		Property water = human.getHumanPropertyWithName("Water");
-		Double old_water = (Double) water.getValue();
-		assertTrue((Double)water.getValue() == 50.0);
-		
 		Influence influence = new DrinkingWaterInfluence(human, water_liter);
-		influence.apply();
 		
-		Double new_water = (Double)water.getValue();
-		return new_water;
+		return applyInfluence("Water", human, influence);
 	}
 	
 	private double applyEatingInfluence(ItemFood food) {
 		Human human = new Human();
-		Property water = human.getHumanPropertyWithName("Water");
-		Double old_water = (Double) water.getValue();
-		assertTrue((Double)water.getValue() == 50.0);
-		
 		Influence influence = new EatingInfluence(human, food);
-		influence.apply();
 		
-		Double new_water = (Double)water.getValue();
-		return new_water;
+		return applyInfluence("Water", human, influence);
 	}
 	
 	// --- TESTS
@@ -135,7 +114,7 @@ public class InfluenceTest {
 	@Test
 	public void canProcessQueue() {
 		Influence influence = new HumanInfluence(new Human());
-		this.popQueue(influence, 3);		
+		this.canProcessQueueWithInfluence(influence, 3);		
 	}
 	
 	@Test
@@ -149,14 +128,14 @@ public class InfluenceTest {
 	@Test
 	public void canProcessQueueWithOneAirTemperatureInfluence() {
 		Influence influence = new AirTemperatureInfluence(new Human(), TempCategory.COLD);
-		this.popQueue(influence, 3);
+		this.canProcessQueueWithInfluence(influence, 3);
 	}
 	
 	@Test
 	public void canProcessQueueWithOneMovementInfluence() {
 		double walking_speed_km_h = 5.0; //avarage walking speed
 		Influence influence = new MovementInfluence(new Human(), walking_speed_km_h);
-		this.popQueue(influence, 3);
+		this.canProcessQueueWithInfluence(influence, 3);
 	}
 	
 	@Test
@@ -182,7 +161,7 @@ public class InfluenceTest {
 		food_stats.addExhaustion(0.0F);
 		
 		Influence hunger = new HungerInfluence(new Human(), food_stats);
-		this.popQueue(hunger, 1);
+		this.canProcessQueueWithInfluence(hunger, 1);
 	}
 	
 	@Test
@@ -220,15 +199,13 @@ public class InfluenceTest {
 	@Test
 	public void canProcessQueueWithOneBreathingInfluence() {
 		Influence breathing = new BreathingInfluence(new Human());
-		this.popQueue(breathing, 1);
+		this.canProcessQueueWithInfluence(breathing, 1);
 	}
 	
 	@Test
 	public void canProcessQueueWithOneEatingInfluence() {
-		ItemFood bread = new ItemFood(5, 0.6F, false);
-		bread.setUnlocalizedName("bread");
-		Influence eating = new EatingInfluence(new Human(), bread);
-		this.popQueue(eating, 1);
+		ItemFood food = new ItemFood(5, 0.6F, false);
+		canProcessQueueWithInfluence(new EatingInfluence(new Human(), food), 1);
 	}
 	
 	@Test
@@ -241,8 +218,7 @@ public class InfluenceTest {
 	
 	@Test
 	public void canProcessQueueWithOneTouchInfluence() {
-		Influence touching = new TouchingInfluence(new Human());
-		this.popQueue(touching, 1);
+		canProcessQueueWithInfluence(new TouchingInfluence(new Human()), 1);
 	}
 
 }

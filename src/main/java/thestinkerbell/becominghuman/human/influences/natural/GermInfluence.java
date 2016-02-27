@@ -1,4 +1,4 @@
-package thestinkerbell.becominghuman.human.influences.external;
+package thestinkerbell.becominghuman.human.influences.natural;
 
 import thestinkerbell.becominghuman.human.Human;
 import thestinkerbell.becominghuman.human.HumanBiology;

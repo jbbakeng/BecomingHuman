@@ -12,12 +12,13 @@ import thestinkerbell.becominghuman.human.Human;
 import thestinkerbell.becominghuman.human.influences.HumanInfluence;
 import thestinkerbell.becominghuman.human.influences.Influence;
 import thestinkerbell.becominghuman.human.influences.InfluenceQueue;
-import thestinkerbell.becominghuman.human.influences.external.AirTemperatureInfluence;
-import thestinkerbell.becominghuman.human.influences.external.BreathingInfluence;
-import thestinkerbell.becominghuman.human.influences.external.DrinkingWaterInfluence;
-import thestinkerbell.becominghuman.human.influences.external.EatingInfluence;
-import thestinkerbell.becominghuman.human.influences.external.HungerInfluence;
-import thestinkerbell.becominghuman.human.influences.external.MovementInfluence;
+import thestinkerbell.becominghuman.human.influences.natural.AirTemperatureInfluence;
+import thestinkerbell.becominghuman.human.influences.natural.BreathingInfluence;
+import thestinkerbell.becominghuman.human.influences.natural.DrinkingWaterInfluence;
+import thestinkerbell.becominghuman.human.influences.natural.EatingInfluence;
+import thestinkerbell.becominghuman.human.influences.natural.HungerInfluence;
+import thestinkerbell.becominghuman.human.influences.natural.MovementInfluence;
+import thestinkerbell.becominghuman.human.influences.natural.TouchingInfluence;
 import thestinkerbell.becominghuman.human.properties.Property;
 
 public class InfluenceTest {
@@ -236,6 +237,12 @@ public class InfluenceTest {
 		bread.setUnlocalizedName("bread");
 		
 		assertTrue(this.applyEatingInfluence(bread) > 50.0);
+	}
+	
+	@Test
+	public void canProcessQueueWithOneTouchInfluence() {
+		Influence touching = new TouchingInfluence(new Human());
+		this.popQueue(touching, 1);
 	}
 
 }

@@ -14,19 +14,19 @@ import net.minecraftforge.event.entity.EntityEvent.EntityConstructing;
 import net.minecraftforge.event.entity.EntityJoinWorldEvent;
 import net.minecraftforge.event.entity.living.LivingEvent.LivingUpdateEvent;
 import net.minecraftforge.event.entity.player.PlayerEvent;
+import net.minecraftforge.event.entity.player.PlayerInteractEvent;
+import net.minecraftforge.event.entity.player.PlayerInteractEvent.Action;
 import net.minecraftforge.event.entity.player.PlayerUseItemEvent;
 import net.minecraftforge.fml.common.eventhandler.EventPriority;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import thestinkerbell.becominghuman.extendedentityproperties.HumanExtendedEntityProperties;
-import thestinkerbell.becominghuman.human.influences.external.AirTemperatureInfluence;
-import thestinkerbell.becominghuman.human.influences.external.BreathingInfluence;
-import thestinkerbell.becominghuman.human.influences.external.DrinkingWaterInfluence;
-import thestinkerbell.becominghuman.human.influences.external.EatingInfluence;
-import thestinkerbell.becominghuman.human.influences.external.GermInfluence;
-import thestinkerbell.becominghuman.human.influences.external.HungerInfluence;
-import thestinkerbell.becominghuman.human.influences.external.MovementInfluence;
-import thestinkerbell.becominghuman.human.properties.GermHumanProperty;
-import thestinkerbell.becominghuman.human.properties.GermHumanProperty.Transmission;
+import thestinkerbell.becominghuman.human.influences.natural.AirTemperatureInfluence;
+import thestinkerbell.becominghuman.human.influences.natural.BreathingInfluence;
+import thestinkerbell.becominghuman.human.influences.natural.DrinkingWaterInfluence;
+import thestinkerbell.becominghuman.human.influences.natural.EatingInfluence;
+import thestinkerbell.becominghuman.human.influences.natural.HungerInfluence;
+import thestinkerbell.becominghuman.human.influences.natural.MovementInfluence;
+import thestinkerbell.becominghuman.human.influences.natural.TouchingInfluence;
 import thestinkerbell.becominghuman.utilities.SpeedConverter;
 
 public class HumanExtendedEntityPropertiesEventHandler {
@@ -117,12 +117,28 @@ public class HumanExtendedEntityPropertiesEventHandler {
 					extended_properties.addInfluenceToQueue(new DrinkingWaterInfluence(extended_properties.human, water_liter));
 				}
 				//		Eating
+				//TODO apply random chance for this to happen
 				if(e.item.getItem() instanceof ItemFood) {
 					extended_properties.addInfluenceToQueue(new EatingInfluence(extended_properties.human, (ItemFood) e.item.getItem()));
 				}
 			
 			}
 		}
+	}
+	
+	@SubscribeEvent
+	public void onPlayerInteract(PlayerInteractEvent e) {
+		if (e.entity instanceof EntityPlayer) {
+			HumanExtendedEntityProperties extended_properties = HumanExtendedEntityProperties.get((EntityPlayer) e.entity);			
+
+			//--- Influences
+			//		Touching
+			//TODO apply random chance for this to happen
+			if( (e.action == Action.LEFT_CLICK_BLOCK) || (e.action == Action.RIGHT_CLICK_BLOCK)) {
+				extended_properties.addInfluenceToQueue(new TouchingInfluence(extended_properties.human));
+			}
+		}
+		
 	}
 	
 	

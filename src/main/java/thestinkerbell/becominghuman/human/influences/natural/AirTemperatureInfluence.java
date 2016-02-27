@@ -1,4 +1,4 @@
-package thestinkerbell.becominghuman.human.influences.external;
+package thestinkerbell.becominghuman.human.influences.natural;
 
 import net.minecraft.world.biome.BiomeGenBase.TempCategory;
 import thestinkerbell.becominghuman.human.Human;

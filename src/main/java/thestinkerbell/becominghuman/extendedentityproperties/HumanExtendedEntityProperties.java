@@ -13,7 +13,7 @@ import thestinkerbell.becominghuman.BecomingHuman;
 import thestinkerbell.becominghuman.human.Human;
 import thestinkerbell.becominghuman.human.influences.Influence;
 import thestinkerbell.becominghuman.human.influences.InfluenceQueue;
-import thestinkerbell.becominghuman.human.influences.external.DrinkingWaterInfluence;
+import thestinkerbell.becominghuman.human.influences.natural.DrinkingWaterInfluence;
 import thestinkerbell.becominghuman.human.properties.BasicHumanProperty;
 import thestinkerbell.becominghuman.human.properties.GermHumanProperty;
 import thestinkerbell.becominghuman.human.properties.Properties;

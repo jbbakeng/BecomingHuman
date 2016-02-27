@@ -1,4 +1,4 @@
-package thestinkerbell.becominghuman.human.influences.external;
+package thestinkerbell.becominghuman.human.influences.natural;
 
 import java.util.ArrayList;
 

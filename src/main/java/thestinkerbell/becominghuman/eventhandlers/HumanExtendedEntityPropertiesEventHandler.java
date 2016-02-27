@@ -132,7 +132,7 @@ public class HumanExtendedEntityPropertiesEventHandler {
 
 			//--- Influences
 			//		Touching
-			if( (e.action == Action.LEFT_CLICK_BLOCK) || (e.action == Action.RIGHT_CLICK_BLOCK)) {
+			if((e.action == Action.LEFT_CLICK_BLOCK) || (e.action == Action.RIGHT_CLICK_BLOCK)) {
 				double one_percent_chance_of_happening = 0.01;
 				if(Utilities.chanceOccured(one_percent_chance_of_happening)) {
 					extended_properties.addInfluenceToQueue(new TouchingGermsInfluence(extended_properties.human));					

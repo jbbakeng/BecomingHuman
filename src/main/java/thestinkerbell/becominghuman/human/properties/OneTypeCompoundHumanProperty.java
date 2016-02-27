@@ -3,13 +3,13 @@ package thestinkerbell.becominghuman.human.properties;
 import thestinkerbell.becominghuman.human.risks.Risk;
 import thestinkerbell.becominghuman.human.risks.RiskRange;
 
-public abstract class CompoundHumanProperty<A, B, TYPE> extends HumanProperty<TYPE>{
+public abstract class OneTypeCompoundHumanProperty<A, TYPE> extends HumanProperty<TYPE> {
 
 	protected A propertyA;
-	protected B propertyB;
 
-	public CompoundHumanProperty(String propertyName, TYPE defaultValue, String unit, TYPE range_min, TYPE range_max) {
+	public OneTypeCompoundHumanProperty(String propertyName, TYPE defaultValue, String unit, TYPE range_min, TYPE range_max, A propertyA) {
 		super(propertyName, defaultValue, unit, range_min, range_max);
+		this.propertyA = propertyA;
 	}
 
 	@Override
@@ -27,5 +27,4 @@ public abstract class CompoundHumanProperty<A, B, TYPE> extends HumanProperty<TY
 	final public Risk getRisk() {
 		return RiskRange.getRisk(risk_ranges, this.getValue());
 	}
-
 }

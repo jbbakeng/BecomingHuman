@@ -8,7 +8,7 @@ import io.netty.buffer.ByteBuf;
 import io.netty.buffer.Unpooled;
 import javafx.beans.property.DoubleProperty;
 import thestinkerbell.becominghuman.human.properties.BasicHumanProperty;
-import thestinkerbell.becominghuman.human.properties.DoubleCompoundHumanProperty;
+import thestinkerbell.becominghuman.human.properties.DoubleTwoTypeCompoundHumanProperty;
 import thestinkerbell.becominghuman.human.properties.DoubleHumanProperty;
 import thestinkerbell.becominghuman.human.properties.GermHumanProperty;
 import thestinkerbell.becominghuman.human.properties.GermHumanProperty.Transmission;
@@ -32,7 +32,7 @@ public class HumanPropertyTest {
 		return new InfluenzaAVirusHumanProperty();
 	}
 	
-	private DoubleCompoundHumanProperty<WeightBasicHumanProperty, HeightBasicHumanProperty> getCompoundHumanProperty() {
+	private DoubleTwoTypeCompoundHumanProperty<WeightBasicHumanProperty, HeightBasicHumanProperty> getCompoundHumanProperty() {
 		return new BMICompoundHumanProperty(new WeightBasicHumanProperty(), new HeightBasicHumanProperty());
 	}
 	
@@ -83,7 +83,7 @@ public class HumanPropertyTest {
 	@Test
 	public void basicAndCompoundPropertiesAreNotTheSame() {
 		DoubleHumanProperty basic1 = getBasicHumanProperty_1();
-		DoubleCompoundHumanProperty compound = getCompoundHumanProperty();
+		DoubleTwoTypeCompoundHumanProperty compound = getCompoundHumanProperty();
 		assertNotEquals(basic1, compound);
 	}
 
@@ -139,13 +139,13 @@ public class HumanPropertyTest {
 	
 	@Test
 	public void canCreateCompoundHumanProperty() {
-		DoubleCompoundHumanProperty compound = getCompoundHumanProperty();
+		DoubleTwoTypeCompoundHumanProperty compound = getCompoundHumanProperty();
 		assertNotNull(compound);
 	}
 	
 	@Test
 	public void canGetValueOfCompoundProperty() {
-		DoubleCompoundHumanProperty compound = getCompoundHumanProperty();
+		DoubleTwoTypeCompoundHumanProperty compound = getCompoundHumanProperty();
 		assertNotNull(compound.getValue());
 	}
 

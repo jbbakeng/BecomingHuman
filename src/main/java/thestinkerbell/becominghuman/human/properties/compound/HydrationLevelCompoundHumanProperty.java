@@ -1,24 +1,23 @@
 package thestinkerbell.becominghuman.human.properties.compound;
 
 import thestinkerbell.becominghuman.human.HumanBiology;
-import thestinkerbell.becominghuman.human.properties.DoubleCompoundHumanProperty;
+import thestinkerbell.becominghuman.human.properties.DoubleTwoTypeCompoundHumanProperty;
 import thestinkerbell.becominghuman.human.properties.basic.WaterBasicHumanProperty;
 import thestinkerbell.becominghuman.human.properties.basic.WeightBasicHumanProperty;
 import thestinkerbell.becominghuman.human.risks.DoubleRiskRange;
 import thestinkerbell.becominghuman.human.risks.Risk;
 
-public class HydrationLevelCompoundHumanProperty extends DoubleCompoundHumanProperty<WaterBasicHumanProperty, WeightBasicHumanProperty> {
+public class HydrationLevelCompoundHumanProperty extends DoubleTwoTypeCompoundHumanProperty<WaterBasicHumanProperty, WeightBasicHumanProperty> {
 
 	public HydrationLevelCompoundHumanProperty(WaterBasicHumanProperty water, WeightBasicHumanProperty weight) {
-		super(HumanBiology.hydration, 60.0, "%", 0.0, 100.0);
-		this.propertyA = water;
-		this.propertyB = weight;
+		super(HumanBiology.hydration, 60.0, "%", 0.0, 100.0, water, weight);
 		this.risk_ranges.add(new DoubleRiskRange(HydrationLevelRisk.HYDRATION_VERYLOW, 0.0, 48.0));
 		this.risk_ranges.add(new DoubleRiskRange(HydrationLevelRisk.HYDRATION_LOW, 48.1, 55.0));
 		this.risk_ranges.add(new DoubleRiskRange(HydrationLevelRisk.HYDRATION_DESIRED, 55.1, 75.0));
 		this.risk_ranges.add(new DoubleRiskRange(HydrationLevelRisk.HYDRATION_HIGH, 75.1, 90.0));
 		this.risk_ranges.add(new DoubleRiskRange(HydrationLevelRisk.HYDRATION_VERYHIGH, 90.1, 100.0));
 	}
+
 	@Override
 	final public Double getValue() {
 		Double water_liter = propertyA.getValue();

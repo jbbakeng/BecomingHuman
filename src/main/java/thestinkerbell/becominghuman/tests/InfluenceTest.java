@@ -172,7 +172,7 @@ public class InfluenceTest {
 		double bt_resting = 37.0;
 		
 		assertTrue(this.applyMovementInfluenceToBT(Zone.ZONE_RESTING) == bt_resting);
-		assertTrue(this.applyMovementInfluenceToBT(Zone.ZONE_RESTITUTING) > bt_resting);
+		assertTrue(this.applyMovementInfluenceToBT(Zone.ZONE_RESTITUTING) == bt_resting);
 		assertTrue(this.applyMovementInfluenceToBT(Zone.ZONE_TRAINING) > bt_resting);
 		assertTrue(this.applyMovementInfluenceToBT(Zone.ZONE_TRAINING) <= MovementInfluence.max_training_body_temperature);
 	}
@@ -181,10 +181,9 @@ public class InfluenceTest {
 	public void movementCanInfluenceFitnessHumanProperties() {
 		double fitness_default = 45.0;
 		
-		assertTrue(this.applyMovementInfluenceToBT(Zone.ZONE_RESTING) == fitness_default);
-		assertTrue(this.applyMovementInfluenceToBT(Zone.ZONE_RESTITUTING) >fitness_default);
-		assertTrue(this.applyMovementInfluenceToBT(Zone.ZONE_TRAINING) > fitness_default);
-
+		assertTrue(this.applyMovementInfluenceToFitness(Zone.ZONE_RESTING) < fitness_default);
+		assertTrue(this.applyMovementInfluenceToFitness(Zone.ZONE_RESTITUTING) == fitness_default);
+		assertTrue(this.applyMovementInfluenceToFitness(Zone.ZONE_TRAINING) > fitness_default);
 	}
 
 	@Test

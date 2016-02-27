@@ -69,7 +69,7 @@ public class MovementInfluence extends HumanInfluence implements Influence {
 		Double current_temp = (Double) this.human.getHumanPropertyWithName(HumanBiology.bt).getValue();
 		
 		//running a marathon can rais your bt to max 40C
-		double factor = 1.0/Utilities.hours_to_ticks(4);
+		double factor = 1.0/(double)Utilities.hours_to_ticks(4);
 		
 		double bt_change = 0.0;
 		if(zone == Zone.ZONE_RESTING) {
@@ -89,7 +89,7 @@ public class MovementInfluence extends HumanInfluence implements Influence {
 	private Double getFitnessChange(Human human, Zone zone) {
 		double fitness_change = 0.0; //vo2max
 		//training 12 hours should increase fitness with 1 vo2max
-		double factor = 1.0/Utilities.hours_to_ticks(12);
+		double factor = 1.0/(double)Utilities.hours_to_ticks(12);
 		if(zone == Zone.ZONE_RESTING) {
 			//decrease
 			fitness_change = -factor;

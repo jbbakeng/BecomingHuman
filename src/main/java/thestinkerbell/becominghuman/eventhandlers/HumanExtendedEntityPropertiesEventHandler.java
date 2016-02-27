@@ -8,8 +8,10 @@ import net.minecraft.util.Vec3;
 import net.minecraft.world.biome.BiomeGenBase;
 import net.minecraftforge.event.entity.EntityEvent.EntityConstructing;
 import net.minecraftforge.event.entity.EntityJoinWorldEvent;
+import net.minecraftforge.event.entity.living.LivingEvent.LivingJumpEvent;
 import net.minecraftforge.event.entity.living.LivingEvent.LivingUpdateEvent;
 import net.minecraftforge.event.entity.player.PlayerEvent;
+import net.minecraftforge.event.entity.player.PlayerEvent.BreakSpeed;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent.Action;
 import net.minecraftforge.event.entity.player.PlayerUseItemEvent;
@@ -128,15 +130,47 @@ public class HumanExtendedEntityPropertiesEventHandler {
 	@SubscribeEvent
 	public void onPlayerInteract(PlayerInteractEvent e) {
 		if (e.entity instanceof EntityPlayer) {
-			HumanExtendedEntityProperties extended_properties = HumanExtendedEntityProperties.get((EntityPlayer) e.entity);			
-
-			//--- Influences
-			//		Touching
-			if((e.action == Action.LEFT_CLICK_BLOCK) || (e.action == Action.RIGHT_CLICK_BLOCK)) {
-				double one_percent_chance_of_happening = 0.01;
-				if(Utilities.chanceOccured(one_percent_chance_of_happening)) {
-					extended_properties.addInfluenceToQueue(new TouchingGermsInfluence(extended_properties.human));					
+			HumanExtendedEntityProperties extended_properties = HumanExtendedEntityProperties.get((EntityPlayer) e.entity);
+			if(extended_properties.isServerSide()) {
+				//--- Influences
+				//		Touching
+				if((e.action == Action.LEFT_CLICK_BLOCK) || (e.action == Action.RIGHT_CLICK_BLOCK)) {
+					double one_percent_chance_of_happening = 0.01;
+					if(Utilities.chanceOccured(one_percent_chance_of_happening)) {
+						extended_properties.addInfluenceToQueue(new TouchingGermsInfluence(extended_properties.human));					
+					}
 				}
+				
+			}
+
+		}
+		
+	}
+	
+	@SubscribeEvent
+	public void onLivingJumpEvent(LivingJumpEvent e) {
+		if (e.entity instanceof EntityPlayer) {
+			HumanExtendedEntityProperties extended_properties = HumanExtendedEntityProperties.get((EntityPlayer) e.entity);
+			if(extended_properties.isServerSide()) {				
+				//--- Influences
+				//		Movement
+				Zone zone = Zone.ZONE_JUMPING;
+				extended_properties.addInfluenceToQueue(new MovementInfluence(extended_properties.human, zone));
+			}
+			
+		}
+	}
+	
+	@SubscribeEvent
+	public void getBreakSpeed(BreakSpeed e) {
+		if (e.entity instanceof EntityPlayer) {
+			HumanExtendedEntityProperties extended_properties = HumanExtendedEntityProperties.get((EntityPlayer) e.entity);
+			if(extended_properties.isServerSide()) {
+				System.out.println("WORKING: "+e.newSpeed);
+				//--- Influences
+				//		Movement
+				Zone zone = Zone.ZONE_WORKING;
+				extended_properties.addInfluenceToQueue(new MovementInfluence(extended_properties.human, zone));
 			}
 		}
 		

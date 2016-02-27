@@ -19,7 +19,9 @@ public class MovementInfluence extends HumanInfluence implements Influence {
 	public enum Zone {
 		ZONE_RESTING,
 		ZONE_RESTITUTING,
-		ZONE_TRAINING;
+		ZONE_TRAINING,
+		ZONE_WORKING,
+		ZONE_JUMPING;
 		
 		private static final double stationary_speed_km_h = 0.01;
 		private static final double walking_speed_km_h = 15.5;
@@ -74,6 +76,8 @@ public class MovementInfluence extends HumanInfluence implements Influence {
 			water_change = -1.0/(double)Utilities.hours_to_ticks(2);
 		} else if(zone == Zone.ZONE_TRAINING) {
 			water_change = -1.0/(double)Utilities.hours_to_ticks(1);
+		} else if((zone == Zone.ZONE_JUMPING) || (zone == Zone.ZONE_WORKING)) {
+			water_change = -1.0/(double)Utilities.minutes_to_ticks(30);
 		}
 		return water_change;
 	}
@@ -96,6 +100,9 @@ public class MovementInfluence extends HumanInfluence implements Influence {
 		} else if(zone == Zone.ZONE_TRAINING) {
 			//increase up to max_training_body_temperate
 			bt_change = (max_training_body_temperature - current_temp)*factor;
+		} else if((zone == Zone.ZONE_JUMPING) || (zone == Zone.ZONE_WORKING)) {
+			//increase up to max_training_body_temperate twice as fast as training
+			bt_change = (max_training_body_temperature - current_temp)*factor*2;
 		}
 		return bt_change;
 	}
@@ -113,6 +120,9 @@ public class MovementInfluence extends HumanInfluence implements Influence {
 		} else if(zone == Zone.ZONE_TRAINING) {
 			//increase
 			fitness_change = factor;
+		} else if((zone == Zone.ZONE_JUMPING) || (zone == Zone.ZONE_WORKING)) {
+			//increase alot
+			fitness_change = 1.0/(double)Utilities.hours_to_ticks(1);
 		}
 		return fitness_change;
 	}
@@ -135,6 +145,9 @@ public class MovementInfluence extends HumanInfluence implements Influence {
 		} else if(zone == Zone.ZONE_TRAINING) {
 			//stabilize at hr_max
 			hr_change = (heart_rate_max - current_heart_rate) * factor;
+		} else if((zone == Zone.ZONE_JUMPING) || (zone == Zone.ZONE_WORKING)) {
+			//increase alot
+			hr_change = 2.5;
 		}
 		
 		return hr_change;

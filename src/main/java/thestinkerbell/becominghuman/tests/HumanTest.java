@@ -8,6 +8,7 @@ import static org.junit.Assert.fail;
 import org.junit.Test;
 
 import thestinkerbell.becominghuman.human.Human;
+import thestinkerbell.becominghuman.human.HumanBiology;
 import thestinkerbell.becominghuman.human.diseases.Diseases;
 import thestinkerbell.becominghuman.human.diseases.HypertensionDisease;
 import thestinkerbell.becominghuman.human.properties.HumanProperty.GeneralRisk;
@@ -23,9 +24,6 @@ import thestinkerbell.becominghuman.human.risks.Risks;
 import thestinkerbell.becominghuman.human.symptoms.Symptoms;
 
 public class HumanTest {
-	
-	private final String BasicHumanPropertyName = "Age";
-	private final String CompoundHumanPropertyName = "BMI";
 
 	private Double tryToSetValue(Human human, String propertyname, Double newValue) {
 		Property oldProperty = human.getHumanPropertyWithName(propertyname);
@@ -109,7 +107,7 @@ public class HumanTest {
 	@Test
 	public void canGetAHumanProperty() {
 		Human human = new Human();
-		Property property = human.getHumanPropertyWithName(BasicHumanPropertyName);
+		Property property = human.getHumanPropertyWithName(HumanBiology.age);
 		assertNotNull(property);
 	}
 	
@@ -117,16 +115,16 @@ public class HumanTest {
 	public void canSetValueOnABasicHumanProperty() {		
 		Human human = new Human();
 		Double newValue = 10.0;
-		Double oldValue = tryToSetValue(human, BasicHumanPropertyName, newValue);
-		Property newProperty = human.getHumanPropertyWithName(BasicHumanPropertyName);
+		Double oldValue = tryToSetValue(human, HumanBiology.age, newValue);
+		Property newProperty = human.getHumanPropertyWithName(HumanBiology.age);
 		assertTrue(newValue.doubleValue() == ((Double)newProperty.getValue()).doubleValue());
 	}
 	
 	@Test
 	public void canNotSetValueOnACompoundHumanProperty() {		
 		Human human = new Human();
-		Double oldValue = tryToSetValue(human, CompoundHumanPropertyName, 10.0);
-		Property newProperty = human.getHumanPropertyWithName(CompoundHumanPropertyName);
+		Double oldValue = tryToSetValue(human, HumanBiology.bmi, 10.0);
+		Property newProperty = human.getHumanPropertyWithName(HumanBiology.bmi);
 		assertTrue(oldValue.doubleValue() == ((Double)newProperty.getValue()).doubleValue());
 	}
 	

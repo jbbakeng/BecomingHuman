@@ -1,5 +1,6 @@
 package thestinkerbell.becominghuman.human.properties.basic;
 
+import thestinkerbell.becominghuman.human.HumanBiology;
 import thestinkerbell.becominghuman.human.properties.BasicHumanProperty;
 import thestinkerbell.becominghuman.human.risks.DoubleRiskRange;
 import thestinkerbell.becominghuman.human.risks.Risk;
@@ -7,7 +8,7 @@ import thestinkerbell.becominghuman.human.risks.Risk;
 final public class HeightBasicHumanProperty extends BasicHumanProperty {
 	
 	public HeightBasicHumanProperty() {
-		super("Height", 170, "cm", 55, 272);
+		super(HumanBiology.height, 170, "cm", 55, 272);
 		this.risk_ranges.add(new DoubleRiskRange(HeightRisk.HEIGHT_DWARF, 55, 140));
 		this.risk_ranges.add(new DoubleRiskRange(HeightRisk.HEIGHT_SHORT, 141, 159));
 		this.risk_ranges.add(new DoubleRiskRange(HeightRisk.HEIGHT_NORMAL, 160, 190));

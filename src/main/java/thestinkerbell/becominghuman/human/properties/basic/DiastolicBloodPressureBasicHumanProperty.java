@@ -1,5 +1,6 @@
 package thestinkerbell.becominghuman.human.properties.basic;
 
+import thestinkerbell.becominghuman.human.HumanBiology;
 import thestinkerbell.becominghuman.human.properties.BasicHumanProperty;
 import thestinkerbell.becominghuman.human.risks.DoubleRiskRange;
 import thestinkerbell.becominghuman.human.risks.Risk;
@@ -7,7 +8,7 @@ import thestinkerbell.becominghuman.human.risks.Risk;
 final public class DiastolicBloodPressureBasicHumanProperty extends BasicHumanProperty {
 	
 	public DiastolicBloodPressureBasicHumanProperty() {
-		super("Diastolic Blood Pressure", 70, "mmHg", 0, 190);
+		super(HumanBiology.bp_d, 70, "mmHg", 0, 190);
 		this.risk_ranges.add(new DoubleRiskRange(DiastolicBloodPressureRateRisk.DBP_LOW, 0, 59));
 		this.risk_ranges.add(new DoubleRiskRange(DiastolicBloodPressureRateRisk.DBP_NORMAL, 60, 79));
 		this.risk_ranges.add(new DoubleRiskRange(DiastolicBloodPressureRateRisk.DBP_HIGH, 80, 190));

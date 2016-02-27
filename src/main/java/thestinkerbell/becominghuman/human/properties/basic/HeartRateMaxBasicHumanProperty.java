@@ -1,8 +1,10 @@
 package thestinkerbell.becominghuman.human.properties.basic;
 
+import thestinkerbell.becominghuman.human.HumanBiology;
+
 public class HeartRateMaxBasicHumanProperty extends HeartRateBasicHumanProperty {
 	
 	public HeartRateMaxBasicHumanProperty() {
-		super("Heart Rate Max", 220, "bpm", 0, 220);
+		super(HumanBiology.hr_max, 220, "bpm", 0, 220);
 	}
 }

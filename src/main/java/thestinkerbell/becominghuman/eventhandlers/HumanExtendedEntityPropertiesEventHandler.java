@@ -1,13 +1,9 @@
 package thestinkerbell.becominghuman.eventhandlers;
 
-import net.minecraft.entity.SharedMonsterAttributes;
-import net.minecraft.entity.ai.attributes.IAttributeInstance;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.entity.player.PlayerCapabilities;
 import net.minecraft.item.ItemFood;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.FoodStats;
-import net.minecraft.util.MathHelper;
 import net.minecraft.util.Vec3;
 import net.minecraft.world.biome.BiomeGenBase;
 import net.minecraftforge.event.entity.EntityEvent.EntityConstructing;
@@ -26,6 +22,7 @@ import thestinkerbell.becominghuman.human.influences.natural.DrinkingWaterInflue
 import thestinkerbell.becominghuman.human.influences.natural.EatingInfluence;
 import thestinkerbell.becominghuman.human.influences.natural.HungerInfluence;
 import thestinkerbell.becominghuman.human.influences.natural.MovementInfluence;
+import thestinkerbell.becominghuman.human.influences.natural.MovementInfluence.Zone;
 import thestinkerbell.becominghuman.human.influences.natural.TimeInfluence;
 import thestinkerbell.becominghuman.human.influences.natural.TouchingGermsInfluence;
 import thestinkerbell.becominghuman.utilities.SpeedConverter;
@@ -84,7 +81,8 @@ public class HumanExtendedEntityPropertiesEventHandler {
 				//		Movement
 				Vec3 server_motion = getServersMotionVector(e);
 				double speed_kph = SpeedConverter.getSpeed_kph(server_motion.xCoord, server_motion.zCoord);
-				extended_properties.addInfluenceToQueue(new MovementInfluence(extended_properties.human, speed_kph));
+				Zone zone = Zone.getZone(speed_kph);
+				extended_properties.addInfluenceToQueue(new MovementInfluence(extended_properties.human, zone));
 				
 				//		Hunger
 				FoodStats food_stats = ((EntityPlayer)e.entityLiving).getFoodStats();

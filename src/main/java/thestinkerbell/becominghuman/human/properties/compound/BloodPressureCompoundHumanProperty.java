@@ -1,5 +1,6 @@
 package thestinkerbell.becominghuman.human.properties.compound;
 
+import thestinkerbell.becominghuman.human.HumanBiology;
 import thestinkerbell.becominghuman.human.properties.PairedCompoundHumanProperty;
 import thestinkerbell.becominghuman.human.properties.basic.DiastolicBloodPressureBasicHumanProperty;
 import thestinkerbell.becominghuman.human.properties.basic.SystolicBloodPressureBasicHumanProperty;
@@ -11,7 +12,7 @@ import thestinkerbell.becominghuman.utilities.Pair;
 final public class BloodPressureCompoundHumanProperty extends PairedCompoundHumanProperty<SystolicBloodPressureBasicHumanProperty, DiastolicBloodPressureBasicHumanProperty> {
 	
 	public BloodPressureCompoundHumanProperty(SystolicBloodPressureBasicHumanProperty systolic, DiastolicBloodPressureBasicHumanProperty diastolic) {
-		super("Blood Pressure", new Pair(105.0, 70.0), "mmHg", new Pair(0.0, 0.0), new Pair(340.0, 190.0));
+		super(HumanBiology.bp, new Pair(105.0, 70.0), "mmHg", new Pair(0.0, 0.0), new Pair(340.0, 190.0));
 		this.propertyA = systolic;
 		this.propertyB = diastolic;
 		this.risk_ranges.add(new PairDoubleRiskRange(BloodPressureRisk.BP_HYPOTENSION, new Pair(0.0, 0.0), new Pair(90.0, 60.0)));

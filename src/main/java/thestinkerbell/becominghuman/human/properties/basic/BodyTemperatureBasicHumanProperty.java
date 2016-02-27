@@ -1,5 +1,6 @@
 package thestinkerbell.becominghuman.human.properties.basic;
 
+import thestinkerbell.becominghuman.human.HumanBiology;
 import thestinkerbell.becominghuman.human.properties.BasicHumanProperty;
 import thestinkerbell.becominghuman.human.risks.DoubleRiskRange;
 import thestinkerbell.becominghuman.human.risks.Risk;
@@ -11,7 +12,7 @@ public class BodyTemperatureBasicHumanProperty extends BasicHumanProperty {
 	}
 	
 	public BodyTemperatureBasicHumanProperty() {
-		this("Body Temperature", 37, "celcius", -273, 980);
+		this(HumanBiology.bt, 37, "celcius", -273, 980);
 		this.risk_ranges.add(new DoubleRiskRange(BodyTemperatureRisk.BODYTEMPERATURE_VERYCOLD, -273, 31));
 		this.risk_ranges.add(new DoubleRiskRange(BodyTemperatureRisk.BODYTEMPERATURE_COLD, 32, 35));
 		this.risk_ranges.add(new DoubleRiskRange(BodyTemperatureRisk.BODYTEMPERATURE_NORMAL, 36, 38));

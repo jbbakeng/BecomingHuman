@@ -1,5 +1,6 @@
 package thestinkerbell.becominghuman.human.properties.basic;
 
+import thestinkerbell.becominghuman.human.HumanBiology;
 import thestinkerbell.becominghuman.human.properties.BasicHumanProperty;
 import thestinkerbell.becominghuman.human.risks.DoubleRiskRange;
 import thestinkerbell.becominghuman.human.risks.Risk;
@@ -7,7 +8,7 @@ import thestinkerbell.becominghuman.human.risks.Risk;
 final public class AgeBasicHumanProperty extends BasicHumanProperty {
 	
 	public AgeBasicHumanProperty() {
-		super("Age", 18, "years", 0, 122);
+		super(HumanBiology.age, 18, "years", 0, 122);
 		this.risk_ranges.add(new DoubleRiskRange(AgeRisk.AGE_INFANCY, 0, 2));
 		this.risk_ranges.add(new DoubleRiskRange(AgeRisk.AGE_EARLYCHILDHOOD, 3, 5));
 		this.risk_ranges.add(new DoubleRiskRange(AgeRisk.AGE_MIDDLECHILDHOOD, 6, 8));

@@ -2,6 +2,7 @@ package thestinkerbell.becominghuman.human.influences.natural;
 
 import net.minecraft.util.FoodStats;
 import thestinkerbell.becominghuman.human.Human;
+import thestinkerbell.becominghuman.human.HumanBiology;
 import thestinkerbell.becominghuman.human.influences.HumanInfluence;
 import thestinkerbell.becominghuman.human.influences.Influence;
 import thestinkerbell.becominghuman.human.properties.Property;
@@ -11,7 +12,6 @@ public class HungerInfluence extends HumanInfluence implements Influence {
 	private FoodStats food_stats;
 	
 	private int max_food_level = 20;
-	private String w = "Weight";
 	
 	public HungerInfluence(Human human, FoodStats food_stats) {
 		super(human);
@@ -21,13 +21,13 @@ public class HungerInfluence extends HumanInfluence implements Influence {
 	@Override
 	public void apply() {
 		
-		Property weight = this.human.getHumanPropertyWithName(w);
+		Property weight = this.human.getHumanPropertyWithName(HumanBiology.weight);
 		Double old_weight = (Double) weight.getValue();
 		Double change = getWeightChange(old_weight);
 		Double new_weight = old_weight + change;
 		
 		try {
-			this.human.setValue(w, new_weight);
+			this.human.setValue(HumanBiology.weight, new_weight);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

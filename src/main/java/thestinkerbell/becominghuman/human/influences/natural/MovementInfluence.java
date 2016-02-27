@@ -60,11 +60,25 @@ public class MovementInfluence extends HumanInfluence implements Influence {
 		HumanBiology.applyChange(this.human, HumanBiology.bt, getBodyTempChange(this.human, zone));
 		HumanBiology.applyChange(this.human, HumanBiology.fitness, getFitnessChange(this.human,zone));
 		HumanBiology.applyChange(this.human, HumanBiology.hr, getHeartRateChange(human, zone));
+		HumanBiology.applyChange(this.human, HumanBiology.water, getWaterChange(human, zone));
 	}
 
 
-	private double getBodyTempChange(Human human, Zone zone) {
+	private double getWaterChange(Human human, Zone zone) {
+		Double current_temp = (Double) this.human.getHumanPropertyWithName(HumanBiology.bt).getValue();
 		
+		double water_change = 0.0;
+		if(zone == Zone.ZONE_RESTING) {
+			water_change = 0.0;
+		} else if(zone == Zone.ZONE_RESTITUTING) {
+			water_change = -1.0/(double)Utilities.hours_to_ticks(2);
+		} else if(zone == Zone.ZONE_TRAINING) {
+			water_change = -1.0/(double)Utilities.hours_to_ticks(1);
+		}
+		return water_change;
+	}
+
+	private double getBodyTempChange(Human human, Zone zone) {
 		Double set_point_temp = (Double) this.human.getHumanPropertyWithName(HumanBiology.bt_sp).getValue();
 		Double current_temp = (Double) this.human.getHumanPropertyWithName(HumanBiology.bt).getValue();
 		

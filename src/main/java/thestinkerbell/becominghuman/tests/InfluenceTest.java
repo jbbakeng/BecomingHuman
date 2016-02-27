@@ -19,9 +19,9 @@ import thestinkerbell.becominghuman.human.influences.natural.DrinkingWaterInflue
 import thestinkerbell.becominghuman.human.influences.natural.EatingInfluence;
 import thestinkerbell.becominghuman.human.influences.natural.HungerInfluence;
 import thestinkerbell.becominghuman.human.influences.natural.MovementInfluence;
+import thestinkerbell.becominghuman.human.influences.natural.MovementInfluence.Zone;
 import thestinkerbell.becominghuman.human.influences.natural.TimeInfluence;
 import thestinkerbell.becominghuman.human.influences.natural.TouchingGermsInfluence;
-import thestinkerbell.becominghuman.human.influences.natural.MovementInfluence.Zone;
 import thestinkerbell.becominghuman.human.properties.Property;
 
 public class InfluenceTest {
@@ -36,9 +36,14 @@ public class InfluenceTest {
 		assertTrue(queue.size() == 0);
 	}
 	
+	
 	public double applyInfluence(String property_name, Human human, Influence influence) {
 		Property property = human.getHumanPropertyWithName(property_name);
-		influence.apply();
+
+		int ticks = 1; //Utilities.days_to_ticks(1);
+		for(int i = 0; i < ticks; i++) {
+			influence.apply();
+		}
 		Double new_value = (Double)property.getValue();
 		
 		return new_value;
@@ -70,6 +75,13 @@ public class InfluenceTest {
 		Influence influence = new MovementInfluence(human, zone);
 
 		return applyInfluence(HumanBiology.fitness, human, influence);
+	}
+	
+	private double applyMovementInfluenceToWater(Zone zone) {
+		Human human = new Human();
+		Influence influence = new MovementInfluence(human, zone);
+
+		return applyInfluence(HumanBiology.water, human, influence);
 	}
 	
 	private double applyHungerInfluence(FoodStats food_stat) {
@@ -184,6 +196,16 @@ public class InfluenceTest {
 		assertTrue(this.applyMovementInfluenceToFitness(Zone.ZONE_RESTING) < fitness_default);
 		assertTrue(this.applyMovementInfluenceToFitness(Zone.ZONE_RESTITUTING) == fitness_default);
 		assertTrue(this.applyMovementInfluenceToFitness(Zone.ZONE_TRAINING) > fitness_default);
+		assertTrue(this.applyMovementInfluenceToFitness(Zone.ZONE_TRAINING) <= 100.0);
+	}
+	
+	@Test
+	public void movementCanInfluenceWaterHumanProperties() {
+		double water_default = 50.0;
+		
+		assertTrue(this.applyMovementInfluenceToWater(Zone.ZONE_RESTING) == water_default);
+		assertTrue(this.applyMovementInfluenceToWater(Zone.ZONE_RESTITUTING) < water_default);
+		assertTrue(this.applyMovementInfluenceToWater(Zone.ZONE_TRAINING) < water_default);
 	}
 
 	@Test

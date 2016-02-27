@@ -21,13 +21,14 @@ import net.minecraftforge.fml.common.eventhandler.EventPriority;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import thestinkerbell.becominghuman.extendedentityproperties.HumanExtendedEntityProperties;
 import thestinkerbell.becominghuman.human.influences.natural.AirTemperatureInfluence;
-import thestinkerbell.becominghuman.human.influences.natural.BreathingInfluence;
+import thestinkerbell.becominghuman.human.influences.natural.BreathingGermsInfluence;
 import thestinkerbell.becominghuman.human.influences.natural.DrinkingWaterInfluence;
 import thestinkerbell.becominghuman.human.influences.natural.EatingInfluence;
 import thestinkerbell.becominghuman.human.influences.natural.HungerInfluence;
 import thestinkerbell.becominghuman.human.influences.natural.MovementInfluence;
-import thestinkerbell.becominghuman.human.influences.natural.TouchingInfluence;
+import thestinkerbell.becominghuman.human.influences.natural.TouchingGermsInfluence;
 import thestinkerbell.becominghuman.utilities.SpeedConverter;
+import thestinkerbell.becominghuman.utilities.Utilities;
 
 public class HumanExtendedEntityPropertiesEventHandler {
 	
@@ -93,9 +94,8 @@ public class HumanExtendedEntityPropertiesEventHandler {
 				// 1/12096000 = 0,00000008267196
 				// -> chance of getting infected once every week
 				double chance_of_getting_infected_airborn = 8.2e-8;
-				double random_getting_sick = Math.random();
-				if(random_getting_sick <= chance_of_getting_infected_airborn) {					
-					extended_properties.addInfluenceToQueue(new BreathingInfluence(extended_properties.human));
+				if(Utilities.chanceOccured(chance_of_getting_infected_airborn)) {					
+					extended_properties.addInfluenceToQueue(new BreathingGermsInfluence(extended_properties.human));
 				}
 				
 				//		APPLY
@@ -117,7 +117,6 @@ public class HumanExtendedEntityPropertiesEventHandler {
 					extended_properties.addInfluenceToQueue(new DrinkingWaterInfluence(extended_properties.human, water_liter));
 				}
 				//		Eating
-				//TODO apply random chance for this to happen
 				if(e.item.getItem() instanceof ItemFood) {
 					extended_properties.addInfluenceToQueue(new EatingInfluence(extended_properties.human, (ItemFood) e.item.getItem()));
 				}
@@ -133,9 +132,14 @@ public class HumanExtendedEntityPropertiesEventHandler {
 
 			//--- Influences
 			//		Touching
-			//TODO apply random chance for this to happen
 			if( (e.action == Action.LEFT_CLICK_BLOCK) || (e.action == Action.RIGHT_CLICK_BLOCK)) {
-				extended_properties.addInfluenceToQueue(new TouchingInfluence(extended_properties.human));
+				//20ticks*60seconds*60minutes*24hours*7days = 12096000
+				// 1/12096000 = 0,00000008267196
+				// -> chance of getting infected once every week
+				double chance_of_getting_infected_direct_contact = 8.2e-8;
+				if(Utilities.chanceOccured(chance_of_getting_infected_direct_contact)) {
+					extended_properties.addInfluenceToQueue(new TouchingGermsInfluence(extended_properties.human));					
+				}
 			}
 		}
 		

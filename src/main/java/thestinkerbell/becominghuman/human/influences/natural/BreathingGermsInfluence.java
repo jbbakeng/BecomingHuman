@@ -7,18 +7,19 @@ import thestinkerbell.becominghuman.human.influences.Influence;
 import thestinkerbell.becominghuman.human.properties.GermHumanProperty;
 import thestinkerbell.becominghuman.human.properties.GermHumanProperty.Transmission;
 
-public class TouchingInfluence extends HumanInfluence implements Influence {
+public class BreathingGermsInfluence extends HumanInfluence implements Influence {
 
 	private final HumanBiology biology = new HumanBiology();
 	
-	public TouchingInfluence(Human human) {
+	public BreathingGermsInfluence(Human human) {
 		super(human);
 	}
 	
 	@Override
 	public void apply() {
 		GermHumanProperty germ = biology.getRandomGerm();
-		if(germ.canBeTransmittedBy(Transmission.TRANSMISSION_DIRECT_CONTACT)) {
+		if(germ.canBeTransmittedBy(Transmission.TRANSMISSION_AIRBORN));
+		{
 			GermInfluence.applyInfectWithGerm(this.human, germ);
 		}
 	}

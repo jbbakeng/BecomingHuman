@@ -17,4 +17,10 @@ public class Utilities {
 		int ticks = seconds * ticks_per_second;
 		return ticks;
 	}
+	
+	public static boolean chanceOccured(double chance_of_occuring) {
+		double random_chance = Math.random();
+		boolean occur = random_chance <= chance_of_occuring;
+		return occur;
+	}
 }

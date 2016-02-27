@@ -10,6 +10,7 @@ import thestinkerbell.becominghuman.human.influences.HumanInfluence;
 import thestinkerbell.becominghuman.human.influences.Influence;
 import thestinkerbell.becominghuman.human.properties.GermHumanProperty;
 import thestinkerbell.becominghuman.human.properties.GermHumanProperty.Transmission;
+import thestinkerbell.becominghuman.utilities.Utilities;
 
 public class EatingInfluence extends HumanInfluence implements Influence {
 
@@ -50,7 +51,8 @@ public class EatingInfluence extends HumanInfluence implements Influence {
 			for(String s: contaminated_food_keywords) {
 				//contains is case sensitive
 				if(unlocalizedName.contains(s)) {
-					infected = true;
+					double chance_of_occuring = 0.5; // 50% chance of getting infected
+					infected = Utilities.chanceOccured(chance_of_occuring);
 				}
 			}
 		}

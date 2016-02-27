@@ -13,13 +13,13 @@ import thestinkerbell.becominghuman.human.influences.HumanInfluence;
 import thestinkerbell.becominghuman.human.influences.Influence;
 import thestinkerbell.becominghuman.human.influences.InfluenceQueue;
 import thestinkerbell.becominghuman.human.influences.natural.AirTemperatureInfluence;
-import thestinkerbell.becominghuman.human.influences.natural.BreathingInfluence;
+import thestinkerbell.becominghuman.human.influences.natural.BreathingGermsInfluence;
 import thestinkerbell.becominghuman.human.influences.natural.DrinkingWaterInfluence;
 import thestinkerbell.becominghuman.human.influences.natural.EatingInfluence;
 import thestinkerbell.becominghuman.human.influences.natural.HungerInfluence;
 import thestinkerbell.becominghuman.human.influences.natural.MovementInfluence;
 import thestinkerbell.becominghuman.human.influences.natural.TimeInfluence;
-import thestinkerbell.becominghuman.human.influences.natural.TouchingInfluence;
+import thestinkerbell.becominghuman.human.influences.natural.TouchingGermsInfluence;
 import thestinkerbell.becominghuman.human.properties.Property;
 
 public class InfluenceTest {
@@ -198,7 +198,7 @@ public class InfluenceTest {
 	
 	@Test
 	public void canProcessQueueWithOneBreathingInfluence() {
-		Influence breathing = new BreathingInfluence(new Human());
+		Influence breathing = new BreathingGermsInfluence(new Human());
 		this.canProcessQueueWithInfluence(breathing, 1);
 	}
 	
@@ -218,7 +218,12 @@ public class InfluenceTest {
 	
 	@Test
 	public void canProcessQueueWithOneTouchInfluence() {
-		canProcessQueueWithInfluence(new TouchingInfluence(new Human()), 1);
+		canProcessQueueWithInfluence(new TouchingGermsInfluence(new Human()), 1);
+	}
+	
+	@Test
+	public void canProcessQueueWithOneTimeInfluence() {
+		canProcessQueueWithInfluence(new TimeInfluence(new Human()), 1);
 	}
 
 }

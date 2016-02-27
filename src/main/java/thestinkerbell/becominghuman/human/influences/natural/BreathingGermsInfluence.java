@@ -20,7 +20,7 @@ public class BreathingGermsInfluence extends HumanInfluence implements Influence
 		GermHumanProperty germ = biology.getRandomGerm();
 		if(germ.canBeTransmittedBy(Transmission.TRANSMISSION_AIRBORN));
 		{
-			GermInfluence.applyInfectWithGerm(this.human, germ);
+			HumanBiology.applyChange(this.human, germ.getName(), GermInfluence.change);
 		}
 	}
 

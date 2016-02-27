@@ -1,5 +1,6 @@
 package thestinkerbell.becominghuman.human.properties.compound;
 
+import thestinkerbell.becominghuman.human.HumanBiology;
 import thestinkerbell.becominghuman.human.properties.DoubleCompoundHumanProperty;
 import thestinkerbell.becominghuman.human.properties.basic.HeightBasicHumanProperty;
 import thestinkerbell.becominghuman.human.properties.basic.WeightBasicHumanProperty;
@@ -9,7 +10,7 @@ import thestinkerbell.becominghuman.human.risks.Risk;
 final public class BMICompoundHumanProperty extends DoubleCompoundHumanProperty<WeightBasicHumanProperty, HeightBasicHumanProperty> {
 	
 	public BMICompoundHumanProperty(WeightBasicHumanProperty weight, HeightBasicHumanProperty height) {
-		super("BMI", 20.0, "kg/m^2", 0.0, 204.0);
+		super(HumanBiology.bmi, 20.0, "kg/m^2", 0.0, 204.0);
 		this.propertyA = weight;
 		this.propertyB = height;
 		this.risk_ranges.add(new DoubleRiskRange(BMIRisk.BMI_VERYSEVERLYUNDERWEIGHT, 0.0, 14.9));

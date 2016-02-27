@@ -9,6 +9,7 @@ import net.minecraft.item.ItemFood;
 import net.minecraft.util.FoodStats;
 import net.minecraft.world.biome.BiomeGenBase.TempCategory;
 import thestinkerbell.becominghuman.human.Human;
+import thestinkerbell.becominghuman.human.HumanBiology;
 import thestinkerbell.becominghuman.human.influences.HumanInfluence;
 import thestinkerbell.becominghuman.human.influences.Influence;
 import thestinkerbell.becominghuman.human.influences.InfluenceQueue;
@@ -20,6 +21,7 @@ import thestinkerbell.becominghuman.human.influences.natural.HungerInfluence;
 import thestinkerbell.becominghuman.human.influences.natural.MovementInfluence;
 import thestinkerbell.becominghuman.human.influences.natural.TimeInfluence;
 import thestinkerbell.becominghuman.human.influences.natural.TouchingGermsInfluence;
+import thestinkerbell.becominghuman.human.influences.natural.MovementInfluence.Zone;
 import thestinkerbell.becominghuman.human.properties.Property;
 
 public class InfluenceTest {
@@ -46,35 +48,49 @@ public class InfluenceTest {
 		Human human = new Human();
 		Influence influence = new AirTemperatureInfluence(human, temp);
 		
-		return applyInfluence("Body Temperature", human, influence);
+		return applyInfluence(HumanBiology.bt, human, influence);
 	}
 	
-	private double applyMovementInfluence(double speed_km_h) {
+	private double applyMovementInfluenceToHR(Zone zone) {
 		Human human = new Human();
-		Influence influence = new MovementInfluence(human, speed_km_h);
+		Influence influence = new MovementInfluence(human, zone);
 
-		return applyInfluence("Heart Rate", human, influence);
+		return applyInfluence(HumanBiology.hr, human, influence);
+	}
+	
+	private double applyMovementInfluenceToBT(Zone zone) {
+		Human human = new Human();
+		Influence influence = new MovementInfluence(human, zone);
+
+		return applyInfluence(HumanBiology.bt, human, influence);
+	}
+	
+	private double applyMovementInfluenceToFitness(Zone zone) {
+		Human human = new Human();
+		Influence influence = new MovementInfluence(human, zone);
+
+		return applyInfluence(HumanBiology.fitness, human, influence);
 	}
 	
 	private double applyHungerInfluence(FoodStats food_stat) {
 		Human human = new Human();
 		Influence influence = new HungerInfluence(human, food_stat);
 		
-		return applyInfluence("Weight", human, influence);
+		return applyInfluence(HumanBiology.weight, human, influence);
 	}
 	
 	private double applyDrinkingWaterInfluence(double water_liter) {
 		Human human = new Human();
 		Influence influence = new DrinkingWaterInfluence(human, water_liter);
 		
-		return applyInfluence("Water", human, influence);
+		return applyInfluence(HumanBiology.water, human, influence);
 	}
 	
 	private double applyEatingInfluence(ItemFood food) {
 		Human human = new Human();
 		Influence influence = new EatingInfluence(human, food);
 		
-		return applyInfluence("Water", human, influence);
+		return applyInfluence(HumanBiology.water, human, influence);
 	}
 	
 	// --- TESTS
@@ -134,27 +150,43 @@ public class InfluenceTest {
 	@Test
 	public void canProcessQueueWithOneMovementInfluence() {
 		double walking_speed_km_h = 5.0; //avarage walking speed
-		Influence influence = new MovementInfluence(new Human(), walking_speed_km_h);
+		Influence influence = new MovementInfluence(new Human(), Zone.getZone(walking_speed_km_h));
 		this.canProcessQueueWithInfluence(influence, 3);
 	}
 	
 	@Test
-	public void movementCanInfluenceHumanProperties() {
+	public void movementCanInfluenceHRHumanProperties() {
 		double heart_rate_resting = 70.0;
 		double heart_rate_walking = heart_rate_resting + MovementInfluence.max_walking_heart_rate_addition;
 		double heart_rate_max = 220.0;
 		
-		double standing_still_speed = MovementInfluence.stationary_speed_km_h;
-		double walking_speed = MovementInfluence.walking_speed_km_h;
-		double running_speed = MovementInfluence.walking_speed_km_h+2.0;
-		
-		assertTrue(this.applyMovementInfluence(standing_still_speed) == heart_rate_resting);
-		assertTrue(this.applyMovementInfluence(walking_speed) > heart_rate_resting);
-		assertTrue(this.applyMovementInfluence(walking_speed) <= heart_rate_walking);
-		assertTrue(this.applyMovementInfluence(running_speed) > heart_rate_resting);
-		assertTrue(this.applyMovementInfluence(running_speed) <= heart_rate_max);
+		assertTrue(this.applyMovementInfluenceToHR(Zone.ZONE_RESTING) == heart_rate_resting);
+		assertTrue(this.applyMovementInfluenceToHR(Zone.ZONE_RESTITUTING) > heart_rate_resting);
+		assertTrue(this.applyMovementInfluenceToHR(Zone.ZONE_RESTITUTING) <= heart_rate_walking);
+		assertTrue(this.applyMovementInfluenceToHR(Zone.ZONE_TRAINING) > heart_rate_resting);
+		assertTrue(this.applyMovementInfluenceToHR(Zone.ZONE_TRAINING) <= heart_rate_max);
 	}
 	
+	@Test
+	public void movementCanInfluenceBTHumanProperties() {
+		double bt_resting = 37.0;
+		
+		assertTrue(this.applyMovementInfluenceToBT(Zone.ZONE_RESTING) == bt_resting);
+		assertTrue(this.applyMovementInfluenceToBT(Zone.ZONE_RESTITUTING) > bt_resting);
+		assertTrue(this.applyMovementInfluenceToBT(Zone.ZONE_TRAINING) > bt_resting);
+		assertTrue(this.applyMovementInfluenceToBT(Zone.ZONE_TRAINING) <= MovementInfluence.max_training_body_temperature);
+	}
+	
+	@Test
+	public void movementCanInfluenceFitnessHumanProperties() {
+		double fitness_default = 45.0;
+		
+		assertTrue(this.applyMovementInfluenceToBT(Zone.ZONE_RESTING) == fitness_default);
+		assertTrue(this.applyMovementInfluenceToBT(Zone.ZONE_RESTITUTING) >fitness_default);
+		assertTrue(this.applyMovementInfluenceToBT(Zone.ZONE_TRAINING) > fitness_default);
+
+	}
+
 	@Test
 	public void canProcessQueueWithOneHungerInfluence() {
 		FoodStats food_stats = new FoodStats();

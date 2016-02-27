@@ -1,16 +1,16 @@
 package thestinkerbell.becominghuman.human.properties.compound;
 
+import thestinkerbell.becominghuman.human.HumanBiology;
 import thestinkerbell.becominghuman.human.properties.DoubleCompoundHumanProperty;
 import thestinkerbell.becominghuman.human.properties.basic.WaterBasicHumanProperty;
 import thestinkerbell.becominghuman.human.properties.basic.WeightBasicHumanProperty;
-import thestinkerbell.becominghuman.human.properties.compound.BMICompoundHumanProperty.BMIRisk;
 import thestinkerbell.becominghuman.human.risks.DoubleRiskRange;
 import thestinkerbell.becominghuman.human.risks.Risk;
 
 public class HydrationLevelCompoundHumanProperty extends DoubleCompoundHumanProperty<WaterBasicHumanProperty, WeightBasicHumanProperty> {
 
 	public HydrationLevelCompoundHumanProperty(WaterBasicHumanProperty water, WeightBasicHumanProperty weight) {
-		super("Hydration Level", 60.0, "%", 0.0, 100.0);
+		super(HumanBiology.hydration, 60.0, "%", 0.0, 100.0);
 		this.propertyA = water;
 		this.propertyB = weight;
 		this.risk_ranges.add(new DoubleRiskRange(HydrationLevelRisk.HYDRATION_VERYLOW, 0.0, 48.0));

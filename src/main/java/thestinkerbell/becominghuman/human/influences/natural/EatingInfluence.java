@@ -34,7 +34,7 @@ public class EatingInfluence extends HumanInfluence implements Influence {
 		GermHumanProperty germ = biology.getRandomGerm();
 		if(this.foodIsInfected(germ));
 		{
-			GermInfluence.applyInfectWithGerm(this.human, germ);
+			HumanBiology.applyChange(this.human, germ.getName(), GermInfluence.change);
 		}
 		
 	}

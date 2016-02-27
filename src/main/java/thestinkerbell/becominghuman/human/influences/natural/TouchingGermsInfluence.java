@@ -19,7 +19,7 @@ public class TouchingGermsInfluence extends HumanInfluence implements Influence 
 	public void apply() {
 		GermHumanProperty germ = biology.getRandomGerm();
 		if(germ.canBeTransmittedBy(Transmission.TRANSMISSION_DIRECT_CONTACT)) {
-			GermInfluence.applyInfectWithGerm(this.human, germ);
+			HumanBiology.applyChange(this.human, germ.getName(), GermInfluence.change);
 		}
 	}
 

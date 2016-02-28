@@ -19,6 +19,7 @@ import thestinkerbell.becominghuman.human.influences.natural.DrinkingWaterInflue
 import thestinkerbell.becominghuman.human.influences.natural.EatingInfluence;
 import thestinkerbell.becominghuman.human.influences.natural.HungerInfluence;
 import thestinkerbell.becominghuman.human.influences.natural.MovementInfluence;
+import thestinkerbell.becominghuman.human.influences.natural.SleepingInfluence;
 import thestinkerbell.becominghuman.human.influences.natural.MovementInfluence.Zone;
 import thestinkerbell.becominghuman.human.influences.natural.TimeInfluence;
 import thestinkerbell.becominghuman.human.influences.natural.TouchingGermsInfluence;
@@ -116,6 +117,13 @@ public class InfluenceTest {
 	private double applyTimeInfluenceToSleepy(int ticks) {
 		Human human = new Human();
 		Influence influence = new TimeInfluence(human, ticks);
+		
+		return applyInfluence(HumanBiology.sleepy, human, influence);
+	}
+
+	private double applySleepingInfluenceToSleepy() {
+		Human human = new Human();
+		Influence influence = new SleepingInfluence(human);
 		
 		return applyInfluence(HumanBiology.sleepy, human, influence);
 	}
@@ -316,6 +324,20 @@ public class InfluenceTest {
 		assertTrue(this.applyTimeInfluenceToSleepy(0) == sleepy_default);
 		assertTrue(this.applyTimeInfluenceToSleepy(eight_hours_awake) > sleepy_default);
 		assertTrue(this.applyTimeInfluenceToSleepy(twentyfour_hours_awake) == sleepy_max);
+
+	}
+	
+	@Test
+	public void canProcessQueueWithOneSleepingInfluence() {
+		int ticks = 20;
+		canProcessQueueWithInfluence(new SleepingInfluence(new Human()), 1);
+	}	
+	
+	@Test
+	public void sleepingCanInfluenceSleepyHumanProperties() {
+		double sleepy_default = 0.0;
+		
+		assertTrue(this.applySleepingInfluenceToSleepy() == sleepy_default);
 
 	}
 

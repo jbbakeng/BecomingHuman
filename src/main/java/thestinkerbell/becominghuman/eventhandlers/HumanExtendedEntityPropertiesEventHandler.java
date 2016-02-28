@@ -14,6 +14,7 @@ import net.minecraftforge.event.entity.player.PlayerEvent;
 import net.minecraftforge.event.entity.player.PlayerEvent.BreakSpeed;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent.Action;
+import net.minecraftforge.event.entity.player.PlayerSleepInBedEvent;
 import net.minecraftforge.event.entity.player.PlayerUseItemEvent;
 import net.minecraftforge.fml.common.eventhandler.EventPriority;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
@@ -25,6 +26,7 @@ import thestinkerbell.becominghuman.human.influences.natural.EatingInfluence;
 import thestinkerbell.becominghuman.human.influences.natural.HungerInfluence;
 import thestinkerbell.becominghuman.human.influences.natural.MovementInfluence;
 import thestinkerbell.becominghuman.human.influences.natural.MovementInfluence.Zone;
+import thestinkerbell.becominghuman.human.influences.natural.SleepingInfluence;
 import thestinkerbell.becominghuman.human.influences.natural.TimeInfluence;
 import thestinkerbell.becominghuman.human.influences.natural.TouchingGermsInfluence;
 import thestinkerbell.becominghuman.utilities.SpeedConverter;
@@ -166,7 +168,6 @@ public class HumanExtendedEntityPropertiesEventHandler {
 		if (e.entity instanceof EntityPlayer) {
 			HumanExtendedEntityProperties extended_properties = HumanExtendedEntityProperties.get((EntityPlayer) e.entity);
 			if(extended_properties.isServerSide()) {
-				System.out.println("WORKING: "+e.newSpeed);
 				//--- Influences
 				//		Movement
 				Zone zone = Zone.ZONE_WORKING;
@@ -174,5 +175,17 @@ public class HumanExtendedEntityPropertiesEventHandler {
 			}
 		}
 		
+	}
+	
+	@SubscribeEvent
+	public void onPlayerSleepInBedEvent(PlayerSleepInBedEvent e) {
+		if (e.entity instanceof EntityPlayer) {
+			HumanExtendedEntityProperties extended_properties = HumanExtendedEntityProperties.get((EntityPlayer) e.entity);
+			if(extended_properties.isServerSide()) {
+				//--- Influences
+				//		Sleeping
+				extended_properties.addInfluenceToQueue(new SleepingInfluence(extended_properties.human));
+			}
+		}
 	}
 }

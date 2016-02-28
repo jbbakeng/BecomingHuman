@@ -17,6 +17,7 @@ import thestinkerbell.becominghuman.human.properties.basic.FitnessBasicHumanProp
 import thestinkerbell.becominghuman.human.properties.basic.HeartRateBasicHumanProperty;
 import thestinkerbell.becominghuman.human.properties.basic.HeartRateRestingBasicHumanProperty;
 import thestinkerbell.becominghuman.human.properties.basic.HeightBasicHumanProperty;
+import thestinkerbell.becominghuman.human.properties.basic.SleepyBasicHumanProperty;
 import thestinkerbell.becominghuman.human.properties.basic.SystolicBloodPressureBasicHumanProperty;
 import thestinkerbell.becominghuman.human.properties.basic.WaterBasicHumanProperty;
 import thestinkerbell.becominghuman.human.properties.basic.WeightBasicHumanProperty;
@@ -46,6 +47,7 @@ public class HumanBiology {
 	public static final String bmi = "BMI";
 	public static final String hydration = "Hydration Level";
 	public static final String influenza_a = "Influenza A";
+	public static final String sleepy = "Sleepy";
 	
 	public static void applyChange(Human human, String property_name, Double change) {
 		Property property = human.getHumanPropertyWithName(property_name);
@@ -104,6 +106,7 @@ public class HumanBiology {
 		this.addHumanProperty(basic_properties, diastolic);
 		this.addHumanProperty(basic_properties, new WhiteBloodCellsBasicHumanProperty());
 		this.addHumanProperty(basic_properties, new FitnessBasicHumanProperty());
+		this.addHumanProperty(basic_properties, new SleepyBasicHumanProperty());
 		
 		this.addHumanProperty(compound_properties, new BMICompoundHumanProperty(weight, height));
 		this.addHumanProperty(compound_properties, new BloodPressureCompoundHumanProperty(systolic, diastolic));

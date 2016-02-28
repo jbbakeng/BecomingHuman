@@ -19,10 +19,12 @@ import thestinkerbell.becominghuman.human.influences.natural.DrinkingWaterInflue
 import thestinkerbell.becominghuman.human.influences.natural.EatingInfluence;
 import thestinkerbell.becominghuman.human.influences.natural.HungerInfluence;
 import thestinkerbell.becominghuman.human.influences.natural.MovementInfluence;
+import thestinkerbell.becominghuman.human.influences.natural.SleepingInfluence;
 import thestinkerbell.becominghuman.human.influences.natural.MovementInfluence.Zone;
 import thestinkerbell.becominghuman.human.influences.natural.TimeInfluence;
 import thestinkerbell.becominghuman.human.influences.natural.TouchingGermsInfluence;
 import thestinkerbell.becominghuman.human.properties.Property;
+import thestinkerbell.becominghuman.utilities.Utilities;
 
 public class InfluenceTest {
 	
@@ -103,6 +105,27 @@ public class InfluenceTest {
 		Influence influence = new EatingInfluence(human, food);
 		
 		return applyInfluence(HumanBiology.water, human, influence);
+	}
+	
+	private double applyTimeInfluenceToAge(int ticks) {
+		Human human = new Human();
+		Influence influence = new TimeInfluence(human, ticks);
+		
+		return applyInfluence(HumanBiology.age, human, influence);
+	}
+	
+	private double applyTimeInfluenceToSleepy(int ticks) {
+		Human human = new Human();
+		Influence influence = new TimeInfluence(human, ticks);
+		
+		return applyInfluence(HumanBiology.sleepy, human, influence);
+	}
+
+	private double applySleepingInfluenceToSleepy() {
+		Human human = new Human();
+		Influence influence = new SleepingInfluence(human);
+		
+		return applyInfluence(HumanBiology.sleepy, human, influence);
 	}
 	
 	// --- TESTS
@@ -278,6 +301,44 @@ public class InfluenceTest {
 	public void canProcessQueueWithOneTimeInfluence() {
 		int ticks = 20;
 		canProcessQueueWithInfluence(new TimeInfluence(new Human(), ticks), 1);
+	}
+	
+	@Test
+	public void timeCanInfluenceAgeHumanProperties() {
+		double age_default = 18.0;
+		int one_month = Utilities.months_to_ticks(1);
+		int one_year = Utilities.years_to_ticks(1);
+		
+		assertTrue(this.applyTimeInfluenceToAge(0) == age_default);
+		assertTrue(this.applyTimeInfluenceToAge(one_month) > age_default);
+		assertTrue(this.applyTimeInfluenceToAge(one_year) == 19.0);
+	}
+	
+	@Test
+	public void timeCanInfluenceSleepyHumanProperties() {
+		double sleepy_default = 0.0;
+		double sleepy_max = 100.0;
+		int eight_hours_awake = Utilities.hours_to_ticks(8);
+		int twentyfour_hours_awake = Utilities.hours_to_ticks(24);
+		
+		assertTrue(this.applyTimeInfluenceToSleepy(0) == sleepy_default);
+		assertTrue(this.applyTimeInfluenceToSleepy(eight_hours_awake) > sleepy_default);
+		assertTrue(this.applyTimeInfluenceToSleepy(twentyfour_hours_awake) == sleepy_max);
+
+	}
+	
+	@Test
+	public void canProcessQueueWithOneSleepingInfluence() {
+		int ticks = 20;
+		canProcessQueueWithInfluence(new SleepingInfluence(new Human()), 1);
+	}	
+	
+	@Test
+	public void sleepingCanInfluenceSleepyHumanProperties() {
+		double sleepy_default = 0.0;
+		
+		assertTrue(this.applySleepingInfluenceToSleepy() == sleepy_default);
+
 	}
 
 }

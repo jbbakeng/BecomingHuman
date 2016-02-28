@@ -28,9 +28,9 @@ public class TimeInfluence extends HumanInfluence implements Influence {
 		return age_change;
 	}
 
-	private Double getSleepyChange(Human human, int ticks) {
-		double sleepy_change = ticks/Utilities.hours_to_ticks(24);
-		return sleepy_change;
+	private double getSleepyChange(Human human, int ticks) {
+		double sleepy_change = ticks/(double)Utilities.hours_to_ticks(24);
+		return sleepy_change*100.0;
 	}
 
 }

@@ -51,7 +51,7 @@ public class Utilities {
 		return ticks;
 	}
 	
-	private static int years_to_ticks(int years) {
+	public static int years_to_ticks(int years) {
 		int months_per_year = 12;
 		int ticks = months_to_ticks(months_per_year) * years;
 		return ticks;

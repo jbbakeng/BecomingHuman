@@ -9,5 +9,9 @@ public interface Disease {
 	public Symptoms getSymptoms();
 	public Boolean hasSymptoms();
 	public Risks assosiatedRisks();
+	
+	public void activate();
+	public void updateProgress();
+	public boolean isCured();
 
 }

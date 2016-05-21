@@ -9,9 +9,11 @@ import thestinkerbell.becominghuman.human.symptoms.effects.Effect;
 import thestinkerbell.becominghuman.utilities.Utilities;
 
 final public class CommonColdDisease extends HumanDisease {
-
+	
+	//Most colds last for three to seven days
+	
 	public CommonColdDisease() {
-		super("Common Cold", Severity.SYMPTOM_MODERATE);
+		super("Common Cold", Severity.SYMPTOM_MODERATE, Utilities.days_to_ticks(3));
 		
 		this.assosiated_risks.add(InfluenzaARisk.IA_MILD);
 		this.assosiated_risks.add(InfluenzaARisk.IA_MODERATE);

@@ -74,6 +74,9 @@ public class HumanExtendedEntityPropertiesEventHandler {
 			HumanExtendedEntityProperties extended_properties = HumanExtendedEntityProperties.get((EntityPlayer) e.entity);
 			if(extended_properties.isServerSide()) {
 				
+				//		UPDATE HUMAN HEALTH
+				extended_properties.human.updateHealth();
+				
 				//--- Symptoms
 				extended_properties.applyPotionEffectsFromSymptoms();
 				
@@ -104,6 +107,7 @@ public class HumanExtendedEntityPropertiesEventHandler {
 				
 				//		APPLY INFLUENCES
 				extended_properties.applyInfluences();
+				
 			}
 		}
 	}

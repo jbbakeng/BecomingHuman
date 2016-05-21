@@ -1,6 +1,7 @@
 package thestinkerbell.becominghuman.human;
 
 import java.util.HashMap;
+import java.util.Iterator;
 
 import thestinkerbell.becominghuman.human.diseases.AllKnownDiseases;
 import thestinkerbell.becominghuman.human.diseases.Disease;
@@ -12,10 +13,12 @@ import thestinkerbell.becominghuman.human.risks.Risk;
 import thestinkerbell.becominghuman.human.risks.Risks;
 import thestinkerbell.becominghuman.human.symptoms.Symptoms;
 
-final public class Human {
+public class Human {
 
 	private final AllKnownDiseases akd = new AllKnownDiseases(); 
 	private HumanBiology biology = new HumanBiology();
+	//TODO active_diseases must be saved and loaded!
+	protected Diseases active_diseases = new Diseases();
 
 	public Human() {
 	}
@@ -78,8 +81,12 @@ final public class Human {
 		}
 		return risks;
 	}
+
+	public Diseases getActiveDiseases() {
+		return active_diseases;
+	}
 	
-	public Diseases getCurrentDiseases() {
+	protected Diseases getApplicableDiseases() {
 		Risks risks = getCurrentRisks();
 		Diseases diseases = akd.identifyDiseasesBasedOnRisks(risks);
 		return diseases;
@@ -87,10 +94,40 @@ final public class Human {
 
 	public Symptoms getListOfAllSymptoms() {
 		Symptoms allSymptoms = new Symptoms();
-		Diseases diseases = getCurrentDiseases();		
+		Diseases diseases = getActiveDiseases();		
 		for(Disease disease : diseases) {
 			allSymptoms.addAll(disease.getSymptoms());
 		}
 		return allSymptoms;
+	}
+
+	public void updateHealth() {
+		updateActiveDiseases();
+		removeCuredDiseases();
+		addNewDiseases();
+	}
+
+	private void updateActiveDiseases() {
+		for(Disease disease : active_diseases) {
+			disease.updateProgress();
+		}
+	}
+
+	private void addNewDiseases() {
+		Diseases applicable_diseases = getApplicableDiseases();
+		applicable_diseases.removeAll(active_diseases);
+		for(Disease disease : applicable_diseases) {
+			disease.activate();
+		}
+		active_diseases.addAll(applicable_diseases);
+	}
+
+	private void removeCuredDiseases() {
+		for (Iterator<Disease> iterator = active_diseases.iterator(); iterator.hasNext();) {
+			Disease disease = iterator.next();
+		    if (disease.isCured()) {
+		        iterator.remove();
+		    }
+		}
 	}
 }

@@ -16,13 +16,15 @@ import thestinkerbell.becominghuman.human.risks.Risks;
 import thestinkerbell.becominghuman.human.symptoms.HumanSymptom.Severity;
 import thestinkerbell.becominghuman.human.symptoms.Symptom;
 import thestinkerbell.becominghuman.human.symptoms.Symptoms;
+import thestinkerbell.becominghuman.tests.utilities.TestUtilities;
 
 public class DiseaseTest {
 	
-	private final String disease_name = "DISEASE_TEST"; 
+	private final String disease_name = "DISEASE_TEST";
+	private int disease_tick_duration = 10;
 
 	private Disease getDisease() {
-		return new HumanDisease(disease_name, Severity.SYMPTOM_MILD);
+		return TestUtilities.createDisease(disease_name, Severity.SYMPTOM_MILD, disease_tick_duration);
 	}
 
 	@Test
@@ -108,6 +110,23 @@ public class DiseaseTest {
 		assertFalse(HumanDisease.risksMeetsRequirementsForDisease(risks2, hypertension));
 		assertTrue(HumanDisease.risksMeetsRequirementsForDisease(risks3, hypertension));
 		assertTrue(HumanDisease.risksMeetsRequirementsForDisease(risks4, hypertension));
+	}
+	
+	@Test
+	public void diseaseCanUpdateProgress() {
+		Disease disease = getDisease();
+		disease.updateProgress();
+	}
+	
+	@Test
+	public void diseaseCanBeCuredByWaitingForItsFullDuration() {
+		Disease disease = getDisease();
+		//NOTE: Disease is not activated until first updateProgress
+		assertTrue(disease.isCured());
+		for(int i=0; i<disease_tick_duration; i++) {
+			disease.updateProgress();			
+		}
+		assertTrue(disease.isCured());
 	}
 
 }

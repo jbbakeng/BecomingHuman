@@ -9,7 +9,9 @@ import org.junit.Test;
 
 import thestinkerbell.becominghuman.human.Human;
 import thestinkerbell.becominghuman.human.HumanBiology;
+import thestinkerbell.becominghuman.human.diseases.Disease;
 import thestinkerbell.becominghuman.human.diseases.Diseases;
+import thestinkerbell.becominghuman.human.diseases.HumanDisease;
 import thestinkerbell.becominghuman.human.diseases.HypertensionDisease;
 import thestinkerbell.becominghuman.human.properties.HumanProperty.GeneralRisk;
 import thestinkerbell.becominghuman.human.properties.BasicHumanProperty;
@@ -22,48 +24,12 @@ import thestinkerbell.becominghuman.human.properties.germ.InfluenzaAVirusHumanPr
 import thestinkerbell.becominghuman.human.risks.Risk;
 import thestinkerbell.becominghuman.human.risks.Risks;
 import thestinkerbell.becominghuman.human.symptoms.Symptoms;
+import thestinkerbell.becominghuman.tests.utilities.TestHuman;
+import thestinkerbell.becominghuman.tests.utilities.TestUtilities;
+import thestinkerbell.becominghuman.human.symptoms.HumanSymptom.Severity;
+import thestinkerbell.becominghuman.utilities.Utilities;
 
 public class HumanTest {
-
-	private Double tryToSetValue(Human human, String propertyname, Double newValue) {
-		Property oldProperty = human.getHumanPropertyWithName(propertyname);
-		Double oldValue = (Double)oldProperty.getValue();
-		assertNotNull(oldProperty);
-		assertTrue(newValue != oldProperty.getValue());
-		try {
-			human.setValue(propertyname, newValue);
-		} catch (Exception e) {
-			fail("SetValue in Human failed, property does not exist.");
-		}
-		return oldValue;
-	}
-	
-	private void createBPStage1Hypertension(Human human) {
-		try {
-			human.setValue("Systolic Blood Pressure", 145.0);
-			human.setValue("Diastolic Blood Pressure", 98.0);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-	}
-	
-	private void createBPPreHypertension(Human human) {
-		try {
-			human.setValue("Systolic Blood Pressure", 120.0);
-			human.setValue("Diastolic Blood Pressure", 80.0);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-	}
-	
-	private void createUndefinedBPRisk(Human human) {
-		try {
-			human.setValue("Systolic Blood Pressure", 120.0);
-			human.setValue("Diastolic Blood Pressure", 79.0);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-	}
 	
 	//--- TESTS ---
 	
@@ -115,7 +81,7 @@ public class HumanTest {
 	public void canSetValueOnABasicHumanProperty() {		
 		Human human = new Human();
 		Double newValue = 10.0;
-		Double oldValue = tryToSetValue(human, HumanBiology.age, newValue);
+		Double oldValue = TestUtilities.tryToSetValue(human, HumanBiology.age, newValue);
 		Property newProperty = human.getHumanPropertyWithName(HumanBiology.age);
 		assertTrue(newValue.doubleValue() == ((Double)newProperty.getValue()).doubleValue());
 	}
@@ -123,7 +89,7 @@ public class HumanTest {
 	@Test
 	public void canNotSetValueOnACompoundHumanProperty() {		
 		Human human = new Human();
-		Double oldValue = tryToSetValue(human, HumanBiology.bmi, 10.0);
+		Double oldValue = TestUtilities.tryToSetValue(human, HumanBiology.bmi, 10.0);
 		Property newProperty = human.getHumanPropertyWithName(HumanBiology.bmi);
 		assertTrue(oldValue.doubleValue() == ((Double)newProperty.getValue()).doubleValue());
 	}
@@ -160,43 +126,43 @@ public class HumanTest {
 	@Test
 	public void defaultHumanDoesNotHaveAnyDiseases() {
 		Human human = new Human();
-		Diseases diseases = human.getCurrentDiseases();
+		Diseases diseases = human.getActiveDiseases();
 		assertTrue(diseases.isEmpty());
 	}
 	
 	@Test
 	public void riskStage1HypertensionCausesDiseaseHypertension() {
 		Human human = new Human();
-		createBPStage1Hypertension(human);
+		TestUtilities.createBPStage1Hypertension(human);
 		
 		Risks risks = human.getCurrentRisks();
 		assertTrue(risks.contains(BloodPressureRisk.BP_STAGE1HYPERTENSION));
 		
-		Diseases diseases = human.getCurrentDiseases();
+		Diseases diseases = human.getActiveDiseases();
 		assertTrue(diseases.contains(new HypertensionDisease()));
 	}
 	
 	@Test
 	public void riskPreHypertensionDoesNotCausesDiseaseHypertension() {
 		Human human = new Human();
-		createBPPreHypertension(human);
+		TestUtilities.createBPPreHypertension(human);
 		
 		Risks risks = human.getCurrentRisks();
 		assertTrue(risks.contains(BloodPressureRisk.BP_PREHYPERTENSION));
 		
-		Diseases diseases = human.getCurrentDiseases();
+		Diseases diseases = human.getActiveDiseases();
 		assertFalse(diseases.contains(new HypertensionDisease()));
 	}
 	
 	@Test
 	public void noBPRisksDoesNotCausesDiseaseHypertension() {
 		Human human = new Human();
-		createUndefinedBPRisk(human);
+		TestUtilities.createUndefinedBPRisk(human);
 		
 		Risks risks = human.getCurrentRisks();
 		assertTrue(risks.contains(GeneralRisk.UNDEFINED));
 		
-		Diseases diseases = human.getCurrentDiseases();
+		Diseases diseases = human.getActiveDiseases();
 		assertFalse(diseases.contains(new HypertensionDisease()));
 	}
 	
@@ -204,7 +170,7 @@ public class HumanTest {
 	public void having65log10mLOfInfluenzaAWillGiveInfluenzaDisease() {
 		Human human = new Human();
 		try {
-			human.setValue("Influenza A", 6.5);
+			human.setValue(HumanBiology.influenza_a, 6.5);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -212,8 +178,49 @@ public class HumanTest {
 		Risks risks = human.getCurrentRisks();
 		assertTrue(risks.contains(InfluenzaARisk.IA_HIGH));
 		
-		Diseases diseases = human.getCurrentDiseases();
+		Diseases diseases = human.getActiveDiseases();
 		assertFalse(diseases.contains(new InfluenzaAVirusHumanProperty()));
+	}
+	
+	@Test
+	public void humanCanUpdateHealth() {
+		Human human = new Human();
+		int numberOfDiseasesBeforeUpdate = human.getActiveDiseases().size();
+		human.updateHealth();
+		int numberOfDiseasesAfterUpdate = human.getActiveDiseases().size();
+		assertTrue(numberOfDiseasesBeforeUpdate == numberOfDiseasesAfterUpdate);
+	}
+	
+	@Test
+	public void humanCanUpdateHealthAndGetDiseases() {
+		Human human = new Human();
+		int numberOfDiseasesBeforeUpdate = human.getActiveDiseases().size();
+		assertTrue(numberOfDiseasesBeforeUpdate == 0);
+		
+		TestUtilities.createBPStage1Hypertension(human);
+		human.updateHealth();
+		int numberOfDiseasesAfterFirstUpdate = human.getActiveDiseases().size();
+		assertTrue(numberOfDiseasesBeforeUpdate != numberOfDiseasesAfterFirstUpdate);
+		
+		human.updateHealth();
+		int numberOfDiseasesAfterSecondUpdate = human.getActiveDiseases().size();
+		assertTrue(numberOfDiseasesAfterSecondUpdate == numberOfDiseasesAfterFirstUpdate);
+	}
+	
+	@Test
+	public void humanCanUpdateHealthAndGetCuredForDiseases() {
+		TestHuman human = new TestHuman();
+		
+		String disease_name = "DISEASE_TEST";
+		int disease_tick_duration = 10;
+		Disease disease = TestUtilities.createDisease(disease_name, Severity.SYMPTOM_MILD ,disease_tick_duration);
+		human.addActiveDisease(disease);
+		
+		for(int i=0; i<disease_tick_duration; i++) {			
+			assertTrue(human.getActiveDiseases().size() == 1);
+			human.updateHealth();
+		}
+		assertTrue(human.getActiveDiseases().size() == 0);
 	}
 
 }

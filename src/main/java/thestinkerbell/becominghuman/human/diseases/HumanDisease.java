@@ -11,12 +11,14 @@ public class HumanDisease implements Disease {
 	protected final Severity severity;
 	protected Symptoms symptoms;
 	protected Risks assosiated_risks;
+	private DiseaseProgression disease_progression;
 	
-	public HumanDisease(String name, Severity severity) {
+	public HumanDisease(String name, Severity severity, int tick_duration) {
 		this.name = name;
 		this.severity = severity;
 		this.symptoms = new Symptoms();
 		this.assosiated_risks = new Risks();
+		this.disease_progression = new DiseaseProgression(tick_duration);
 	}
 	
 	@Override
@@ -117,6 +119,24 @@ public class HumanDisease implements Disease {
 	private static boolean riskMeetsRisksRequirements(Risks risks_present_in_human, Risk associated_risk) {
 		boolean risk_meets_disease_requirements = risks_present_in_human.containsGreaterThanOrEqual(associated_risk);
 		return risk_meets_disease_requirements;
+	}
+
+	@Override
+	public void updateProgress() {
+		disease_progression.progress();
+	}
+
+	@Override
+	public boolean isCured() {
+		boolean is_cured = !disease_progression.isActive();
+		return is_cured;
+	}
+
+	@Override
+	public void activate() {
+		if(!disease_progression.isActive()) {
+			disease_progression.activate();			
+		}
 	}
 
 }

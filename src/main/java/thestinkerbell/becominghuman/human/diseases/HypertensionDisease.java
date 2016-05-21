@@ -9,7 +9,7 @@ import thestinkerbell.becominghuman.utilities.Utilities;
 final public class HypertensionDisease extends HumanDisease implements Disease {
 
 	public HypertensionDisease() {
-		super("Hypertension", Severity.SYMPTOM_MODERATE);
+		super("Hypertension", Severity.SYMPTOM_MODERATE, Utilities.weeks_to_ticks(3));
 		
 		this.assosiated_risks.add(BloodPressureRisk.BP_STAGE1HYPERTENSION);
 		this.assosiated_risks.add(BloodPressureRisk.BP_STAGE2HYPERTENSION);

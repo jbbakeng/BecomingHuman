@@ -10,7 +10,7 @@ import thestinkerbell.becominghuman.utilities.Utilities;
 public class InfluenzaDisease extends HumanDisease {
 
 	public InfluenzaDisease() {
-		super("Influenza", Severity.SYMPTOM_SEVERE);
+		super("Influenza", Severity.SYMPTOM_SEVERE, Utilities.days_to_ticks(3));
 		
 		this.assosiated_risks.add(InfluenzaARisk.IA_HIGH);
 		this.assosiated_risks.add(InfluenzaARisk.IA_DEADLY);

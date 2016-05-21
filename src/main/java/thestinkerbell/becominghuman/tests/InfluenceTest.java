@@ -311,7 +311,7 @@ public class InfluenceTest {
 		
 		assertTrue(this.applyTimeInfluenceToAge(0) == age_default);
 		assertTrue(this.applyTimeInfluenceToAge(one_month) > age_default);
-		assertTrue(this.applyTimeInfluenceToAge(one_year) == 19.0);
+		assertTrue(this.applyTimeInfluenceToAge(one_year) >= 19.0);
 	}
 	
 	@Test

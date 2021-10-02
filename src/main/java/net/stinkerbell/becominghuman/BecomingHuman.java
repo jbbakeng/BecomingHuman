@@ -1,4 +1,4 @@
-package com.stinkerbell.becominghuman;
+package net.stinkerbell.becominghuman;
 
 import java.util.stream.Collectors;
 
@@ -21,12 +21,13 @@ import net.minecraftforge.fml.event.server.FMLServerStartingEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 
 // The value here should match an entry in the META-INF/mods.toml file
-@Mod("becominghuman")
+@Mod(BecomingHuman.MOD_ID)
 public class BecomingHuman
 {
+    public static final String MOD_ID = "becominghuman";
+
     // Directly reference a log4j logger.
     public static final Logger LOGGER = LogManager.getLogger();
-    public static final String MOD_ID = "becominghuman";
 
     public BecomingHuman() {
     	IEventBus bus =  FMLJavaModLoadingContext.get().getModEventBus();
@@ -53,7 +54,6 @@ public class BecomingHuman
 
     private void doClientStuff(final FMLClientSetupEvent event) {
         // do something that can only be done on the client
-        LOGGER.info("Got game settings {}", event.getMinecraftSupplier().get().options);
     }
 
     private void enqueueIMC(final InterModEnqueueEvent event)

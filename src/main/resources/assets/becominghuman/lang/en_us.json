@@ -1,0 +1,14 @@
+{
+  "becominghuman.book.mindandbody.name": "Mind and body",
+  "becominghuman.book.mindandbody.landing_text": "So you want to get to know your little human huh? Well, then, you've come to the right place.",
+
+  "becominghuman.book.mindandbody.category.body.name": "Body",
+  "becominghuman.book.mindandbody.category.body.description": "The players physical structures.",
+  "becominghuman.book.mindandbody.category.mind.name": "Mind",
+  "becominghuman.book.mindandbody.category.mind.description": "Into the depths of a players mind!",
+
+  "becominghuman.book.mindandbody.entry.body.name": "Body",
+  "becominghuman.book.mindandbody.entry.body.page1.text": "Going to write stuff about your body here!",
+  "becominghuman.book.mindandbody.entry.mind.name": "Mind",
+  "becominghuman.book.mindandbody.entry.mind.page1.text": "Going to write stuff about your mind here!"
+}
